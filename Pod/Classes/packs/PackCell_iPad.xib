@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0f4-tA-WuB" customClass="PackCell">
+            <rect key="frame" x="0.0" y="0.0" width="678" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0f4-tA-WuB" id="naS-WF-dBM">
+                <rect key="frame" x="0.0" y="0.0" width="678" height="199"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PACK_TITLE" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="NeH-0Z-SXr">
+                        <rect key="frame" x="272" y="14" width="386" height="70"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <size key="shadowOffset" width="1" height="1"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pack_points" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0IW-nQ-xB9">
+                        <rect key="frame" x="393" y="92" width="265" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" id="HTO-0q-PL7">
+                        <rect key="frame" x="393" y="157" width="265" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="caj-dh-ECR" customClass="DotView">
+                                <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Nuv-Kl-ED9" customClass="DotView">
+                                <rect key="frame" x="27" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ILI-mW-XYx" customClass="DotView">
+                                <rect key="frame" x="54" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="psi-hs-FMu" customClass="DotView">
+                                <rect key="frame" x="108" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="EPw-bt-FWt" customClass="DotView">
+                                <rect key="frame" x="135" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tUz-Sj-2vo" customClass="DotView">
+                                <rect key="frame" x="162" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="zhg-3J-dAe" customClass="DotView">
+                                <rect key="frame" x="189" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="X9X-hz-5V4" customClass="DotView">
+                                <rect key="frame" x="243" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6nl-sB-65F" customClass="DotView">
+                                <rect key="frame" x="216" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="chl-I5-604" customClass="DotView">
+                                <rect key="frame" x="81" y="0.0" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view autoresizesSubviews="NO" contentMode="scaleToFill" id="gq2-BF-b0L">
+                        <rect key="frame" x="20" y="34" width="244" height="131"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="NKi-TN-rDK">
+                                <rect key="frame" x="0.0" y="11" width="90" height="120"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="7lN-mh-RNa">
+                                <rect key="frame" x="154" y="11" width="90" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ezX-IB-oqD">
+                                <rect key="frame" x="77" y="0.0" width="90" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zUe-QP-5KJ" customClass="StatusLabel">
+                                <rect key="frame" x="52" y="41" width="140" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="finishedLabel" destination="zUe-QP-5KJ" id="oRO-Mo-nRm"/>
+                <outlet property="nameLabel" destination="NeH-0Z-SXr" id="p4l-sb-gKf"/>
+                <outlet property="pointsLabel" destination="0IW-nQ-xB9" id="ygv-On-Fob"/>
+                <outlet property="poster1" destination="NKi-TN-rDK" id="46D-NN-pyK"/>
+                <outlet property="poster2" destination="ezX-IB-oqD" id="5O5-uD-wGM"/>
+                <outlet property="poster3" destination="7lN-mh-RNa" id="Vlw-VX-kY9"/>
+                <outlet property="postersView" destination="gq2-BF-b0L" id="Xvk-O7-5zC"/>
+                <outletCollection property="dotsCollection" destination="caj-dh-ECR" id="o16-GK-q39"/>
+                <outletCollection property="dotsCollection" destination="Nuv-Kl-ED9" id="Kts-bw-P5a"/>
+                <outletCollection property="dotsCollection" destination="ILI-mW-XYx" id="5IP-MG-YYm"/>
+                <outletCollection property="dotsCollection" destination="chl-I5-604" id="lM5-hz-Qk6"/>
+                <outletCollection property="dotsCollection" destination="psi-hs-FMu" id="iCD-iH-X6b"/>
+                <outletCollection property="dotsCollection" destination="EPw-bt-FWt" id="7AF-6d-0hZ"/>
+                <outletCollection property="dotsCollection" destination="tUz-Sj-2vo" id="WVn-F6-2FX"/>
+                <outletCollection property="dotsCollection" destination="zhg-3J-dAe" id="cl4-kq-bp7"/>
+                <outletCollection property="dotsCollection" destination="6nl-sB-65F" id="7ot-dt-ilv"/>
+                <outletCollection property="dotsCollection" destination="X9X-hz-5V4" id="QWi-PR-NWW"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
