@@ -8,6 +8,8 @@
 
 #import "QAViewController.h"
 
+#import <QuizzApp/QuizzApp.h>
+
 @interface QAViewController ()
 
 @end
@@ -18,6 +20,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [[QuizzApp instance] setThirdColor:[UIColor redColor]];
 }
 
 - (void)didReceiveMemoryWarning
