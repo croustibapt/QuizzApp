@@ -72,10 +72,8 @@ typedef enum {
     [webView loadRequest:request];
     
     [viewController setView:webView];
-    [webView release];
     
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 #pragma mark - UIWebView
@@ -129,19 +127,16 @@ typedef enum {
 - (void)showSignInErrorAlertView {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
-    [alertView release];
 }
 
 - (void)showSignOutErrorAlertView {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
-    [alertView release];
 }
 
 - (void)showGamesSyncErrorAlertView {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
-    [alertView release];
 }
 
 #pragma mark - PProgressAuthListener
@@ -408,7 +403,6 @@ typedef enum {
     //Done item
     UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     [self.navigationItem setRightBarButtonItem:doneItem];
-    [doneItem release];
     
     if (self.autoSignIn) {
         //If auth wanted
@@ -439,18 +433,6 @@ typedef enum {
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc {
-    [m_clientId release];
-    [m_progressionKey release];
-    [m_leaderBoardId release];
-    [m_signInButton release];
-    [m_statusLabel release];
-    [m_activityIndicatorView release];
-    [m_informationLabel release];
-    [m_syncButton release];
-    [super dealloc];
 }
 
 @end

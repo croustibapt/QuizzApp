@@ -77,10 +77,8 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:bundle andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:NO];
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
-    [progressViewController release];
     
     [self presentModalViewController:navigationController animated:YES];
-    [navigationController release];
 }
 
 #pragma mark - Help
@@ -91,10 +89,8 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     
     HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName bundle:bundle];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
-    [helpViewController release];
     
     [self presentModalViewController:navigationController animated:YES];
-    [navigationController release];
 }
 
 - (int)nbOtherGames {
@@ -152,7 +148,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     [cell.detailTextLabel setText:nil];
@@ -257,7 +253,6 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_SUGGEST_PACK_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_SUGGEST_PACK_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
     [alertView setTag:QUIZZ_APP_SUGGEST_ALERT];
     [alertView show];
-    [alertView release];
 }
 
 + (void)showOtherGame:(NSString *)appId {
@@ -270,14 +265,12 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_WEBSITE_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
     [alertView setTag:QUIZZ_APP_WEBSITE_ALERT];
     [alertView show];
-    [alertView release];
 }
 
 - (void)showLanguage {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_CHANGE_LANGUAGE_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:nil delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle([Utils currentLanguage], nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle([Utils otherLanguage], nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
     [alertView setTag:QUIZZ_APP_LANGUAGE_ALERT];
     [alertView show];
-    [alertView release];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -299,7 +292,6 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
                 //Show alert
                 UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
                 [alertView show];
-                [alertView release];
             }
         } else if (indexPath.row == ESettingsGameRowHelp) {
             //Website
@@ -349,11 +341,6 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc {
-    [m_tableView release];
-    [super dealloc];
 }
 
 @end

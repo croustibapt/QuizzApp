@@ -140,7 +140,6 @@
         
         UIBarButtonItem * friendItem = [[UIBarButtonItem alloc] initWithImage:[UtilsImage imageNamed:@"ic_mail" bundle:bundle] style:UIBarButtonItemStylePlain target:self action:@selector(onFriendButtonPush:)];
         [self.navigationItem setRightBarButtonItem:friendItem];
-        [friendItem release];
     } else {
         [self.navigationItem setRightBarButtonItem:nil];
     }
@@ -158,16 +157,13 @@
 #pragma mark - Sound
 
 - (void)threadPlaySound:(NSString *)fileName {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-    @synchronized(m_audioPlayer) {
-        NSURL * wellDoneFile = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:fileName ofType:@"mp3"]];
-        [m_audioPlayer release];
-        m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
-        [m_audioPlayer play];
+    @autoreleasepool {
+        @synchronized(m_audioPlayer) {
+            NSURL * wellDoneFile = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:fileName ofType:@"mp3"]];
+            m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
+            [m_audioPlayer play];
+        }
     }
-    
-    [pool release];
 }
 
 - (void)playSoundWithFileName:(NSString *)fileName {
@@ -255,7 +251,6 @@
         [controller addAttachmentData:UIImageJPEGRepresentation(viewImage, 1.0) mimeType:@"image/jpeg" fileName:@"film"];
         
         [self presentViewController:controller animated:YES completion:nil];
-        [controller release];
     }
 }
 
@@ -324,7 +319,6 @@
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), self.pack.possiblePoints] delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_LEVELS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
             [alertView setTag:QUIZZ_APP_END_LEVEL_ALERT_VIEW];
             [alertView show];
-            [alertView release];
         } else {
             //Play sound
             [self playSoundWithFileName:@"success"];
@@ -340,7 +334,6 @@
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:message delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_PACKS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
             [alertView setTag:QUIZZ_APP_END_PACK_ALERT_VIEW];
             [alertView show];
-            [alertView release];
         }
     } else {
         //Play sound
@@ -349,7 +342,7 @@
         //Show message
         HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
         [self.view.window addSubview:HUD];
-        HUD.customView = [[[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_LANGUAGE_BUNDLE]] autorelease];
+        HUD.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_LANGUAGE_BUNDLE]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.delegate = self;
         [HUD show:YES];
@@ -416,7 +409,6 @@
 - (void)hudWasHidden:(MBProgressHUD *)hud {
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
-	[HUD release];
 	HUD = nil;
 }
 
@@ -444,7 +436,6 @@
     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_LANGUAGE_BUNDLE]];
     [imageView setFrame:self.adView.frame];
     [self.view addSubview:imageView];
-    [imageView release];
     
     [self.view bringSubviewToFront:self.adView];
     
@@ -467,10 +458,8 @@
     
     HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName bundle:bundle];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
-    [helpViewController release];
     
     [self presentViewController:navigationController animated:YES completion:nil];
-    [navigationController release];
 }
 
 #pragma mark - UI
@@ -499,8 +488,6 @@
         
         [self.scrollView addSubview:mediaView];
         [m_posterViews addObject:mediaView];
-        
-        [mediaView release];
     }
 }
 
@@ -583,22 +570,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc {
-    [m_pack release];
-    [m_level release];
-    [m_gameAnswerView release];
-    [m_posterViews release];
-    [m_tapGestureRecognizer release];
-    [m_swipeUpGestureRecognizer release];
-    [m_swipeDownGestureRecognizer release];
-    [m_audioPlayer release];
-    [m_adView release];
-    [m_gameView release];
-    [m_scrollView release];
-    [m_bannerView release];
-    [super dealloc];
 }
 
 @end

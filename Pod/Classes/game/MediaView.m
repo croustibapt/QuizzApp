@@ -63,9 +63,7 @@
 }
 
 - (void)setMedia:(Media *)aMedia {
-    [m_media release];
-    m_media = nil;
-    m_media = [aMedia retain];
+    m_media = aMedia;
     
     UIImage * originalImage = [self.media imageWithLevelId:self.levelId];
     [m_posterImageView setImage:originalImage];
@@ -103,13 +101,6 @@
     }
     
     [m_statusLabel setHidden:NO];
-}
-
-- (void)dealloc {
-    [m_media release];
-    [m_posterImageView release];
-    [m_statusLabel release];
-    [super dealloc];
 }
 
 @end

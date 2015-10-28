@@ -57,7 +57,7 @@
     } else {
         [self setBackgroundColor:[UIColor clearColor]];
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [self setBackgroundView:[[[UIView alloc] initWithFrame:CGRectZero] autorelease]];
+        [self setBackgroundView:[[UIView alloc] initWithFrame:CGRectZero]];
     }
 }
 
@@ -209,21 +209,6 @@
             [self.contentView setFrame:CGRectOffset(m_originFrame, 0, pressedOffset)];
         }
     }
-}
-
-- (void)dealloc {
-    [m_postersView release];
-    [m_poster1 release];
-    [m_poster2 release];
-    [m_poster3 release];
-    [m_nameLabel release];
-    [m_pointsLabel release];
-    [m_finishedLabel release];
-    [m_dotsCollection release];
-    
-    [m_mainColor release];
-    [m_secondColor release];
-    [super dealloc];
 }
 
 @end

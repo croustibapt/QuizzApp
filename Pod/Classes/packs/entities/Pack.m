@@ -21,13 +21,11 @@
 
 + (Pack *)Pack {
     Pack * pack = [[Pack alloc] init];
-    return [pack autorelease];
+    return pack;
 }
 
 - (void)setMedias:(NSArray *)aMedias {
-    [m_medias release];
-    m_medias = nil;
-    m_medias = [aMedias retain];
+    m_medias = aMedias;
     
     [self refreshCompleted];
 }
@@ -108,13 +106,6 @@
     for (Media * media in self.medias) {
         [media setIsCompleted:NO];
     }
-}
-
-- (void)dealloc {
-    [m_author release];
-    [m_language release];
-    [m_medias release];
-    [super dealloc];
 }
 
 @end

@@ -20,7 +20,6 @@ int const AUTH_ALERT_VIEW = 0;
 #import "Constants.h"
 #import "GameProvider.h"
 #import "ZipArchive.h"
-#import "GAI.h"
 #import "LevelDBHelper.h"
 #import "ProgressManager.h"
 #import "QuizzApp.h"

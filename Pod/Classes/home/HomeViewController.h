@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <gpg/GooglePlayGames.h>
+#import <Google/Analytics.h>
 
 #import "BackViewController.h"
 #import "MBProgressHUD.h"
