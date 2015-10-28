@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Google/Analytics.h>
-#import <Parse/Parse.h>
 
 #import "PSTCollectionView.h"
 #import "PSTCollectionViewController.h"

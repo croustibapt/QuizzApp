@@ -8,8 +8,6 @@
 
 #import "SettingsViewController.h"
 
-#import <Parse/Parse.h>
-
 #import "ProgressManager.h"
 #import "HelpViewController.h"
 #import "ProgressViewController.h"
@@ -226,15 +224,16 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 //        [signIn setLanguage:[Utils currentLanguage]];
     }
     
-    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
-    
-    NSString * currentLanguage = [Utils currentLanguage];
-    [currentInstallation addUniqueObject:currentLanguage forKey:@"channels"];
-    [currentInstallation saveInBackground];
-    
-    NSString * oldLanguage = [Utils otherLanguage];
-    [currentInstallation removeObject:oldLanguage forKey:@"channels"];
-    [currentInstallation saveInBackground];
+#warning TO MOVE?
+//    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
+//    
+//    NSString * currentLanguage = [Utils currentLanguage];
+//    [currentInstallation addUniqueObject:currentLanguage forKey:@"channels"];
+//    [currentInstallation saveInBackground];
+//    
+//    NSString * oldLanguage = [Utils otherLanguage];
+//    [currentInstallation removeObject:oldLanguage forKey:@"channels"];
+//    [currentInstallation saveInBackground];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

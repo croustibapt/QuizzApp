@@ -1,10 +1,16 @@
 source 'https://github.com/CocoaPods/Specs.git'
-use_frameworks!
+#use_frameworks!
 
 target 'QuizzApp_Example', :exclusive => true do
     
-  pod "QuizzApp", :path => "../"
+    pod "QuizzApp", :path => "../"
   
+  #pod 'MBProgressHUD', '~> 0.9.1'
+  #pod 'Google/Analytics', '~> 1.0.0'
+  #pod 'GooglePlayGames'
+  
+  #pod 'Parse', :podspec => './Parse.podspec'
+
 end
 
 target 'QuizzApp_Tests', :exclusive => true do
@@ -13,7 +19,7 @@ target 'QuizzApp_Tests', :exclusive => true do
 
   pod 'Specta'
   pod 'Expecta'
-  pod 'FBSnapshotTestCase'
+  #  pod 'FBSnapshotTestCase'
   pod 'Expecta+Snapshots'
   
 end

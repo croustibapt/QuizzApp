@@ -398,11 +398,12 @@
     
     //Set icon badge number to zero
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    
+
+#warning TO MOVE
     //Parse stuff
-    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
-    [currentInstallation setBadge:0];
-    [currentInstallation saveEventually];
+//    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
+//    [currentInstallation setBadge:0];
+//    [currentInstallation saveEventually];
 }
 
 - (void)viewDidLoad {
