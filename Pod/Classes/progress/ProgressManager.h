@@ -21,9 +21,7 @@ static int const kErrorCodeFromUserDecliningSignIn = -1;
 @interface ProgressManager : NSObject <GIDSignInDelegate, GPGStatusDelegate> {
     NSString * m_clientId;
     NSNumber * m_progressionKey;
-    
-    id<PProgressAuthListener> m_listener;
-    
+        
     NSString * m_userId;
 }
 

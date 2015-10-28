@@ -84,7 +84,6 @@
     
     GameViewController * gameViewController = [[GameViewController alloc] initWithNibName:nibName bundle:bundle andPack:pack andLevel:level andReplay:(Boolean)replay];
     [self.navigationController pushViewController:gameViewController animated:YES];
-    [gameViewController release];
 }
 
 - (void)startPackWithIndexPath:(NSIndexPath *)indexPath andReplay:(Boolean)replay {
@@ -160,9 +159,8 @@
         [title setBackgroundColor:[UIColor clearColor]];
         
         [header addSubview:title];
-        [title release];
         
-        return [header autorelease];
+        return header;
     } else {
         return nil;
     }
@@ -194,7 +192,6 @@
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_CONTINUE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
     [alertView setTag:indexPath.section];
     [alertView show];
-    [alertView release];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -215,7 +212,7 @@
     
     if ([Utils isIPad]) {
         [self.tableView setBackgroundView:nil];
-        [self.tableView setBackgroundView:[[[UIView alloc] init] autorelease]];
+        [self.tableView setBackgroundView:[[UIView alloc] init]];
     }
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -223,13 +220,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc {
-    [m_level release];
-    [m_packs release];
-    [m_tableView release];
-    [super dealloc];
 }
 
 @end

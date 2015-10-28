@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#import "GAITrackedViewController.h"
+#import <Google/Analytics.h>
 
 @interface BackViewController : GAITrackedViewController {
     UIImageView * m_headerLeftImageView;

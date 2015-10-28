@@ -29,7 +29,7 @@
 
 + (Media *)Media {
     Media * media = [[Media alloc] init];
-    return [media autorelease];
+    return media;
 }
 
 - (Boolean)isCompleted {
@@ -104,16 +104,5 @@
 //- (NSString *)title {
 //    return @"ABCDEFGHIJKLMNOPQR ABCDEFGHIJKLMNO PQRST UV W XYZ 123456";
 //}
-
-- (void)dealloc {
-    [m_title release];
-    [m_rects release];
-    [m_topLeftBlurRects release];
-    [m_bottomRightBlurRects release];
-    [m_language release];
-    [m_strVariants release];
-    [m_variants release];
-    [super dealloc];
-}
 
 @end

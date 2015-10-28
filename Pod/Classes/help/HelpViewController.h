@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#import "GAITrackedViewController.h"
+#import <Google/Analytics.h>
 
 @interface HelpViewController : GAITrackedViewController <UIScrollViewDelegate> {
     UIScrollView * m_helpScrollView;

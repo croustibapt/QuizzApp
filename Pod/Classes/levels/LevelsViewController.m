@@ -8,8 +8,6 @@
 
 #import "LevelsViewController.h"
 
-#import <Parse/Parse.h>
-
 #import "PSTCollectionViewCell.h"
 #import "LevelCell.h"
 #import "HeaderCell.h"
@@ -18,9 +16,6 @@
 #import "PacksViewController.h"
 #import "LevelDownloader.h"
 #import "GameProvider.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
-#import "GAIFields.h"
 #import "Utils.h"
 #import "Constants.h"
 #import "GameDBHelper.h"
@@ -56,7 +51,6 @@
             levelsForDifficulty = [[NSMutableDictionary alloc] init];
             //And add it
             [levels setObject:levelsForDifficulty forKey:difficultyId];
-            [levelsForDifficulty release];
         }
         
         //Finally add the level to the corresponding difficulty array
@@ -75,7 +69,6 @@
 - (id)initWithLevels:(NSMutableDictionary *)aLevels andRefreshButtonEnabled:(Boolean)refreshButtonEnabled {
     PSTCollectionViewLayout * layout = [PSUICollectionViewFlowLayout new];
     self = [super initWithCollectionViewLayout:layout];
-    [layout release];
     
     if (self) {
         [self setLevels:aLevels];
@@ -253,7 +246,6 @@
     
     PacksViewController * packsViewController = [[PacksViewController alloc] initWithNibName:nibName bundle:bundle andLevel:level];
     [self.navigationController pushViewController:packsViewController animated:YES];
-    [packsViewController release];
 }
 
 - (void)collectionView:(PSTCollectionView *)aCollectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -355,7 +347,6 @@
         //Popup connectivity
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
     }
 }
 
@@ -364,7 +355,6 @@
 - (void)hudWasHidden:(MBProgressHUD *)hud {
 	// Remove HUD from screen when the HUD was hidded
 	[HUD removeFromSuperview];
-	[HUD release];
 	HUD = nil;
 }
 
@@ -374,21 +364,18 @@
     //Popup connectivity
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
-    [alertView release];
 }
 
 - (void)threadRefreshLevels {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    //Update levels from servers
-    if ([GameProvider requestLevels]) {
-        //Refresh list
-        [self refresh:NO];
-    } else {
-        [self performSelectorOnMainThread:@selector(mainShowRefreshError) withObject:nil waitUntilDone:YES];
+    @autoreleasepool {
+        //Update levels from servers
+        if ([GameProvider requestLevels]) {
+            //Refresh list
+            [self refresh:NO];
+        } else {
+            [self performSelectorOnMainThread:@selector(mainShowRefreshError) withObject:nil waitUntilDone:YES];
+        }
     }
-    
-    [pool release];
 }
 
 - (IBAction)onRefreshButtonPush:(id)sender {
@@ -432,7 +419,6 @@
     if (m_refreshButtonEnabled) {
         UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onRefreshButtonPush:)];
         [self.navigationItem setRightBarButtonItem:rightItem];
-        [rightItem release];
     }
     
     //Collection view
@@ -447,7 +433,6 @@
     [backgroundImageView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
     [backgroundImageView setContentMode:UIViewContentModeScaleAspectFill];
     [self.view addSubview:backgroundImageView];
-    [backgroundImageView release];
     
     //Footer
     NSString * footerLeftImageName = ExtensionName(@"footer_left");
@@ -462,7 +447,6 @@
     [footerLeftImageView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
     [footerLeftImageView setAlpha:0.25];
     [self.view addSubview:footerLeftImageView];
-    [footerLeftImageView release];
     
     //Right
     UIImageView * footerRightImageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:footerRightImageName]];
@@ -471,7 +455,6 @@
     [footerRightImageView setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
     [footerRightImageView setAlpha:0.25];
     [self.view addSubview:footerRightImageView];
-    [footerRightImageView release];
     
     //Levels to front
     [self.view bringSubviewToFront:self.collectionView];
@@ -479,12 +462,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)dealloc {
-    [m_levels release];
-    [HUD release];
-    [super dealloc];
 }
 
 @end

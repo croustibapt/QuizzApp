@@ -27,7 +27,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 @synthesize currentlySyncing;
 @synthesize clientId = m_clientId;
 @synthesize progressionKey = m_progressionKey;
-@synthesize listener = m_listener;
+@synthesize listener;
 @synthesize userId = m_userId;
 
 + (ProgressManager *)instance {
@@ -529,13 +529,6 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     }
     
     return score;
-}
-
-- (void)dealloc {
-    [m_clientId release];
-    [m_progressionKey release];
-    [m_userId release];
-    [super dealloc];
 }
 
 @end

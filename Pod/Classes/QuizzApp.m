@@ -33,20 +33,4 @@ QuizzApp * s_quizzAppInstance;
     return s_quizzAppInstance;
 }
 
-- (void)dealloc {
-    [m_appId release];
-    [m_googlePlayClientId release];
-    [m_googlePlayProgressionKey release];
-    [m_googlePlayLeaderBoardId release];
-    [m_googleAnalyticsId release];
-    [m_mainColor release];
-    [m_secondColor release];
-    [m_thirdColor release];
-    [m_oppositeMainColor release];
-    [m_oppositeSecondColor release];
-    [m_oppositeThirdColor release];
-    [m_gameServiceName release];
-    [super dealloc];
-}
-
 @end
