@@ -144,7 +144,7 @@
         HUD = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:HUD];
         HUD.delegate = self;
-        HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+        HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
         [HUD show:YES];
     }
     
@@ -219,7 +219,7 @@
             if (difficulty != nil) {
                 name = difficulty.name;
             } else {
-                name = [NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_DIFFICULTY", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), [difficultyId intValue]];
+                name = [NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_DIFFICULTY", nil, QUIZZ_APP_STRING_BUNDLE, nil), [difficultyId intValue]];
             }
             
             //Progress
@@ -228,7 +228,7 @@
         
             title = [NSString stringWithFormat:@"%@ (%d/%lu)", name, nbFinishedLevels, (unsigned long)[levels count]];
         } else {
-            title = NSLocalizedStringFromTableInBundle(@"NO_LEVELS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+            title = NSLocalizedStringFromTableInBundle(@"NO_LEVELS", nil, QUIZZ_APP_STRING_BUNDLE, nil);
         }
         
         [((HeaderCell *)supplementaryView).title setText:title];
@@ -242,9 +242,8 @@
 
 - (void)startLevel:(Level *)level {
     NSString * nibName = ExtensionName(@"PacksViewController");
-    NSBundle * bundle = QUIZZ_APP_BUNDLE;
     
-    PacksViewController * packsViewController = [[PacksViewController alloc] initWithNibName:nibName bundle:bundle andLevel:level];
+    PacksViewController * packsViewController = [[PacksViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andLevel:level];
     [self.navigationController pushViewController:packsViewController animated:YES];
 }
 
@@ -265,7 +264,7 @@
         [self.view.window addSubview:HUD];
         HUD.mode = MBProgressHUDModeDeterminateHorizontalBar;
         HUD.delegate = self;
-        HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_DOWNLOADING", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+        HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_DOWNLOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
         [HUD show:YES];
         
         [LevelDownloader downloadLevelWithLevel:level andListener:self];
@@ -345,7 +344,7 @@
         [HUD hide:YES];
 
         //Popup connectivity
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
         [alertView show];
     }
 }
@@ -362,7 +361,7 @@
 
 - (void)mainShowRefreshError {
     //Popup connectivity
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
 }
 
@@ -382,7 +381,7 @@
     HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
     [self.view.window addSubview:HUD];
     HUD.delegate = self;
-    HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+    HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
     [HUD showWhileExecuting:@selector(threadRefreshLevels) onTarget:self withObject:nil animated:YES];
 }
 
@@ -414,7 +413,7 @@
     [tracker set:kGAIScreenName value:@"Levels screen"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVELS_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVELS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     //Refresh button
     if (m_refreshButtonEnabled) {

@@ -27,9 +27,6 @@
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
 #define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
 
-#define QUIZZ_APP_LANGUAGE_BUNDLE [NSBundle bundleWithPath:[QUIZZ_APP_BUNDLE pathForResource:[Utils currentLanguage] ofType:@"lproj"]]
-#define MAIN_LANGUAGE_BUNDLE [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[Utils currentLanguage] ofType:@"lproj"]]
-
 #define QUIZZ_APP_FOUND_COLOR UIColorFromRGB(0xff0000)
 
 #pragma mark - Net
@@ -134,7 +131,18 @@ extern NSString * const QUIZZ_APP_NEED_HELP_KEY;
 
 #pragma mark  - Bundle
 
-#define QUIZZ_APP_BUNDLE [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"QuizzApp" ofType:@"bundle"]]
+#define QUIZZ_APP_NAMED_BUNDLE(name) [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:name ofType:@"bundle"]]
+
+#define QUIZZ_APP_XIB_BUNDLE            QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppXib")
+#define QUIZZ_APP_IMAGE_BUNDLE          QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppImage")
+#define QUIZZ_APP_DATABASE_BUNDLE       QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppDatabase")
+
+#define QUIZZ_APP_STRING_BUNDLE_NAME    [NSString stringWithFormat:@"QuizzApp%@String", [[Utils currentLanguage] uppercaseString]]
+#define QUIZZ_APP_STRING_BUNDLE         QUIZZ_APP_NAMED_BUNDLE(QUIZZ_APP_STRING_BUNDLE_NAME)
+
+#define MAIN_BUNDLE                     [NSBundle mainBundle]
+
+//#define MAIN_LANGUAGE_BUNDLE [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[Utils currentLanguage] ofType:@"lproj"]]
 
 @interface Constants : NSObject
 

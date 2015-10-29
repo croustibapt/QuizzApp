@@ -90,7 +90,7 @@
         [label setBackgroundColor:[UIColor clearColor]];
         
         NSString * labelName = [NSString stringWithFormat:@"STR_HELP_LABEL%d", (i + 1)];
-        [label setText:[NSLocalizedStringFromTableInBundle(labelName, nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) uppercaseString]];
+        [label setText:[NSLocalizedStringFromTableInBundle(labelName, nil, QUIZZ_APP_STRING_BUNDLE, nil) uppercaseString]];
         
         [label setTextColor:[QuizzApp instance].oppositeThirdColor];
         [helpContentView addSubview:label];
@@ -116,7 +116,7 @@
     [super viewDidLoad];
     [self setScreenName:@"Help screen"];
     
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     //Page control
     [m_pageControl setCurrentPage:0];

@@ -159,11 +159,11 @@
     
     //Text
     if ([pack respondsToSelector:@selector(possiblePoints)]) {
-        [self.pointsLabel setText:[NSString stringWithFormat:@"%d %@", pack.possiblePoints, NSLocalizedStringFromTableInBundle(@"STR_POINTS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)]];
+        [self.pointsLabel setText:[NSString stringWithFormat:@"%d %@", pack.possiblePoints, NSLocalizedStringFromTableInBundle(@"STR_POINTS", nil, QUIZZ_APP_STRING_BUNDLE, nil)]];
     }
     
     //Finished image    
-    [m_finishedLabel setText:NSLocalizedStringFromTableInBundle(@"STR_FINISHED", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [m_finishedLabel setText:NSLocalizedStringFromTableInBundle(@"STR_FINISHED", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     [m_finishedLabel setHidden:!pack.isCompleted];
     [m_finishedLabel setBackgroundColor:QUIZZ_APP_FOUND_COLOR];
     

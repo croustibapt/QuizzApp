@@ -58,9 +58,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     
     //Create progress controller
     QuizzApp * quizzApp = [QuizzApp instance];
-    NSBundle * bundle = QUIZZ_APP_BUNDLE;
     
-    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:bundle andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:YES];
+    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:YES];
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
     
@@ -231,13 +230,13 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (void)showInitErrorAlertView {
     //Popup connectivity
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
 }
 
 - (void)showAuthAlertView {
     //Popup connectivity
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_ASK_AUTH_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_ASK_AUTH_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_NO", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_YES", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_ASK_AUTH_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_ASK_AUTH_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_NO", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_YES", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
     [alertView setTag:AUTH_ALERT_VIEW];
     [alertView show];
 }
@@ -251,7 +250,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:HUD];
     HUD.delegate = self;
-    HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+    HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
     [HUD show:YES];
     
     [NSThread detachNewThreadSelector:@selector(threadLoadLevels) toTarget:self withObject:nil];
@@ -281,12 +280,12 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
             }];
         } else {
             //Show alert
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
             [alertView show];
         }
     } else {
         //Show alert
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
         [alertView show];
     }
 }
@@ -301,10 +300,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 }
 
 - (IBAction)onSettingsButtonPush:(id)sender {
-    //Show settings
-    NSBundle * bundle = QUIZZ_APP_BUNDLE;
-    
-    SettingsViewController * settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:bundle];
+    //Show settings    
+    SettingsViewController * settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:QUIZZ_APP_XIB_BUNDLE];
     [self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
@@ -320,12 +317,12 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (void)reinitLabels {
     //Title
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
         
     //Buttons
-    [self.rateButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_RATE_BUTTON", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) forState:UIControlStateNormal];
-    [self.scoresButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_SCORES_BUTTON", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) forState:UIControlStateNormal];
-    [self.settingsButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_SETTINGS_BUTTON", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) forState:UIControlStateNormal];
+    [self.rateButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_RATE_BUTTON", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
+    [self.scoresButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_SCORES_BUTTON", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
+    [self.settingsButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_SETTINGS_BUTTON", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -336,7 +333,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
         HUD = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:HUD];
         HUD.delegate = self;
-        [HUD setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+        [HUD setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
         
         [HUD show:YES];
         [NSThread detachNewThreadSelector:@selector(threadInitApplication) toTarget:self withObject:nil];

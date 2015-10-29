@@ -53,13 +53,11 @@ static GameDBHelper * s_gameDBHelperInstance;
 }
 
 + (GameDBHelper *)instance {
-    if (s_gameDBHelperInstance == nil) {
-        NSBundle * bundle = QUIZZ_APP_BUNDLE;
-        
+    if (s_gameDBHelperInstance == nil) {        
         NSString * documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString * localGameDatabasePath = [documentsDirectory stringByAppendingPathComponent:@"/Caches/game.sqlite"];
 
-        NSString * gameDatabasePath = [bundle pathForResource:QUIZZ_APP_GAME_DATABASE_NAME ofType:@"sqlite"];
+        NSString * gameDatabasePath = [QUIZZ_APP_DATABASE_BUNDLE pathForResource:QUIZZ_APP_GAME_DATABASE_NAME ofType:@"sqlite"];
         if ([GameDBHelper copyDatabaseFrom:gameDatabasePath to:localGameDatabasePath]) {
             s_gameDBHelperInstance = [[GameDBHelper alloc] initWithDatabasePath:localGameDatabasePath];
         }

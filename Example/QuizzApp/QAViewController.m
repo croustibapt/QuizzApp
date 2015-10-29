@@ -32,9 +32,7 @@
 }
 
 - (IBAction)onButtonPushed:(id)sender {
-    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"QuizzApp" ofType:@"bundle"];
-    NSBundle * bundle = [NSBundle bundleWithPath:bundlePath];
-    HomeViewController * hvc = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:bundle];
+    HomeViewController * hvc = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:QUIZZ_APP_XIB_BUNDLE];
     [self presentViewController:hvc animated:YES completion:nil];
 }
 

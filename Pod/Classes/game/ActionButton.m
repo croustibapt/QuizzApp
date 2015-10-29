@@ -25,26 +25,24 @@
         [self setAction:aAction];
         [self setGameAnswerView:aGameAnswerView];
         
-        NSBundle * bundle = QUIZZ_APP_BUNDLE;
-
         if (self.action == QuizzAppActionDelete) {
             NSString * deleteNameOff = ExtensionName(@"btn_delete_off");
             NSString * deleteNameOn = ExtensionName(@"btn_delete_on");
             
-            [self setBackgroundImage:[UtilsImage imageNamed:deleteNameOff bundle:bundle] forState:UIControlStateNormal];
-            [self setBackgroundImage:[UtilsImage imageNamed:deleteNameOn bundle:bundle] forState:UIControlStateHighlighted];
+            [self setBackgroundImage:[UtilsImage imageNamed:deleteNameOff bundle:QUIZZ_APP_IMAGE_BUNDLE] forState:UIControlStateNormal];
+            [self setBackgroundImage:[UtilsImage imageNamed:deleteNameOn bundle:QUIZZ_APP_IMAGE_BUNDLE] forState:UIControlStateHighlighted];
         } else if (self.action == QuizzAppActionDelete) {
             NSString * shuffleNameOff = ExtensionName(@"btn_shuffle_off");
             NSString * shuffleNameOn = ExtensionName(@"btn_shuffle_on");
             
-            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOff bundle:bundle] forState:UIControlStateNormal];
-            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOn bundle:bundle] forState:UIControlStateHighlighted];
+            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOff bundle:QUIZZ_APP_IMAGE_BUNDLE] forState:UIControlStateNormal];
+            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOn bundle:QUIZZ_APP_IMAGE_BUNDLE] forState:UIControlStateHighlighted];
         } else if (self.action == QuizzAppActionHelp) {
             NSString * shuffleNameOff = ExtensionName(@"btn_help_off");
             NSString * shuffleNameOn = ExtensionName(@"btn_help_on");
             
-            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOff bundle:bundle] forState:UIControlStateNormal];
-            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOn bundle:bundle] forState:UIControlStateHighlighted];
+            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOff bundle:QUIZZ_APP_IMAGE_BUNDLE] forState:UIControlStateNormal];
+            [self setBackgroundImage:[UtilsImage imageNamed:shuffleNameOn bundle:QUIZZ_APP_IMAGE_BUNDLE] forState:UIControlStateHighlighted];
         }
         
         [self.titleLabel setFont:[UIFont boldSystemFontOfSize:20.0]];

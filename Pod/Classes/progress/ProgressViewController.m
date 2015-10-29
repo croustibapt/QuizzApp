@@ -63,7 +63,7 @@ typedef enum {
     NSNotification * notification = (NSNotification *)sender;
     
     UIViewController * viewController = [[UIViewController alloc] init];
-    [viewController setTitle:NSLocalizedStringFromTableInBundle(@"STR_GOOGLE_PLUS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [viewController setTitle:NSLocalizedStringFromTableInBundle(@"STR_GOOGLE_PLUS", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     UIWebView * webView = [[UIWebView alloc] initWithFrame:self.view.frame];
     [webView setDelegate:self];
@@ -125,17 +125,17 @@ typedef enum {
 #pragma mark - UIAlertView
 
 - (void)showSignInErrorAlertView {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
 }
 
 - (void)showSignOutErrorAlertView {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
 }
 
 - (void)showGamesSyncErrorAlertView {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
 }
 
@@ -158,19 +158,19 @@ typedef enum {
     //Check signing in
     Boolean isSigningIn = [ProgressManager instance].currentlySigningIn;
     if (isSigningIn) {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
     //Check signing in games
     Boolean isGamesSigningIn = [ProgressManager instance].currentlyGamesSigningIn;
     if (isGamesSigningIn) {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN_GAMES", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN_GAMES", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
     //Check syncing
     Boolean isSyncing = [ProgressManager instance].currentlySyncing;
     if (isSyncing) {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
     //Is connected ?
@@ -181,7 +181,7 @@ typedef enum {
     
     //Button title
     Boolean isSignedIn = [GPGManager sharedInstance].isSignedIn;
-    NSString * buttonTitle = (isSignedIn ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil));
+    NSString * buttonTitle = (isSignedIn ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
     
     [m_signInButton setTitle:buttonTitle forState:UIControlStateNormal];
     [m_signInButton setTitle:buttonTitle forState:UIControlStateDisabled];
@@ -382,14 +382,13 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     [self setScreenName:@"Progress screen"];
     
     //Game image
     NSString * gameImageName = ExtensionName(@"game_header");
     
-    NSBundle * bundle = QUIZZ_APP_BUNDLE;
-    [m_gameImageView setImage:[UtilsImage imageNamed:gameImageName bundle:bundle]];
+    [m_gameImageView setImage:[UtilsImage imageNamed:gameImageName bundle:QUIZZ_APP_IMAGE_BUNDLE]];
     
     float labelFont = PixelsSize(15.0);
     
@@ -398,7 +397,7 @@ typedef enum {
     
     //Information label
     [self.informationLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
-    [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)];
+    [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     //Done item
     UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
@@ -416,7 +415,7 @@ typedef enum {
     }
     
     //Sync button
-    [m_syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) forState:UIControlStateNormal];
+    [m_syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
     
     //Sign in button
     [self.signInButton.titleLabel setTextAlignment:NSTextAlignmentCenter];

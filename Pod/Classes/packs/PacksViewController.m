@@ -60,9 +60,8 @@
     
     if (cell == nil) {
         NSString * cellNib = ExtensionName(@"PackCell");
-        NSBundle * bundle = QUIZZ_APP_BUNDLE;
         
-        NSArray * nibViews = [bundle loadNibNamed:cellNib owner:nil options:nil];
+        NSArray * nibViews = [QUIZZ_APP_XIB_BUNDLE loadNibNamed:cellNib owner:nil options:nil];
         cell = [nibViews objectAtIndex:0];
         
         [cell setBackgroundColor:[UIColor clearColor]];
@@ -80,9 +79,8 @@
 
 - (void)onStartPackWithPack:(Pack *)pack andLevel:(Level *)level andReplay:(Boolean)replay {
     NSString * nibName = ExtensionName(@"GameViewController");
-    NSBundle * bundle = QUIZZ_APP_BUNDLE;
     
-    GameViewController * gameViewController = [[GameViewController alloc] initWithNibName:nibName bundle:bundle andPack:pack andLevel:level andReplay:(Boolean)replay];
+    GameViewController * gameViewController = [[GameViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andPack:pack andLevel:level andReplay:(Boolean)replay];
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
@@ -154,7 +152,7 @@
         [title setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:font]];
         
         int nbFinishedPacks = [self getNbFinishedPacks];
-        [title setText:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISH_STATUS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nbFinishedPacks, ((nbFinishedPacks > 1) ? NSLocalizedStringFromTableInBundle(@"STR_PACKS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_PACK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil)), [self.packs count]]];
+        [title setText:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISH_STATUS", nil, QUIZZ_APP_STRING_BUNDLE, nil), nbFinishedPacks, ((nbFinishedPacks > 1) ? NSLocalizedStringFromTableInBundle(@"STR_PACKS", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_PACK", nil, QUIZZ_APP_STRING_BUNDLE, nil)), [self.packs count]]];
         [title setTextColor:[UIColor whiteColor]];
         [title setBackgroundColor:[UIColor clearColor]];
         
@@ -189,13 +187,13 @@
 }
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_CONTINUE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_CONTINUE", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
     [alertView setTag:indexPath.section];
     [alertView show];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NSLocalizedStringFromTableInBundle(@"STR_REPLAY", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+    return NSLocalizedStringFromTableInBundle(@"STR_REPLAY", nil, QUIZZ_APP_STRING_BUNDLE, nil);
 }
 
 #pragma mark - UI
@@ -208,7 +206,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setScreenName:@"Packs screen"];
-    [self setTitle:[NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_LEVEL", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), self.level.value]];
+    [self setTitle:[NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_LEVEL", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.level.value]];
     
     if ([Utils isIPad]) {
         [self.tableView setBackgroundView:nil];

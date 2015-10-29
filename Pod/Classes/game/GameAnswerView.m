@@ -478,9 +478,10 @@
         [self highlightGoodLetters];
     } else {
         //Popup
-        NSString * message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_LIMIT_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), (QUIZZ_APP_HELP_LIMIT - timeInterval)];
+        NSBundle * bundle = QUIZZ_APP_STRING_BUNDLE;
+        NSString * message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_LIMIT_MESSAGE", nil, bundle, nil), (QUIZZ_APP_HELP_LIMIT - timeInterval)];
         
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_LIMIT_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:message delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_LIMIT_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:message delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
         [alertView show];
     }
 }

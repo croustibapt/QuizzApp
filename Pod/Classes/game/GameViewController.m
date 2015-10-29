@@ -136,9 +136,7 @@
     
     //Friend item
     if (!mediaCompleted) {
-        NSBundle * bundle = QUIZZ_APP_BUNDLE;
-        
-        UIBarButtonItem * friendItem = [[UIBarButtonItem alloc] initWithImage:[UtilsImage imageNamed:@"ic_mail" bundle:bundle] style:UIBarButtonItemStylePlain target:self action:@selector(onFriendButtonPush:)];
+        UIBarButtonItem * friendItem = [[UIBarButtonItem alloc] initWithImage:[UtilsImage imageNamed:@"ic_mail" bundle:QUIZZ_APP_IMAGE_BUNDLE] style:UIBarButtonItemStylePlain target:self action:@selector(onFriendButtonPush:)];
         [self.navigationItem setRightBarButtonItem:friendItem];
     } else {
         [self.navigationItem setRightBarButtonItem:nil];
@@ -241,9 +239,9 @@
         
         NSString * appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
         
-        NSString * subject = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), appName];
+        NSString * subject = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil), appName];
         
-        NSString * messageBody = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), NSLocalizedStringFromTableInBundle(@"STR_MOVIE", nil, MAIN_LANGUAGE_BUNDLE, nil), m_pack.title, appName];
+        NSString * messageBody = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), NSLocalizedStringFromTableInBundle(@"STR_MOVIE", nil, MAIN_BUNDLE, nil), m_pack.title, appName];
         
         [controller setSubject:subject];
         [controller setMessageBody:messageBody isHTML:NO];
@@ -316,7 +314,7 @@
             [self playSoundWithFileName:@"finish"];
             
             //Popup
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), self.pack.possiblePoints] delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_LEVELS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.pack.possiblePoints] delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_LEVELS", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
             [alertView setTag:QUIZZ_APP_END_LEVEL_ALERT_VIEW];
             [alertView show];
         } else {
@@ -326,12 +324,12 @@
             //Popup
             NSString * message = nil;
             if (self.replay) {
-                message = NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_FINISHED_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil);
+                message = NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_FINISHED_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil);
             } else {
-                message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_MESSAGE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), self.pack.possiblePoints];
+                message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.pack.possiblePoints];
             }
             
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_TITLE", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) message:message delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_PACKS", nil, QUIZZ_APP_LANGUAGE_BUNDLE, nil), nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:message delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_PACKS", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
             [alertView setTag:QUIZZ_APP_END_PACK_ALERT_VIEW];
             [alertView show];
         }
@@ -342,7 +340,7 @@
         //Show message
         HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
         [self.view.window addSubview:HUD];
-        HUD.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_LANGUAGE_BUNDLE]];
+        HUD.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_STRING_BUNDLE]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.delegate = self;
         [HUD show:YES];
@@ -433,13 +431,13 @@
 - (void)initAd {
     NSString * imageName = ExtensionName(@"ad_background");
     
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_LANGUAGE_BUNDLE]];
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_STRING_BUNDLE]];
     [imageView setFrame:self.adView.frame];
     [self.view addSubview:imageView];
     
     [self.view bringSubviewToFront:self.adView];
     
-//    [self.adView setBackgroundColor:[UIColor colorWithPatternImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_LANGUAGE_BUNDLE]]];
+//    [self.adView setBackgroundColor:[UIColor colorWithPatternImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_STRING_BUNDLE]]];
     
 #if !(TARGET_IPHONE_SIMULATOR)
     m_bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, 0, self.adView.frame.size.width, self.adView.frame.size.height)];
@@ -454,9 +452,8 @@
 
 - (void)showHelp {
     NSString * nibName = ExtensionName(@"HelpViewController");    
-    NSBundle * bundle = QUIZZ_APP_BUNDLE;
     
-    HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName bundle:bundle];
+    HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
     
     [self presentViewController:navigationController animated:YES completion:nil];
