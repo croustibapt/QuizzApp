@@ -134,7 +134,7 @@ extern NSString * const QUIZZ_APP_NEED_HELP_KEY;
 
 #pragma mark  - Bundle
 
-#define QUIZZ_APP_BUNDLE [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"quizzapp_bundle" withExtension:@"bundle"]]
+#define QUIZZ_APP_BUNDLE [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"QuizzApp" ofType:@"bundle"]]
 
 @interface Constants : NSObject
 

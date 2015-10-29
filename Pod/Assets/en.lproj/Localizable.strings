@@ -1,0 +1,131 @@
+/* 
+  Localizable.strings
+  quizzapp
+
+  Created by dev_iphone on 12/06/2014.
+  Copyright (c) 2014 Baptiste LE GUELVOUIT. All rights reserved.
+*/
+
+//Common
+"STR_NO" = "No";
+"STR_YES" = "Yes";
+"STR_OK" = "OK";
+"STR_CANCEL" = "Cancel";
+"STR_CONTINUE" = "Continue";
+
+"STR_INFORMATION" = "Information";
+"STR_ERROR" = "Error";
+"STR_POINTS" = "points";
+"STR_LOADING" = "Loading...";
+"STR_DOWNLOADING" = "Downloading...";
+"STR_WARNING" = "Warning";
+
+//Init
+"STR_INITIALIZATION" = "Loading...";
+
+//Error
+"STR_NO_CONNECTIVITY_ERROR" = "No connectivity";
+"STR_NO_CONNECTIVITY_MESSAGE" = "We did not manage to reach our servers. Please check your connectivity.";
+
+//Home
+"STR_HOME_TITLE" = "HOME";
+"STR_HOME_RATE_BUTTON" = "Rate";
+"STR_HOME_SCORES_BUTTON" = "Scores";
+"STR_HOME_SETTINGS_BUTTON" = "Settings";
+
+//Progress
+"STR_GOOGLE_PLUS" = "Google+";
+
+"STR_PROGRESS_ERROR_TITLE" = "Information";
+"STR_PROGRESS_ERROR_MESSAGE" = "This feature requires iOS 7.0 or later.";
+
+"STR_PROGRESS_TITLE" = "AUTHENTICATION";
+"STR_PROGRESS_INFORMATION" = "We will use Google+ in order to save your game progress online.";
+
+"STR_SIGNING_IN" = "Authentication...";
+"STR_SIGNING_IN_GAMES" = "Authorization...";
+"STR_SYNCING" = "Syncing...";
+
+"STR_SIGN_IN" = "Sign in";
+"STR_SIGN_OUT" = "Sign out";
+
+"STR_ASK_AUTH_TITLE" = "Information";
+"STR_ASK_AUTH_MESSAGE" = "Do you allow us to save your automatically your game progression online? You could change your choice later from the Settings menu.";
+
+"STR_SIGN_IN_ERROR_TITLE" = "Error";
+"STR_SIGN_IN_ERROR_MESSAGE" = "An error occured while trying to reach the online saving service. You progression won't be saved. Please check that you are connected and retry.";
+
+"STR_SIGN_OUT_ERROR_TITLE" = "Error";
+"STR_SIGN_OUT_ERROR_MESSAGE" = "An error occured while signing out. Please check your connectivity and retry.";
+
+"STR_PROGRESS_SYNC_ERROR_TITLE" = "Error";
+"STR_PROGRESS_SYNC_ERROR_MESSAGE" = "An error occured while trying to save your game progression. Please check that you are connected and retry.";
+
+"STR_SCORES_ERROR_TITLE" = "Warning";
+"STR_SCORES_ERROR_MESSAGE" = "You need to be connected to access online scores.";
+
+"STR_SYNC_PROGRESS" = "Synchronize";
+
+//Level
+"STR_LEVELS_TITLE" = "LEVELS";
+"STR_NO_LEVELS" = "No level available for now";
+"STR_LEVEL" = "LEVEL";
+"STR_LEVEL_CELL" = "Level";
+"STR_LEVEL_FINISHED_TITLE" = "Level finished";
+"STR_LEVEL_FINISHED_MESSAGE" = "You won %d points.";
+"STR_BACK_TO_LEVELS" = "Levels";
+"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE" = "Please check your connectivity.";
+"STR_DIFFICULTY" = "Difficulty";
+"STR_OLD_LEVELS" = "Old levels";
+
+//Pack
+"STR_FINISHED" = "Finished";
+"STR_PACK_FINISHED_TITLE" = "Pack finished";
+"STR_PACK_FINISHED_MESSAGE" = "You won %d points.";
+"STR_REPLAY_PACK_FINISHED_MESSAGE" = "Congratulations!";
+"STR_BACK_TO_PACKS" = "Packs";
+"STR_PACK_FINISH_STATUS" = "You have finished %d %@ of %d";
+"STR_PACKS" = "packs";
+"STR_PACK" = "pack";
+"STR_REPLAY" = "Replay";
+"STR_REPLAY_PACK_MESSAGE" = "Your progression will be saved.";
+
+//Settings
+"STR_SETTINGS_TITLE" = "SETTINGS";
+
+"STR_SETTINGS_PARAMETERS" = "Parameters";
+"STR_SETTINGS_CHANGE_LANGUAGE" = "Change language";
+"STR_SETTINGS_CHANGE_LANGUAGE_TITLE" = "Choose a language";
+"en" = "English";
+"fr" = "Français";
+
+"STR_SETTINGS_ENABLE_SOUND" = "Enable sounds";
+"STR_DISABLE_SOUND" = "Disable sounds";
+
+"STR_SETTINGS_GAME" = "Game";
+"STR_SETTINGS_LOGIN_GOOGLE_PLUS" = "Login to Google+";
+"STR_SETTINGS_GOOGLE_PLUS" = "Google+ account";
+"STR_SETTINGS_HOW_TO_PLAY" = "How to play";
+
+"STR_SETTINGS_OTHER_GAMES" = "More games";
+
+"STR_SETTINGS_MORE" = "More";
+"STR_SETTINGS_SUGGEST_PACK" = "Suggest a pack";
+"STR_SETTINGS_SUGGEST_PACK_TITLE" = "That's really kind of you";
+"STR_SETTINGS_SUGGEST_PACK_MESSAGE" = "You will be redirecting to our website.";
+"STR_SETTINGS_OUR_WEBSITE" = "Level-App";
+"STR_SETTINGS_WEBSITE_MESSAGE" = "You will be redirecting to our website.";
+
+//Game
+"STR_FOUND" = "Found";
+
+//Help
+"STR_HELP_TITLE" = "HELP";
+"STR_HELP_LIMIT_TITLE" = "Be patient!";
+"STR_HELP_LIMIT_MESSAGE" = "Next help in %d seconds...";
+"STR_HELP_MAIL_TITLE" = "%@: Need help";
+"STR_HELP_MAIL_MESSAGE" = "Hi,\n\ncan you please help me to find this %@ title? It's from the \"%@\" pack of %@!\n\nThank you.";
+
+"STR_HELP_LABEL1" = "Scroll through all posters and try to guess their titles";
+"STR_HELP_LABEL2" = "Enter the title using the keyboard and check your answer";
+"STR_HELP_LABEL3" = "Feel free to use the help or make your friends participate";

@@ -9,6 +9,8 @@
 #import "QAViewController.h"
 
 #import <QuizzApp/QuizzApp.h>
+#import <QuizzApp/HomeViewController.h>
+#import <QuizzApp/Constants.h>
 
 @interface QAViewController ()
 
@@ -22,6 +24,18 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     [[QuizzApp instance] setThirdColor:[UIColor redColor]];
+    
+//    NSString * nibName = ExtensionName(@"HomeViewController");
+//    NSBundle * bundle = QUIZZ_APP_BUNDLE;
+    
+    
+}
+
+- (IBAction)onButtonPushed:(id)sender {
+    NSString * bundlePath = [[NSBundle mainBundle] pathForResource:@"QuizzApp" ofType:@"bundle"];
+    NSBundle * bundle = [NSBundle bundleWithPath:bundlePath];
+    HomeViewController * hvc = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:bundle];
+    [self presentViewController:hvc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

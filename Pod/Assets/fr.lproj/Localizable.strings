@@ -1,0 +1,131 @@
+/* 
+  Localizable.strings
+  quizzapp
+
+  Created by dev_iphone on 12/06/2014.
+  Copyright (c) 2014 Baptiste LE GUELVOUIT. All rights reserved.
+*/
+
+//Common
+"STR_NO" = "Non";
+"STR_YES" = "Oui";
+"STR_OK" = "OK";
+"STR_CANCEL" = "Annuler";
+"STR_CONTINUE" = "Continuer";
+
+"STR_INFORMATION" = "Information";
+"STR_ERROR" = "Erreur";
+"STR_POINTS" = "points";
+"STR_LOADING" = "Chargement...";
+"STR_DOWNLOADING" = "Téléchargement...";
+"STR_WARNING" = "Attention";
+
+//Init
+"STR_INITIALIZATION" = "Chargement...";
+
+//Error
+"STR_NO_CONNECTIVITY_ERROR" = "Aucune connectivité";
+"STR_NO_CONNECTIVITY_MESSAGE" = "Nous n'avons pas réussi à contacter nos serveurs. Veuillez vérifier votre connectivité.";
+
+//Home
+"STR_HOME_TITLE" = "ACCUEIL";
+"STR_HOME_RATE_BUTTON" = "Évaluer";
+"STR_HOME_SCORES_BUTTON" = "Scores";
+"STR_HOME_SETTINGS_BUTTON" = "Options";
+
+//Progress
+"STR_GOOGLE_PLUS" = "Google+";
+
+"STR_PROGRESS_ERROR_TITLE" = "Information";
+"STR_PROGRESS_ERROR_MESSAGE" = "Cette fonctionnalité requiert iOS 7.0 ou supérieur.";
+
+"STR_PROGRESS_TITLE" = "AUTHENTIFICATION";
+"STR_PROGRESS_INFORMATION" = "Nous utliserons Google+ afin de sauvegarder votre progression en ligne.";
+
+"STR_SIGNING_IN" = "Authentification...";
+"STR_SIGNING_IN_GAMES" = "Autorisation...";
+"STR_SYNCING" = "Synchronisation...";
+
+"STR_SIGN_IN" = "Se connecter";
+"STR_SIGN_OUT" = "Se déconnecter";
+
+"STR_ASK_AUTH_TITLE" = "Information";
+"STR_ASK_AUTH_MESSAGE" = "Acceptez-vous que nous sauvegardions votre progression en ligne automatiquement ? Vous pourrez ensuite modifier votre choix depuis le menu Options.";
+
+"STR_SIGN_IN_ERROR_TITLE" = "Erreur";
+"STR_SIGN_IN_ERROR_MESSAGE" = "Une erreur est survenue lors de la connexion au service de sauvegarde. Votre progression ne sera pas sauvegardée. Vérifiez que vous êtes bien connecté et réessayez.";
+
+"STR_SIGN_OUT_ERROR_TITLE" = "Erreur";
+"STR_SIGN_OUT_ERROR_MESSAGE" = "Une erreur est survenue lors de la déconnexion au service de sauvegarde. Vérifiez votre connectivité et réessayez.";
+
+"STR_PROGRESS_SYNC_ERROR_TITLE" = "Erreur";
+"STR_PROGRESS_SYNC_ERROR_MESSAGE" = "Une erreur est survenue lors de la sauvegarde de votre progression en ligne. Vérifiez que vous êtes bien connecté et réessayez.";
+
+"STR_SCORES_ERROR_TITLE" = "Attention";
+"STR_SCORES_ERROR_MESSAGE" = "Vous devez être connecté pour accéder aux scores en ligne.";
+
+"STR_SYNC_PROGRESS" = "Synchroniser";
+
+//Level
+"STR_LEVELS_TITLE" = "NIVEAUX";
+"STR_NO_LEVELS" = "Aucun niveau disponible pour le moment";
+"STR_LEVEL" = "NIVEAU";
+"STR_LEVEL_CELL" = "Niveau";
+"STR_LEVEL_FINISHED_TITLE" = "Niveau terminé";
+"STR_LEVEL_FINISHED_MESSAGE" = "Vous avez gagné %d points.";
+"STR_BACK_TO_LEVELS" = "Niveaux";
+"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE" = "Veuillez vérifier votre connectivité.";
+"STR_DIFFICULTY" = "Difficulté";
+"STR_OLD_LEVELS" = "Anciens niveaux";
+
+//Pack
+"STR_FINISHED" = "Terminé";
+"STR_PACK_FINISHED_TITLE" = "Pack terminé";
+"STR_PACK_FINISHED_MESSAGE" = "Vous avez gagné %d points.";
+"STR_REPLAY_PACK_FINISHED_MESSAGE" = "Bravo !";
+"STR_BACK_TO_PACKS" = "Packs";
+"STR_PACK_FINISH_STATUS" = "Vous avez fini %d %@ sur %d";
+"STR_PACKS" = "packs";
+"STR_PACK" = "pack";
+"STR_REPLAY" = "Rejouer";
+"STR_REPLAY_PACK_MESSAGE" = "Votre progression sera sauvegardée.";
+
+//Settings
+"STR_SETTINGS_TITLE" = "OPTIONS";
+
+"STR_SETTINGS_PARAMETERS" = "Paramètres";
+"STR_SETTINGS_CHANGE_LANGUAGE" = "Changer de langue";
+"STR_SETTINGS_CHANGE_LANGUAGE_TITLE" = "Choisissez une langue";
+"en" = "English";
+"fr" = "Français";
+
+"STR_SETTINGS_ENABLE_SOUND" = "Activer les sons";
+"STR_DISABLE_SOUND" = "Désactiver les sons";
+
+"STR_SETTINGS_GAME" = "Jeu";
+"STR_SETTINGS_LOGIN_GOOGLE_PLUS" = "Se connecter à Google+";
+"STR_SETTINGS_GOOGLE_PLUS" = "Compte Google+";
+"STR_SETTINGS_HOW_TO_PLAY" = "Comment jouer";
+
+"STR_SETTINGS_OTHER_GAMES" = "Plus de jeux";
+
+"STR_SETTINGS_MORE" = "Plus";
+"STR_SETTINGS_SUGGEST_PACK" = "Proposer un pack";
+"STR_SETTINGS_SUGGEST_PACK_TITLE" = "Quelle générosité !";
+"STR_SETTINGS_SUGGEST_PACK_MESSAGE" = "Vous allez être redirigé(e) vers notre site web.";
+"STR_SETTINGS_OUR_WEBSITE" = "Level-App";
+"STR_SETTINGS_WEBSITE_MESSAGE" = "Vous allez être redirigé(e) vers notre site web.";
+
+//Game
+"STR_FOUND" = "Trouvé";
+
+//Help
+"STR_HELP_TITLE" = "AIDE";
+"STR_HELP_LIMIT_TITLE" = "Patience !";
+"STR_HELP_LIMIT_MESSAGE" = "Prochaine aide dans %d secondes...";
+"STR_HELP_MAIL_TITLE" = "%@ : Besoin d'aide";
+"STR_HELP_MAIL_MESSAGE" = "Salut,\n\npeux-tu m'aider à trouver le titre de %@ s'il te plaît ? Il fait parti du pack \"%@\" du jeu %@ !\n\nMerci d'avance.";
+
+"STR_HELP_LABEL1" = "Fais défiler toutes les affiches du pack et retrouve leurs titres";
+"STR_HELP_LABEL2" = "Saisis le titre à l'aide du clavier et vérifie ta réponse";
+"STR_HELP_LABEL3" = "N'hésite pas à utiliser l'aide ou à faire participer tes amis";

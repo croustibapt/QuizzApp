@@ -8,6 +8,8 @@
 
 #import "QAAppDelegate.h"
 
+#import "QAViewController.h"
+
 @implementation QAAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

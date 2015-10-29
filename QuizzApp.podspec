@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
 
     s.source_files = 'Pod/Classes/**/*.{m,mm,h,c}'
     s.resource_bundles = {
-        'QuizzApp' => ['Pod/Assets/**/*.{xib,png,sqlite}']
+        'QuizzApp' => ['Pod/Assets/**/*.{xib,png,lproj,sqlite}']
     }
 
     # s.public_header_files = 'Pod/Classes/**/*.h'
