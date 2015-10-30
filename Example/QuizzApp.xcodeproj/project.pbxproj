@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57E9D23B1BE3498B00DB09B0 /* MQConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D2311BE3498B00DB09B0 /* MQConstants.m */; };
+		57E9D23C1BE3498B00DB09B0 /* MQHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D2341BE3498B00DB09B0 /* MQHomeViewController.m */; };
+		57E9D23D1BE3498B00DB09B0 /* MQLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D2371BE3498B00DB09B0 /* MQLevelsViewController.m */; };
+		57E9D23E1BE3498B00DB09B0 /* MQSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D23A1BE3498B00DB09B0 /* MQSettingsViewController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -39,6 +43,14 @@
 		336986C59D2A0E63164BDA56 /* Pods-QuizzApp_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Example/Pods-QuizzApp_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		39E98381A12D441C29DB7CBF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4116E5E73BD60F353D4500BA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		57E9D2301BE3498B00DB09B0 /* MQConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQConstants.h; sourceTree = "<group>"; };
+		57E9D2311BE3498B00DB09B0 /* MQConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQConstants.m; sourceTree = "<group>"; };
+		57E9D2331BE3498B00DB09B0 /* MQHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQHomeViewController.h; sourceTree = "<group>"; };
+		57E9D2341BE3498B00DB09B0 /* MQHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQHomeViewController.m; sourceTree = "<group>"; };
+		57E9D2361BE3498B00DB09B0 /* MQLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQLevelsViewController.h; sourceTree = "<group>"; };
+		57E9D2371BE3498B00DB09B0 /* MQLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQLevelsViewController.m; sourceTree = "<group>"; };
+		57E9D2391BE3498B00DB09B0 /* MQSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQSettingsViewController.h; sourceTree = "<group>"; };
+		57E9D23A1BE3498B00DB09B0 /* MQSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQSettingsViewController.m; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* QuizzApp_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizzApp_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -93,6 +105,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57E9D22F1BE3498B00DB09B0 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				57E9D2301BE3498B00DB09B0 /* MQConstants.h */,
+				57E9D2311BE3498B00DB09B0 /* MQConstants.m */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		57E9D2321BE3498B00DB09B0 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				57E9D2331BE3498B00DB09B0 /* MQHomeViewController.h */,
+				57E9D2341BE3498B00DB09B0 /* MQHomeViewController.m */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		57E9D2351BE3498B00DB09B0 /* level */ = {
+			isa = PBXGroup;
+			children = (
+				57E9D2361BE3498B00DB09B0 /* MQLevelsViewController.h */,
+				57E9D2371BE3498B00DB09B0 /* MQLevelsViewController.m */,
+			);
+			path = level;
+			sourceTree = "<group>";
+		};
+		57E9D2381BE3498B00DB09B0 /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				57E9D2391BE3498B00DB09B0 /* MQSettingsViewController.h */,
+				57E9D23A1BE3498B00DB09B0 /* MQSettingsViewController.m */,
+			);
+			path = settings;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +178,10 @@
 		6003F593195388D20070C39A /* Example for QuizzApp */ = {
 			isa = PBXGroup;
 			children = (
+				57E9D22F1BE3498B00DB09B0 /* common */,
+				57E9D2321BE3498B00DB09B0 /* home */,
+				57E9D2351BE3498B00DB09B0 /* level */,
+				57E9D2381BE3498B00DB09B0 /* settings */,
 				6003F59C195388D20070C39A /* QAAppDelegate.h */,
 				6003F59D195388D20070C39A /* QAAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -391,8 +443,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* QAAppDelegate.m in Sources */,
+				57E9D23D1BE3498B00DB09B0 /* MQLevelsViewController.m in Sources */,
+				57E9D23E1BE3498B00DB09B0 /* MQSettingsViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* QAViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				57E9D23B1BE3498B00DB09B0 /* MQConstants.m in Sources */,
+				57E9D23C1BE3498B00DB09B0 /* MQHomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

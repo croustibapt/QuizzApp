@@ -28,12 +28,12 @@
 //    NSString * nibName = ExtensionName(@"HomeViewController");
 //    NSBundle * bundle = QUIZZ_APP_BUNDLE;
     
-    
+    HomeViewController * hvc = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:QUIZZ_APP_XIB_BUNDLE];
+    [self.navigationController pushViewController:hvc animated:YES];
 }
 
 - (IBAction)onButtonPushed:(id)sender {
-    HomeViewController * hvc = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:QUIZZ_APP_XIB_BUNDLE];
-    [self presentViewController:hvc animated:YES completion:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
