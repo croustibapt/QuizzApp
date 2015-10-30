@@ -26,6 +26,15 @@
 @synthesize level = m_level;
 @synthesize packs = m_packs;
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andLevel:(Level *)aLevel {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {

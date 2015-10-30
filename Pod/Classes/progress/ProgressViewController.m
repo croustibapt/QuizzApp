@@ -43,6 +43,15 @@ typedef enum {
 @synthesize progressionKey = m_progressionKey;
 @synthesize autoSignIn;
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)aClientId andProgressionKey:(NSNumber *)aProgressionKey andAutoSignIn:(Boolean)aAutoSignIn {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {

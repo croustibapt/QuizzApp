@@ -31,6 +31,15 @@
 @synthesize scrollView = m_scrollView;
 @synthesize replay;
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPack:(Pack *)aPack andLevel:(Level *)aLevel andReplay:(Boolean)aReplay {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {

@@ -22,6 +22,15 @@
 @synthesize helpScrollView = m_helpScrollView;
 @synthesize pageControl = m_pageControl;
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
+    }
+    return self;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
