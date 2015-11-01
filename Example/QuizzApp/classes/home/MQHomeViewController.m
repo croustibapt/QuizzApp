@@ -54,19 +54,15 @@
 }
 
 - (void)onStartWithLevels:(NSMutableDictionary *)levels {
-    LevelsViewController * levelsViewController = [[LevelsViewController alloc] initWithLevels:levels];
+    MQLevelsViewController * levelsViewController = [[MQLevelsViewController alloc] initWithLevels:levels];
     [self.navigationController pushViewController:levelsViewController animated:YES];
-    
-//    MQLevelsViewController * levelsViewController = [[MQLevelsViewController alloc] initWithLevels:levels];
-//    [self.navigationController pushViewController:levelsViewController animated:YES];
-//    [levelsViewController release];
     
 //    NSString * nibName = ExtensionName(@"PacksViewController");
 //    NSBundle * bundle = QUIZZ_APP_BUNDLE;
 //    
 //    NSString * language = [Utils currentLanguage];
 //    NSArray * allLevels = [GameProvider getAllLevels:language];
-//    
+    
 //    //TODO
 //    PacksViewController * packsViewController = [[PacksViewController alloc] initWithNibName:nibName bundle:bundle andLevels:allLevels andTitle:@"STR_LEVELS"];
 //    [self.navigationController pushViewController:packsViewController animated:YES];

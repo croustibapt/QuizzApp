@@ -46,7 +46,7 @@ typedef enum {
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        NSString * nibName = ExtensionName(@"ProgressViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
     }
     return self;
@@ -89,7 +89,7 @@ typedef enum {
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     //Application prefix to check
-    NSString * appPrefix = [NSString stringWithFormat:@"%@:/oauth2callback", [[NSBundle mainBundle] bundleIdentifier]];
+    NSString * appPrefix = [NSString stringWithFormat:@"%@:/oauth2callback", [MAIN_BUNDLE bundleIdentifier]];
     
     if ([[[request URL] absoluteString] hasPrefix:appPrefix]) {
 #warning TO PORT

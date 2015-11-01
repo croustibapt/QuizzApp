@@ -7,25 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57E9D23B1BE3498B00DB09B0 /* MQConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D2311BE3498B00DB09B0 /* MQConstants.m */; };
-		57E9D23C1BE3498B00DB09B0 /* MQHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D2341BE3498B00DB09B0 /* MQHomeViewController.m */; };
-		57E9D23D1BE3498B00DB09B0 /* MQLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D2371BE3498B00DB09B0 /* MQLevelsViewController.m */; };
-		57E9D23E1BE3498B00DB09B0 /* MQSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E9D23A1BE3498B00DB09B0 /* MQSettingsViewController.m */; };
+		5724409A1BE67CE900EC09F1 /* MQConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 572440841BE67CE900EC09F1 /* MQConstants.m */; };
+		5724409B1BE67CE900EC09F1 /* MQHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572440871BE67CE900EC09F1 /* MQHomeViewController.m */; };
+		5724409C1BE67CE900EC09F1 /* MQLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408A1BE67CE900EC09F1 /* MQLevelsViewController.m */; };
+		5724409D1BE67CE900EC09F1 /* QAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */; };
+		5724409E1BE67CE900EC09F1 /* MQSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408F1BE67CE900EC09F1 /* MQSettingsViewController.m */; };
+		572440A01BE67CE900EC09F1 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 572440941BE67CE900EC09F1 /* Roboto-Black.ttf */; };
+		572440A11BE67CE900EC09F1 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 572440951BE67CE900EC09F1 /* Roboto-Bold.ttf */; };
+		572440A21BE67CE900EC09F1 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 572440961BE67CE900EC09F1 /* RobotoCondensed-Bold.ttf */; };
+		572440A31BE67CE900EC09F1 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 572440971BE67CE900EC09F1 /* RobotoCondensed-Regular.ttf */; };
+		572440A41BE67CE900EC09F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 572440981BE67CE900EC09F1 /* Images.xcassets */; };
+		572440A51BE67CE900EC09F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 572440991BE67CE900EC09F1 /* Main.storyboard */; };
+		572440AD1BE68F9F00EC09F1 /* finish.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440A71BE68F9F00EC09F1 /* finish.mp3 */; };
+		572440AE1BE68F9F00EC09F1 /* good.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440A81BE68F9F00EC09F1 /* good.mp3 */; };
+		572440AF1BE68F9F00EC09F1 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440A91BE68F9F00EC09F1 /* pop.mp3 */; };
+		572440B01BE68F9F00EC09F1 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AA1BE68F9F00EC09F1 /* success.mp3 */; };
+		572440B11BE68F9F00EC09F1 /* undo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AB1BE68F9F00EC09F1 /* undo.mp3 */; };
+		572440B21BE68F9F00EC09F1 /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AC1BE68F9F00EC09F1 /* wrong.mp3 */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
-		6003F59E195388D20070C39A /* QAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* QAAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* QAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* QAViewController.m */; };
-		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		7EE513BBA3B39378651B8258 /* libPods-QuizzApp_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DCEA6B9F9CD3CF2BC4361F /* libPods-QuizzApp_Tests.a */; };
-		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		B349178803332E317447A9F3 /* libPods-QuizzApp_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC0AA13589F907456CC9C5A /* libPods-QuizzApp_Example.a */; };
 /* End PBXBuildFile section */
 
@@ -43,14 +52,28 @@
 		336986C59D2A0E63164BDA56 /* Pods-QuizzApp_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Example/Pods-QuizzApp_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		39E98381A12D441C29DB7CBF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4116E5E73BD60F353D4500BA /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		57E9D2301BE3498B00DB09B0 /* MQConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQConstants.h; sourceTree = "<group>"; };
-		57E9D2311BE3498B00DB09B0 /* MQConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQConstants.m; sourceTree = "<group>"; };
-		57E9D2331BE3498B00DB09B0 /* MQHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQHomeViewController.h; sourceTree = "<group>"; };
-		57E9D2341BE3498B00DB09B0 /* MQHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQHomeViewController.m; sourceTree = "<group>"; };
-		57E9D2361BE3498B00DB09B0 /* MQLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQLevelsViewController.h; sourceTree = "<group>"; };
-		57E9D2371BE3498B00DB09B0 /* MQLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQLevelsViewController.m; sourceTree = "<group>"; };
-		57E9D2391BE3498B00DB09B0 /* MQSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQSettingsViewController.h; sourceTree = "<group>"; };
-		57E9D23A1BE3498B00DB09B0 /* MQSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQSettingsViewController.m; sourceTree = "<group>"; };
+		572440831BE67CE900EC09F1 /* MQConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQConstants.h; sourceTree = "<group>"; };
+		572440841BE67CE900EC09F1 /* MQConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQConstants.m; sourceTree = "<group>"; };
+		572440861BE67CE900EC09F1 /* MQHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQHomeViewController.h; sourceTree = "<group>"; };
+		572440871BE67CE900EC09F1 /* MQHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQHomeViewController.m; sourceTree = "<group>"; };
+		572440891BE67CE900EC09F1 /* MQLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQLevelsViewController.h; sourceTree = "<group>"; };
+		5724408A1BE67CE900EC09F1 /* MQLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQLevelsViewController.m; sourceTree = "<group>"; };
+		5724408B1BE67CE900EC09F1 /* QAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAAppDelegate.h; sourceTree = "<group>"; };
+		5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAAppDelegate.m; sourceTree = "<group>"; };
+		5724408E1BE67CE900EC09F1 /* MQSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQSettingsViewController.h; sourceTree = "<group>"; };
+		5724408F1BE67CE900EC09F1 /* MQSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQSettingsViewController.m; sourceTree = "<group>"; };
+		572440941BE67CE900EC09F1 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		572440951BE67CE900EC09F1 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		572440961BE67CE900EC09F1 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
+		572440971BE67CE900EC09F1 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
+		572440981BE67CE900EC09F1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		572440991BE67CE900EC09F1 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		572440A71BE68F9F00EC09F1 /* finish.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = finish.mp3; sourceTree = "<group>"; };
+		572440A81BE68F9F00EC09F1 /* good.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = good.mp3; sourceTree = "<group>"; };
+		572440A91BE68F9F00EC09F1 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
+		572440AA1BE68F9F00EC09F1 /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
+		572440AB1BE68F9F00EC09F1 /* undo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = undo.mp3; sourceTree = "<group>"; };
+		572440AC1BE68F9F00EC09F1 /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* QuizzApp_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizzApp_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,11 +82,6 @@
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59B195388D20070C39A /* QuizzApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuizzApp-Prefix.pch"; sourceTree = "<group>"; };
-		6003F59C195388D20070C39A /* QAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QAAppDelegate.h; sourceTree = "<group>"; };
-		6003F59D195388D20070C39A /* QAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QAAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* QAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QAViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* QAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QAViewController.m; sourceTree = "<group>"; };
-		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* QuizzApp_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizzApp_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
@@ -71,7 +89,6 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		696789BF5357357A15008C99 /* Pods-QuizzApp_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Tests/Pods-QuizzApp_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B7F72CD8929EFE0FC674AF5C /* Pods-QuizzApp_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Tests/Pods-QuizzApp_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C8DCEA6B9F9CD3CF2BC4361F /* libPods-QuizzApp_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QuizzApp_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECD3AEDA300D39A325BCD385 /* QuizzApp.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QuizzApp.podspec; path = ../QuizzApp.podspec; sourceTree = "<group>"; };
@@ -105,40 +122,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57E9D22F1BE3498B00DB09B0 /* common */ = {
+		572440811BE67CE900EC09F1 /* classes */ = {
 			isa = PBXGroup;
 			children = (
-				57E9D2301BE3498B00DB09B0 /* MQConstants.h */,
-				57E9D2311BE3498B00DB09B0 /* MQConstants.m */,
+				572440821BE67CE900EC09F1 /* common */,
+				572440851BE67CE900EC09F1 /* home */,
+				572440881BE67CE900EC09F1 /* level */,
+				5724408B1BE67CE900EC09F1 /* QAAppDelegate.h */,
+				5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */,
+				5724408D1BE67CE900EC09F1 /* settings */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
+		572440821BE67CE900EC09F1 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				572440831BE67CE900EC09F1 /* MQConstants.h */,
+				572440841BE67CE900EC09F1 /* MQConstants.m */,
 			);
 			path = common;
 			sourceTree = "<group>";
 		};
-		57E9D2321BE3498B00DB09B0 /* home */ = {
+		572440851BE67CE900EC09F1 /* home */ = {
 			isa = PBXGroup;
 			children = (
-				57E9D2331BE3498B00DB09B0 /* MQHomeViewController.h */,
-				57E9D2341BE3498B00DB09B0 /* MQHomeViewController.m */,
+				572440861BE67CE900EC09F1 /* MQHomeViewController.h */,
+				572440871BE67CE900EC09F1 /* MQHomeViewController.m */,
 			);
 			path = home;
 			sourceTree = "<group>";
 		};
-		57E9D2351BE3498B00DB09B0 /* level */ = {
+		572440881BE67CE900EC09F1 /* level */ = {
 			isa = PBXGroup;
 			children = (
-				57E9D2361BE3498B00DB09B0 /* MQLevelsViewController.h */,
-				57E9D2371BE3498B00DB09B0 /* MQLevelsViewController.m */,
+				572440891BE67CE900EC09F1 /* MQLevelsViewController.h */,
+				5724408A1BE67CE900EC09F1 /* MQLevelsViewController.m */,
 			);
 			path = level;
 			sourceTree = "<group>";
 		};
-		57E9D2381BE3498B00DB09B0 /* settings */ = {
+		5724408D1BE67CE900EC09F1 /* settings */ = {
 			isa = PBXGroup;
 			children = (
-				57E9D2391BE3498B00DB09B0 /* MQSettingsViewController.h */,
-				57E9D23A1BE3498B00DB09B0 /* MQSettingsViewController.m */,
+				5724408E1BE67CE900EC09F1 /* MQSettingsViewController.h */,
+				5724408F1BE67CE900EC09F1 /* MQSettingsViewController.m */,
 			);
 			path = settings;
+			sourceTree = "<group>";
+		};
+		572440901BE67CE900EC09F1 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				572440A61BE68F9F00EC09F1 /* sounds */,
+				572440931BE67CE900EC09F1 /* fonts */,
+				572440981BE67CE900EC09F1 /* Images.xcassets */,
+				572440991BE67CE900EC09F1 /* Main.storyboard */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		572440931BE67CE900EC09F1 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				572440941BE67CE900EC09F1 /* Roboto-Black.ttf */,
+				572440951BE67CE900EC09F1 /* Roboto-Bold.ttf */,
+				572440961BE67CE900EC09F1 /* RobotoCondensed-Bold.ttf */,
+				572440971BE67CE900EC09F1 /* RobotoCondensed-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		572440A61BE68F9F00EC09F1 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				572440A71BE68F9F00EC09F1 /* finish.mp3 */,
+				572440A81BE68F9F00EC09F1 /* good.mp3 */,
+				572440A91BE68F9F00EC09F1 /* pop.mp3 */,
+				572440AA1BE68F9F00EC09F1 /* success.mp3 */,
+				572440AB1BE68F9F00EC09F1 /* undo.mp3 */,
+				572440AC1BE68F9F00EC09F1 /* wrong.mp3 */,
+			);
+			path = sounds;
 			sourceTree = "<group>";
 		};
 		6003F581195388D10070C39A = {
@@ -178,16 +243,8 @@
 		6003F593195388D20070C39A /* Example for QuizzApp */ = {
 			isa = PBXGroup;
 			children = (
-				57E9D22F1BE3498B00DB09B0 /* common */,
-				57E9D2321BE3498B00DB09B0 /* home */,
-				57E9D2351BE3498B00DB09B0 /* level */,
-				57E9D2381BE3498B00DB09B0 /* settings */,
-				6003F59C195388D20070C39A /* QAAppDelegate.h */,
-				6003F59D195388D20070C39A /* QAAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* QAViewController.h */,
-				6003F5A6195388D20070C39A /* QAViewController.m */,
-				6003F5A8195388D20070C39A /* Images.xcassets */,
+				572440811BE67CE900EC09F1 /* classes */,
+				572440901BE67CE900EC09F1 /* resources */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for QuizzApp";
@@ -328,9 +385,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				572440A31BE67CE900EC09F1 /* RobotoCondensed-Regular.ttf in Resources */,
+				572440AD1BE68F9F00EC09F1 /* finish.mp3 in Resources */,
+				572440B21BE68F9F00EC09F1 /* wrong.mp3 in Resources */,
+				572440AE1BE68F9F00EC09F1 /* good.mp3 in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				572440B01BE68F9F00EC09F1 /* success.mp3 in Resources */,
+				572440AF1BE68F9F00EC09F1 /* pop.mp3 in Resources */,
+				572440A41BE67CE900EC09F1 /* Images.xcassets in Resources */,
+				572440A51BE67CE900EC09F1 /* Main.storyboard in Resources */,
+				572440B11BE68F9F00EC09F1 /* undo.mp3 in Resources */,
+				572440A21BE67CE900EC09F1 /* RobotoCondensed-Bold.ttf in Resources */,
+				572440A11BE67CE900EC09F1 /* Roboto-Bold.ttf in Resources */,
+				572440A01BE67CE900EC09F1 /* Roboto-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,13 +509,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F59E195388D20070C39A /* QAAppDelegate.m in Sources */,
-				57E9D23D1BE3498B00DB09B0 /* MQLevelsViewController.m in Sources */,
-				57E9D23E1BE3498B00DB09B0 /* MQSettingsViewController.m in Sources */,
-				6003F5A7195388D20070C39A /* QAViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				57E9D23B1BE3498B00DB09B0 /* MQConstants.m in Sources */,
-				57E9D23C1BE3498B00DB09B0 /* MQHomeViewController.m in Sources */,
+				5724409E1BE67CE900EC09F1 /* MQSettingsViewController.m in Sources */,
+				5724409A1BE67CE900EC09F1 /* MQConstants.m in Sources */,
+				5724409B1BE67CE900EC09F1 /* MQHomeViewController.m in Sources */,
+				5724409D1BE67CE900EC09F1 /* QAAppDelegate.m in Sources */,
+				5724409C1BE67CE900EC09F1 /* MQLevelsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

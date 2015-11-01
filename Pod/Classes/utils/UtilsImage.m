@@ -156,7 +156,8 @@
 }
 
 + (UIImage *)imageNamed:(NSString *)name {
-    return [UtilsImage imageNamed:name bundle:[NSBundle mainBundle]];
+    return [UIImage imageNamed:name];
+//    return [UtilsImage imageNamed:name bundle:MAIN_BUNDLE];
 }
 
 + (UIImage *)imageNamed:(NSString *)name bundle:(NSBundle *)bundle andColor:(UIColor *)color {
@@ -195,7 +196,7 @@
 }
 
 + (UIImage *)imageNamed:(NSString *)name  andColor:(UIColor *)color {
-    return [UtilsImage imageNamed:name bundle:[NSBundle mainBundle] andColor:color];
+    return [UtilsImage imageNamed:name bundle:MAIN_BUNDLE andColor:color];
 }
 
 //+ (UIImage *)rotateImageWithImage:(UIImage *)image andRadians:(float)radians {

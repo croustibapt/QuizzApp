@@ -25,7 +25,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        NSString * nibName = ExtensionName(@"HelpViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
     }
     return self;

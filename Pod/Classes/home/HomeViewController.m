@@ -44,7 +44,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        NSString * nibName = ExtensionName(@"HomeViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
     }
     return self;
@@ -103,9 +103,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     NSString * language = [Utils currentLanguage];
     NSString * directory = [NSString stringWithFormat:@"%@.lproj", language];
     
-    NSBundle * bundle = [NSBundle mainBundle];
-    
-    NSArray * paths = [bundle pathsForResourcesOfType:@"zip" inDirectory:directory];
+    NSArray * paths = [MAIN_BUNDLE pathsForResourcesOfType:@"zip" inDirectory:directory];
     
     for (NSString * levelZipPath in paths) {
         NSString * fileName = [[levelZipPath lastPathComponent] stringByDeletingPathExtension];

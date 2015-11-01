@@ -34,7 +34,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+        NSString * nibName = ExtensionName(@"GameViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
     }
     return self;
@@ -166,7 +166,7 @@
 - (void)threadPlaySound:(NSString *)fileName {
     @autoreleasepool {
         @synchronized(m_audioPlayer) {
-            NSURL * wellDoneFile = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:fileName ofType:@"mp3"]];
+            NSURL * wellDoneFile = [NSURL fileURLWithPath:[MAIN_BUNDLE pathForResource:fileName ofType:@"mp3"]];
             m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
             [m_audioPlayer play];
         }
@@ -246,7 +246,7 @@
     if (controller != nil) {
         controller.mailComposeDelegate = self;
         
-        NSString * appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+        NSString * appName = [MAIN_BUNDLE objectForInfoDictionaryKey:@"CFBundleDisplayName"];
         
         NSString * subject = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil), appName];
         
@@ -349,7 +349,7 @@
         //Show message
         HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
         [self.view.window addSubview:HUD];
-        HUD.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_STRING_BUNDLE]];
+        HUD.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
         HUD.mode = MBProgressHUDModeCustomView;
         HUD.delegate = self;
         [HUD show:YES];
@@ -440,7 +440,7 @@
 - (void)initAd {
     NSString * imageName = ExtensionName(@"ad_background");
     
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_STRING_BUNDLE]];
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
     [imageView setFrame:self.adView.frame];
     [self.view addSubview:imageView];
     

@@ -312,7 +312,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ESettingsSectionMore) {
         //App version label
-        NSString * versionString = [NSString stringWithFormat:@"v%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+        NSString * versionString = [NSString stringWithFormat:@"v%@", [[MAIN_BUNDLE infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
         return versionString;
     } else {
         return nil;

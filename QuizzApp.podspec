@@ -33,6 +33,8 @@ Pod::Spec.new do |s|
     s.resource_bundles = {
         'QuizzAppXib' => ['Pod/Assets/xib/**/*.{xib}'],
         'QuizzAppImage' => ['Pod/Assets/images/**/*.{png}'],
+        'QuizzAppENImage' => ['Pod/Assets/en.lproj/**/*.{png}'],
+        'QuizzAppFRImage' => ['Pod/Assets/fr.lproj/**/*.{png}'],
         'QuizzAppDatabase' => ['Pod/Assets/database/**/*.{sqlite}'],
         'QuizzAppENString' => ['Pod/Assets/en.lproj/**/*.{strings}'],
         'QuizzAppFRString' => ['Pod/Assets/fr.lproj/**/*.{strings}']
