@@ -8,10 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Difficulty : NSObject {
-    NSString * m_name;
-    NSString * m_language;
-}
+@interface Difficulty : NSObject
 
 @property (nonatomic, readwrite) int identifier;
 

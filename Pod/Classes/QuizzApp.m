@@ -8,29 +8,17 @@
 
 #import "QuizzApp.h"
 
-QuizzApp * s_quizzAppInstance;
-
 @implementation QuizzApp
 
-@synthesize appId = m_appId;
-@synthesize googlePlayClientId = m_googlePlayClientId;
-@synthesize googlePlayProgressionKey = m_googlePlayProgressionKey;
-@synthesize googlePlayLeaderBoardId = m_googlePlayLeaderBoardId;
-@synthesize googleAnalyticsId = m_googleAnalyticsId;
-@synthesize mainColor = m_mainColor;
-@synthesize secondColor = m_secondColor;
-@synthesize thirdColor = m_thirdColor;
-@synthesize oppositeMainColor = m_oppositeMainColor;
-@synthesize oppositeSecondColor = m_oppositeSecondColor;
-@synthesize oppositeThirdColor = m_oppositeThirdColor;
-@synthesize gameServiceName = m_gameServiceName;
-
-+ (QuizzApp *)instance {
-    if (s_quizzAppInstance == nil) {
-        s_quizzAppInstance = [[QuizzApp alloc] init];
-    }
++ (QuizzApp *)sharedInstance {
+    static QuizzApp * s_sharedQuizzAppInstance = nil;
+    static dispatch_once_t onceToken;
     
-    return s_quizzAppInstance;
+    dispatch_once(&onceToken, ^{
+        s_sharedQuizzAppInstance = [[self alloc] init];
+    });
+    
+    return s_sharedQuizzAppInstance;
 }
 
 @end

@@ -16,9 +16,6 @@
 
 @implementation ActionButton
 
-@synthesize action;
-@synthesize gameAnswerView;
-
 - (id)initWithFrame:(CGRect)frame andAction:(EQuizzAppAction)aAction andGameAnswerView:(GameAnswerView *)aGameAnswerView; {
     self = [super initWithFrame:frame];
     if (self) {

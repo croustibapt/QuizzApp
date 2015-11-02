@@ -12,23 +12,21 @@
 
 @implementation HeaderCell
 
-@synthesize title = m_title;
-
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         [self setBackgroundColor:[UIColor clearColor]];
 
         //Title
-        m_title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width-20, frame.size.height)];
-        [m_title setTextColor:[UIColor whiteColor]];
-        [m_title setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        self.title = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, frame.size.width-20, frame.size.height)];
+        [self.title setTextColor:[UIColor whiteColor]];
+        [self.title setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         
         float fontSize = PixelsSize(20.0);
         
-        [m_title setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:fontSize]];
-        [m_title setBackgroundColor:[UIColor clearColor]];
+        [self.title setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:fontSize]];
+        [self.title setBackgroundColor:[UIColor clearColor]];
         
-        [self addSubview:m_title];
+        [self addSubview:self.title];
     }
     return self;
 }

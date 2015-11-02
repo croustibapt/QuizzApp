@@ -10,18 +10,13 @@
 
 @implementation Difficulty
 
-@synthesize identifier;
-@synthesize name = m_name;
-@synthesize enumValue;
-@synthesize language = m_language;
-
-- (id)initWithIdentifier:(int)aIdentifier andName:(NSString *)aName andEnumValue:(int)aEnumValue andLanguage:(NSString *)aLanguage {
+- (id)initWithIdentifier:(int)aIdentifier andName:(NSString *)name andEnumValue:(int)enumValue andLanguage:(NSString *)language {
     self = [super init];
     if (self) {
         [self setIdentifier:aIdentifier];
-        [self setName:aName];
-        [self setEnumValue:aEnumValue];
-        [self setLanguage:aLanguage];
+        [self setName:name];
+        [self setEnumValue:enumValue];
+        [self setLanguage:language];
     }
     return self;
 }

@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import <Parse/Parse.h>
 
-@interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
-    UITableView * m_tableView;
-}
+@interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableView * tableView;
 

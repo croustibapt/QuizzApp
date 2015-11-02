@@ -22,9 +22,6 @@
 
 @implementation GameAnswerView
 
-@synthesize answerView = m_answerView;
-@synthesize keyboardView = m_keyboardView;
-
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -232,7 +229,7 @@
     
     //Create view
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, answerViewHeight)];
-    [view setBackgroundColor:[QuizzApp instance].oppositeMainColor];
+    [view setBackgroundColor:[QuizzApp sharedInstance].oppositeMainColor];
     
     [self setAnswerView:view];
     [self addSubview:self.answerView];
@@ -317,7 +314,7 @@
     
     //Create keyboard UI
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, self.answerView.frame.size.height, self.frame.size.width, keyboardViewHeight)];
-    [view setBackgroundColor:[QuizzApp instance].oppositeSecondColor];
+    [view setBackgroundColor:[QuizzApp sharedInstance].oppositeSecondColor];
     
     [self setKeyboardView:view];
     [self addSubview:self.keyboardView];

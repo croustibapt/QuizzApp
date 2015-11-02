@@ -9,23 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface QuizzApp : NSObject {
-    NSString * m_appId;
-    NSString * m_googlePlayClientId;
-    NSNumber * m_googlePlayProgressionKey;
-    NSString * m_googlePlayLeaderBoardId;
-    NSString * m_googleAnalyticsId;
-    
-    UIColor * m_mainColor;
-    UIColor * m_secondColor;
-    UIColor * m_thirdColor;
-    
-    UIColor * m_oppositeMainColor;
-    UIColor * m_oppositeSecondColor;
-    UIColor * m_oppositeThirdColor;
-    
-    NSString * m_gameServiceName;
-}
+@interface QuizzApp : NSObject
 
 @property (nonatomic, retain) NSString * appId;
 
@@ -51,6 +35,6 @@
 
 @property (nonatomic, retain) NSString * gameServiceName;
 
-+ (QuizzApp *)instance;
++ (QuizzApp *)sharedInstance;
 
 @end

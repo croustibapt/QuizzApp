@@ -12,9 +12,7 @@
 #import "DBHelper.h"
 #import "Level.h"
 
-@interface LevelDBHelper : DBHelper {
-    
-}
+@interface LevelDBHelper : DBHelper
 
 #pragma mark - Level
 

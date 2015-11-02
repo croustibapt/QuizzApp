@@ -16,10 +16,6 @@
     Boolean m_touched;
     CGRect m_originFrame;
     
-    UILabel * m_label;
-    UIColor * m_frontColor;
-    UIColor * m_backColor;
-    
     UILabel * m_pack1Label;
     UILabel * m_pack2Label;
     UILabel * m_pack3Label;

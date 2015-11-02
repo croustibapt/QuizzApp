@@ -9,12 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Google/Analytics.h>
 
-@interface BackViewController : GAITrackedViewController {
-    UIImageView * m_headerLeftImageView;
-    UIImageView * m_headerRightImageView;
-    UIImageView * m_footerLeftImageView;
-    UIImageView * m_footerRightImageView;
-}
+@interface BackViewController : GAITrackedViewController
 
 @property (nonatomic, retain) IBOutlet UIImageView * headerLeftImageView;
 

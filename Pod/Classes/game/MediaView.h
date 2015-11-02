@@ -13,7 +13,6 @@
 
 @interface MediaView : UIView {
     Media * m_media;
-    UIImageView * m_posterImageView;
     StatusLabel * m_statusLabel;
 }
 

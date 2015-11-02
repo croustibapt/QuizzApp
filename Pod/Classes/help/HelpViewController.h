@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Google/Analytics.h>
 
-@interface HelpViewController : GAITrackedViewController <UIScrollViewDelegate> {
-    UIScrollView * m_helpScrollView;
-    UIPageControl * m_pageControl;
-}
+@interface HelpViewController : GAITrackedViewController <UIScrollViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIScrollView * helpScrollView;
 

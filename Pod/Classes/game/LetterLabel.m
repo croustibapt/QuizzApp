@@ -16,10 +16,8 @@
 
 @implementation LetterLabel
 
-@synthesize goodString;
-@synthesize goodLetter = m_goodLetter;
-@synthesize found = m_found;
 @synthesize bad = m_bad;
+@synthesize found = m_found;
 
 - (id)initWithFrame:(CGRect)frame andGoodLetter:(NSString *)aGoodLetter {
     self = [super initWithFrame:frame];
@@ -30,13 +28,13 @@
         [self setTextColor:[UIColor whiteColor]];
 
         dispatch_async(dispatch_get_main_queue(), ^(void) {
-            if (!goodString || [aGoodLetter isEqualToString:@" "]) {
+            if (!self.goodString || [aGoodLetter isEqualToString:@" "]) {
     //            [self setBackgroundColor:[QuizzApp instance].oppositeSecondColor];
                 [self setBackgroundColor:[UIColor clearColor]];
                 [self setText:aGoodLetter];
             } else {
                 [self setText:@""];
-                [self setBackgroundColor:[QuizzApp instance].oppositeThirdColor];
+                [self setBackgroundColor:[QuizzApp sharedInstance].oppositeThirdColor];
             }
         });
         
@@ -58,7 +56,7 @@
             [self setText:self.goodLetter];
             [self setBackgroundColor:QUIZZ_APP_GREEN_MAIN_COLOR];
         } else {
-            [self setBackgroundColor:[QuizzApp instance].oppositeThirdColor];
+            [self setBackgroundColor:[QuizzApp sharedInstance].oppositeThirdColor];
         }
     });
 }
@@ -69,7 +67,7 @@
     if (m_bad) {
         [self setBackgroundColor:QUIZZ_APP_RED_MAIN_COLOR];
     } else {
-        [self setBackgroundColor:[QuizzApp instance].oppositeThirdColor];
+        [self setBackgroundColor:[QuizzApp sharedInstance].oppositeThirdColor];
     }
 }
 

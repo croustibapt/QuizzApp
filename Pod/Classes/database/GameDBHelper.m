@@ -14,11 +14,6 @@
 
 @implementation PackMedia
 
-@synthesize packId;
-@synthesize mediaId;
-@synthesize position;
-@synthesize fExtra1;
-
 - (id)initWithPackId:(int)aPackId andMediaId:(int)aMediaId andPosition:(int)aPosition andFExtra1:(float)aFExtra1 {
     self = [super init];
     if (self) {

@@ -37,36 +37,24 @@
     [SettingsViewController showOtherGame:TV_SHOW_QUIZZ_APP_ID];
 }
 
-- (void)threadLoadLevels {
-    @autoreleasepool {
-        NSMutableDictionary * levels = [LevelsViewController getLevelsWithMinId:MOVIE_QUIZZ_IOS_START_ID andMaxId:INT16_MAX];
+- (void)loadLevels:(HomeViewControllerLoadLevelsCompletionHandler)completionHandler {
+    NSMutableDictionary * levels = [LevelsViewController getLevelsWithMinId:MOVIE_QUIZZ_IOS_START_ID andMaxId:INT16_MAX];
+            
+    //Main thread
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        MQLevelsViewController * levelsViewController = [[MQLevelsViewController alloc] initWithLevels:levels];
+        [self.navigationController pushViewController:levelsViewController animated:YES];
         
-        [HUD hide:YES];
-        
-        [self performSelectorOnMainThread:@selector(onStartWithLevels:) withObject:levels waitUntilDone:NO];
-    }
+        if (completionHandler) {
+            completionHandler();
+        }
+    });
 }
 
 - (void)reinitLabels {
     [super reinitLabels];
     
     [m_tvShowQuizzButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_TV_SHOW_QUIZZ_LINK", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
-}
-
-- (void)onStartWithLevels:(NSMutableDictionary *)levels {
-    MQLevelsViewController * levelsViewController = [[MQLevelsViewController alloc] initWithLevels:levels];
-    [self.navigationController pushViewController:levelsViewController animated:YES];
-    
-//    NSString * nibName = ExtensionName(@"PacksViewController");
-//    NSBundle * bundle = QUIZZ_APP_BUNDLE;
-//    
-//    NSString * language = [Utils currentLanguage];
-//    NSArray * allLevels = [GameProvider getAllLevels:language];
-    
-//    //TODO
-//    PacksViewController * packsViewController = [[PacksViewController alloc] initWithNibName:nibName bundle:bundle andLevels:allLevels andTitle:@"STR_LEVELS"];
-//    [self.navigationController pushViewController:packsViewController animated:YES];
-//    [packsViewController release];
 }
 
 - (IBAction)onSettingsButtonPush:(id)sender {

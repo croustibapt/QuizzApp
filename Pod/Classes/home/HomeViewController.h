@@ -10,18 +10,14 @@
 #import <gpg/GooglePlayGames.h>
 #import <Google/Analytics.h>
 
+typedef void (^HomeViewControllerLoadLevelsCompletionHandler)(void);
+
 #import "BackViewController.h"
 #import "MBProgressHUD.h"
 #import "Preferences.h"
 #import "FlatButton.h"
 
-@interface HomeViewController : BackViewController <MBProgressHUDDelegate, UIAlertViewDelegate> {
-    UIButton * m_startButton;
-    
-    FlatButton * m_scoresButton;
-    FlatButton * m_rateButton;
-    FlatButton * m_settingsButton;
-    
+@interface HomeViewController : BackViewController <MBProgressHUDDelegate, UIAlertViewDelegate> {    
     MBProgressHUD * HUD;
     NSString * m_lastLanguage;
 }
@@ -42,10 +38,6 @@ USERPREF_DECL(NSNumber *, AuthAlertShown);
 #pragma mark - Progress
 
 - (void)showProgressViewController;
-
-#pragma mark - Game
-
-- (void)onStartWithLevels:(NSMutableDictionary *)levels;
 
 #pragma mark - Init
 

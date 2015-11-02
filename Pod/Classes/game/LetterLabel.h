@@ -8,12 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LetterLabel : UILabel {
-    Boolean m_found;
-    Boolean m_bad;
-    
-    NSString * m_goodLetter;
-}
+@interface LetterLabel : UILabel
 
 @property (nonatomic, readwrite) Boolean goodString;
 

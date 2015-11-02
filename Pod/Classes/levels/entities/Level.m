@@ -14,18 +14,6 @@
 
 @implementation Level
 
-//@synthesize isCompleted = m_isCompleted;
-//@synthesize progression = m_progression;
-@synthesize packs = m_packs;
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (id)initWithIdentifier:(int)aIdentifier andPacks:(NSDictionary *)aPacks {
     self = [super init];
     if (self) {

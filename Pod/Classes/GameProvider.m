@@ -17,10 +17,6 @@ GameProvider * s_gameProviderInstance;
 
 @implementation GameProvider
 
-@synthesize levelRecentDate = m_levelRecentDate;
-@synthesize difficulties = m_difficulties;
-@synthesize baseLevels = m_baseLevels;
-
 + (GameProvider *)instance {
     if (s_gameProviderInstance == nil) {
         s_gameProviderInstance = [[GameProvider alloc] init];
@@ -32,8 +28,8 @@ GameProvider * s_gameProviderInstance;
 - (id)init {
     self = [super init];
     if (self) {
-        m_difficulties = [[NSMutableDictionary alloc] init];
-        m_baseLevels = [[NSMutableDictionary alloc] init];
+        self.difficulties = [[NSMutableDictionary alloc] init];
+        self.baseLevels = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -57,7 +53,7 @@ GameProvider * s_gameProviderInstance;
 - (Boolean)requestInfo {
     NSError * error = nil;
     
-    QuizzApp * quizzApp = [QuizzApp instance];
+    QuizzApp * quizzApp = [QuizzApp sharedInstance];
     
     NSData * data = [self requestDataWithUrl:[NSString stringWithFormat:@"%@%@/%@", QUIZZ_APP_SERVICE_PATH, QUIZZ_APP_SERVICE_INFO, quizzApp.gameServiceName] andError:&error];
     
@@ -87,7 +83,7 @@ GameProvider * s_gameProviderInstance;
             
             if ([language isEqualToString:lang]) {
                 Difficulty * difficulty = [Difficulty DifficultyWithIdentifier:difficultyId andName:name andEnumValue:enumValue andLanguage:lang];
-                [m_difficulties setObject:difficulty forKey:[NSNumber numberWithInt:difficultyId]];
+                [self.difficulties setObject:difficulty forKey:[NSNumber numberWithInt:difficultyId]];
             
                 [GameDBHelper addDifficulty:difficulty];
             }
@@ -108,9 +104,9 @@ GameProvider * s_gameProviderInstance;
 }
 
 - (Boolean)requestLevels {
-    [m_baseLevels removeAllObjects];
+    [self.baseLevels removeAllObjects];
     
-    QuizzApp * quizzApp = [QuizzApp instance];
+    QuizzApp * quizzApp = [QuizzApp sharedInstance];
     
     NSError * error = nil;
     NSString * requestUrl = [NSString stringWithFormat:@"%@%@/%@", QUIZZ_APP_SERVICE_PATH, QUIZZ_APP_SERVICE_LEVELS_LIST, quizzApp.gameServiceName];
@@ -166,7 +162,7 @@ GameProvider * s_gameProviderInstance;
                 }
             
                 BaseLevel * baseLevel = [BaseLevel BaseLevelWithIdentifier:levelId andValue:value andDifficultyId:difficultyId andReleaseDate:releaseDate andLanguage:lang andMd5:md5 andZipSize:zipSize andExtra1:levelExtra1 andExtra2:levelExtra2 andExtra3:levelExtra3 andFExtra1:levelFExtra1 andFExtra2:levelFExtra2 andFExtra3:levelFExtra3 andBasePacks:basePacks];
-                [m_baseLevels setObject:baseLevel forKey:[NSNumber numberWithInt:levelId]];
+                [self.baseLevels setObject:baseLevel forKey:[NSNumber numberWithInt:levelId]];
             }
         }
     }

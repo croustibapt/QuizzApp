@@ -15,17 +15,7 @@
 
 @implementation Media
 
-@synthesize identifier;
-@synthesize title = m_title;
-@synthesize rects = m_rects;
-@synthesize topLeftBlurRects = m_topLeftBlurRects;
-@synthesize bottomRightBlurRects = m_bottomRightBlurRects;
-@synthesize difficulty;
-@synthesize language = m_language;
-@synthesize strVariants = m_strVariants;
-@synthesize variants = m_variants;
 @synthesize isCompleted = m_isCompleted;
-@synthesize isRemoteCompleted = m_isRemoteCompleted;
 
 + (Media *)Media {
     Media * media = [[Media alloc] init];
@@ -34,13 +24,13 @@
 
 - (Boolean)isCompleted {
     Boolean userIsConnected = [[ProgressManager instance] isConnected];
-    m_isRemoteCompleted = [ProgressManager isMediaRemoteCompleted:self.identifier];
+    self.isRemoteCompleted = [ProgressManager isMediaRemoteCompleted:self.identifier];
     
-    return ((!userIsConnected && m_isCompleted) || m_isRemoteCompleted);
+    return ((!userIsConnected && m_isCompleted) || self.isRemoteCompleted);
 }
 
 - (Boolean)isReplayCompleted {
-    return m_isCompleted;
+    return self.isCompleted;
 }
 
 + (void)thumbImageWithMedia:(Media *)media andImageView:(UIImageView *)imageView andRadians:(float)radians andOriginalImage:(UIImage *)originalImage {

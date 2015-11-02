@@ -18,18 +18,6 @@ GameManager * s_gameManagerInstance;
 
 @implementation GameManager
 
-@synthesize listener = m_listener;
-@synthesize currentPackId;
-@synthesize currentMedia = m_currentMedia;
-@synthesize words = m_words;
-@synthesize currentWordIndex;
-@synthesize nbLettersFound;
-@synthesize currentWord = m_currentWord;
-@synthesize normalizedAnswer = m_normalizedAnswer;
-@synthesize currentAnswer = m_currentAnswer;
-@synthesize startLetters = m_startLetters;
-@synthesize lastHelpDate = m_lastHelpDate;
-
 + (GameManager *)instance {
     if (s_gameManagerInstance == nil) {
         s_gameManagerInstance = [[GameManager alloc] init];

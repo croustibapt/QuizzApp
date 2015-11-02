@@ -10,13 +10,11 @@
 
 @implementation DBHelper
 
-@synthesize databasePath = m_databasePath;
-
 - (id)initWithDatabasePath:(NSString *)databasePath {
     self = [super init];
     if (self) {
         //Get the path to the documents directory and append the databaseName
-        m_databasePath = databasePath;
+        self.databasePath = databasePath;
         
         if (![self checkDatabase]) {
             NSLog(@"Database not found : %@", databasePath);
@@ -28,14 +26,14 @@
 - (Boolean)checkDatabase {
     Boolean success;
 	NSFileManager * fileManager = [NSFileManager defaultManager];
-	success = [fileManager fileExistsAtPath:m_databasePath];
+	success = [fileManager fileExistsAtPath:self.databasePath];
     return success;
 }
 
 - (Boolean)openDatabase {
     Boolean returnValue = NO;
     
-    returnValue = (sqlite3_open([m_databasePath UTF8String], &m_database) == SQLITE_OK);
+    returnValue = (sqlite3_open([self.databasePath UTF8String], &m_database) == SQLITE_OK);
     
     return returnValue;
 }

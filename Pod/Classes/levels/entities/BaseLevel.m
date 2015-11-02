@@ -12,17 +12,7 @@
 
 @implementation BaseLevel
 
-@synthesize identifier;
-@synthesize value;
-@synthesize difficultyId;
-@synthesize releaseDate = m_releaseDate;
-@synthesize language = m_language;
-@synthesize md5 = m_md5;
-@synthesize zipSize;
 @synthesize basePacks = m_basePacks;
-@synthesize isCompleted;
-@synthesize progression;
-@synthesize key;
 
 - (id)initWithIdentifier:(int)aIdentifier andValue:(int)aValue andDifficultyId:(int)aDifficultyId andReleaseDate:(NSDate *)aReleaseDate andLanguage:(NSString *)aLanguage  andMd5:(NSString *)aMd5 andZipSize:(int)aZipSize andExtra1:(NSString *)aExtra1 andExtra2:(NSString *)aExtra2 andExtra3:(NSString *)aExtra3 andFExtra1:(double)aFExtra1 andFExtra2:(double)aFExtra2 andFExtra3:(double)aFExtra3 andBasePacks:(NSDictionary *)aBasePacks {
     self = [super init];

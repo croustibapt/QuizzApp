@@ -17,25 +17,20 @@
 
 @implementation BackViewController
 
-@synthesize headerLeftImageView = m_headerLeftImageView;
-@synthesize headerRightImageView = m_headerRightImageView;
-@synthesize footerLeftImageView = m_footerLeftImageView;
-@synthesize footerRightImageView = m_footerRightImageView;
-
 - (void)addHeader {
     NSString * headerLeftImageName = ExtensionName(@"header_left");
     NSString * headerRightImageName = ExtensionName(@"header_right");
     
-    [m_headerLeftImageView setImage:[UtilsImage imageNamed:headerLeftImageName]];
-    [m_headerRightImageView setImage:[UtilsImage imageNamed:headerRightImageName]];
+    [self.headerLeftImageView setImage:[UtilsImage imageNamed:headerLeftImageName]];
+    [self.headerRightImageView setImage:[UtilsImage imageNamed:headerRightImageName]];
 }
 
 - (void)addFooter {
     NSString * footerLeftImageName = ExtensionName(@"footer_left");
     NSString * footerRightImageName = ExtensionName(@"footer_right");
     
-    [m_footerLeftImageView setImage:[UtilsImage imageNamed:footerLeftImageName]];
-    [m_footerRightImageView setImage:[UtilsImage imageNamed:footerRightImageName]];
+    [self.footerLeftImageView setImage:[UtilsImage imageNamed:footerLeftImageName]];
+    [self.footerRightImageView setImage:[UtilsImage imageNamed:footerRightImageName]];
 }
 
 #pragma mark - UI
@@ -48,10 +43,6 @@
     
     //Footer
     [self addFooter];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 @end

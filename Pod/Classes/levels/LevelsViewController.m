@@ -28,8 +28,6 @@
 
 @implementation LevelsViewController
 
-@synthesize levels = m_levels;
-
 + (NSMutableDictionary *)getLevelsWithMinId:(int)minId andMaxId:(int)maxId {
     //Get all known levels
     NSString * language = [Utils currentLanguage];
@@ -94,7 +92,7 @@
 //}
 
 - (NSNumber *)getDifficultyId:(NSInteger)section {
-    NSMutableArray * keys = [NSMutableArray arrayWithArray:m_levels.allKeys];
+    NSMutableArray * keys = [NSMutableArray arrayWithArray:self.levels.allKeys];
     NSSortDescriptor * sorter = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray * sortDescriptors = [NSArray arrayWithObject:sorter];
     
@@ -108,7 +106,7 @@
 }
 
 - (NSUInteger)getDifficultySection:(int)difficultyId {
-    NSMutableArray * keys = [NSMutableArray arrayWithArray:m_levels.allKeys];
+    NSMutableArray * keys = [NSMutableArray arrayWithArray:self.levels.allKeys];
     NSSortDescriptor * sorter = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
     NSArray * sortDescriptors = [NSArray arrayWithObject:sorter];
     
@@ -136,7 +134,7 @@
 
 - (NSMutableDictionary *)getLevels:(NSInteger)section {
     NSNumber * key = [self getDifficultyId:section];
-    return [m_levels objectForKey:key];
+    return [self.levels objectForKey:key];
 }
 
 - (void)refresh:(Boolean)hud {
@@ -163,11 +161,11 @@
 #pragma mark - PSTCollectionView
 
 - (NSInteger)numberOfSectionsInCollectionView:(PSTCollectionView *)collectionView {
-    return MAX([m_levels count], 1);
+    return MAX([self.levels count], 1);
 }
 
 - (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if ([m_levels count] > 0) {
+    if ([self.levels count] > 0) {
         NSDictionary * levels = [self getLevels:(int)section];
         return [levels count];
     } else {
@@ -210,7 +208,7 @@
         supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
         
         NSString * title = nil;
-        if ([m_levels count] > 0) {
+        if ([self.levels count] > 0) {
             //Difficulty
             NSNumber * difficultyId = [self getDifficultyId:(int)indexPath.section];
             Difficulty * difficulty = [GameProvider getDifficulty:[difficultyId intValue]];

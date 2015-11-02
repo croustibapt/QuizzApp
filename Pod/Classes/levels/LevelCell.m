@@ -17,10 +17,6 @@
 @implementation LevelCell
 
 @synthesize touched = m_touched;
-@synthesize label = m_label;
-@synthesize frontColor = m_frontColor;
-@synthesize backColor = m_backColor;
-@synthesize progression;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
@@ -32,16 +28,16 @@
         float quarterHeight = (cellHeight / 4.0);
 
         //Title
-        m_label = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, cellWidth, quarterHeight)];
-        [m_label setUserInteractionEnabled:NO];
-        [m_label setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [m_label setTextAlignment:NSTextAlignmentRight];
-        [m_label setBackgroundColor:[UIColor clearColor]];
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, cellWidth, quarterHeight)];
+        [self.label setUserInteractionEnabled:NO];
+        [self.label setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [self.label setTextAlignment:NSTextAlignmentRight];
+        [self.label setBackgroundColor:[UIColor clearColor]];
 
         float fontSize = PixelsSize(24.0);
-        [m_label setFont:[UIFont fontWithName:@"Roboto-Bold" size:fontSize]];
+        [self.label setFont:[UIFont fontWithName:@"Roboto-Bold" size:fontSize]];
         
-        [self.contentView addSubview:m_label];
+        [self.contentView addSubview:self.label];
         
         float packLabelHeight = ((cellHeight - quarterHeight - padding) / 3.0);
         
@@ -93,7 +89,7 @@
 
 - (void)initializeWithLevel:(BaseLevel *)level {
     //Label
-    [m_label setText:[NSString stringWithFormat:@"%d", level.value]];
+    [self.label setText:[NSString stringWithFormat:@"%d", level.value]];
     
     //Colors
     m_downloaded = [level isKindOfClass:[Level class]];
@@ -136,7 +132,7 @@
     //Set colors
     [self setBackColor:cellBackColor];
     [self setFrontColor:cellFrontColor];
-    [m_label setTextColor:textColor];
+    [self.label setTextColor:textColor];
     
     //Background
     [self setBackgroundColor:[UIColor clearColor]];

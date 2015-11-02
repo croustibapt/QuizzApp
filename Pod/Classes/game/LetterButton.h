@@ -14,8 +14,6 @@
 @interface LetterButton : UIButton {
     CGRect m_startFrame;
     CGRect m_destinationFrame;
-    
-    NSString * m_key;
 }
 
 @property (nonatomic, retain) NSString * key;

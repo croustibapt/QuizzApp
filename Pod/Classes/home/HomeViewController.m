@@ -36,11 +36,6 @@ int const AUTH_ALERT_VIEW = 0;
 USERPREF_IMPL(NSNumber *, AuthWanted, [NSNumber numberWithBool:NO]);
 USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
-@synthesize startButton = m_startButton;
-@synthesize scoresButton = m_scoresButton;
-@synthesize rateButton = m_rateButton;
-@synthesize settingsButton = m_settingsButton;
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -64,7 +59,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     NSString * nibName = ExtensionName(@"ProgressViewController");
     
     //Create progress controller
-    QuizzApp * quizzApp = [QuizzApp instance];
+    QuizzApp * quizzApp = [QuizzApp sharedInstance];
     
     ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:YES];
     
@@ -76,19 +71,21 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 #pragma mark - Game
 
-- (void)threadLoadLevels {
-    @autoreleasepool {
+- (void)loadLevels:(HomeViewControllerLoadLevelsCompletionHandler)completionHandler {
+    //Background thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         NSMutableDictionary * levels = [LevelsViewController getLevels];
-    
-        [HUD hide:YES];
-    
-        [self performSelectorOnMainThread:@selector(onStartWithLevels:) withObject:levels waitUntilDone:NO];
-    }
-}
-
-- (void)onStartWithLevels:(NSMutableDictionary *)levels {
-    LevelsViewController * levelsViewController = [[LevelsViewController alloc] initWithLevels:levels];
-    [self.navigationController pushViewController:levelsViewController animated:YES];
+        
+        //Main thread
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            LevelsViewController * levelsViewController = [[LevelsViewController alloc] initWithLevels:levels];
+            [self.navigationController pushViewController:levelsViewController animated:YES];
+            
+            if (completionHandler) {
+                completionHandler();
+            }
+        });
+    });
 }
 
 #pragma mark - Init
@@ -257,8 +254,10 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     HUD.delegate = self;
     HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
     [HUD show:YES];
-    
-    [NSThread detachNewThreadSelector:@selector(threadLoadLevels) toTarget:self withObject:nil];
+
+    [self loadLevels:^{
+        [HUD hide:YES];
+    }];
 }
 
 - (IBAction)onScoresButtonPush:(id)sender {
@@ -268,7 +267,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
             //Get score
             float score = [ProgressManager getScore];
             
-            QuizzApp * quizzApp = [QuizzApp instance];
+            QuizzApp * quizzApp = [QuizzApp sharedInstance];
             
             //Prepare saving
             GPGScore * remoteScore = [GPGScore scoreWithLeaderboardId:quizzApp.googlePlayLeaderBoardId];
@@ -297,7 +296,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (IBAction)onRateButtonPush:(id)sender {
     //Rate URL
-    NSString * appId = [QuizzApp instance].appId;
+    NSString * appId = [QuizzApp sharedInstance].appId;
     
     NSString * url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appId];
     NSURL * appURL = [NSURL URLWithString:url];

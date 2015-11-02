@@ -10,9 +10,7 @@
 
 #import "PSTCollectionView.h"
 
-@interface HeaderCell : PSUICollectionReusableView {
-    UILabel * m_title;
-}
+@interface HeaderCell : PSUICollectionReusableView
 
 @property (nonatomic, retain) UILabel * title;
 

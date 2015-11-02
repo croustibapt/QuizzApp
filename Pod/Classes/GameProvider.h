@@ -10,11 +10,7 @@
 
 #import "Difficulty.h"
 
-@interface GameProvider : NSObject {
-    NSDate * m_levelRecentDate;
-    NSMutableDictionary * m_difficulties;
-    NSMutableDictionary * m_baseLevels;
-}
+@interface GameProvider : NSObject
 
 @property (nonatomic, retain) NSDate * levelRecentDate;
 

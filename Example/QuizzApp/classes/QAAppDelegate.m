@@ -49,7 +49,7 @@
 }
 
 - (void)initializeQuizzApp {
-    QuizzApp * quizzApp = [QuizzApp instance];
+    QuizzApp * quizzApp = [QuizzApp sharedInstance];
     [quizzApp setAppId:MOVIE_QUIZZ_APP_ID];
     [quizzApp setGooglePlayClientId:MOVIE_QUIZZ_GOOGLE_PLAY_CLIENT_ID];
     [quizzApp setGooglePlayProgressionKey:MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY];

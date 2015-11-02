@@ -17,10 +17,6 @@
 
 @implementation LetterButton
 
-@synthesize key = m_key;
-@synthesize gameAnswerView;
-@synthesize touched;
-
 - (id)initWithFrame:(CGRect)frame andKey:(NSString *)aKey andGameAnswerView:(GameAnswerView *)aGameAnswerView {
     m_startFrame = CGRectMake(frame.origin.x+frame.size.width/2, frame.origin.y+frame.size.height/2, 0, 0);
     

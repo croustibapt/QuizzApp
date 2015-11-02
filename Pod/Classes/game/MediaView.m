@@ -16,9 +16,7 @@
 
 @implementation MediaView
 
-@synthesize levelId;
 @synthesize media = m_media;
-@synthesize posterImageView = m_posterImageView;
 
 - (id)initWithFrame:(CGRect)frame andMedia:(Media *)aMedia andLevelId:(int)aLevelId andReplay:(Boolean)replay {
     self = [super initWithFrame:frame];
@@ -37,13 +35,13 @@
         
         //Poster
         CGRect posterFrame = CGRectMake(offsetX, offsetY, newWidth, newHeight);
-        m_posterImageView = [[UIImageView alloc] initWithFrame:posterFrame];
-        [m_posterImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [m_posterImageView setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin)];
+        self.posterImageView = [[UIImageView alloc] initWithFrame:posterFrame];
+        [self.posterImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.posterImageView setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin)];
 //        [self setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin)];
 //        [m_posterImageView setBackgroundColor:[UIColor greenColor]];
 
-        [self addSubview:m_posterImageView];
+        [self addSubview:self.posterImageView];
         
         NSString * text = NSLocalizedStringFromTableInBundle(@"STR_FOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil);
         
@@ -66,7 +64,7 @@
     m_media = aMedia;
     
     UIImage * originalImage = [self.media imageWithLevelId:self.levelId];
-    [m_posterImageView setImage:originalImage];
+    [self.posterImageView setImage:originalImage];
 }
 
 - (void)checkStatus:(Boolean)replay {
@@ -75,7 +73,7 @@
     if (mediaCompleted) {
         [m_statusLabel setHidden:NO];
     } else {
-        for (UIView * view in m_posterImageView.subviews) {
+        for (UIView * view in self.posterImageView.subviews) {
             [view removeFromSuperview];
         }
         
@@ -84,7 +82,7 @@
                 CGPoint topLeftBlurRect = [[self.media.topLeftBlurRects objectAtIndex:i] CGPointValue];
                 CGPoint bottomRightBlurRect = [[self.media.bottomRightBlurRects objectAtIndex:i] CGPointValue];
                 
-                [UtilsImage blurImageWithBottomRightBlurRect:bottomRightBlurRect andTopLeftBlurRect:topLeftBlurRect andOriginalImage:[self.media thumbImageWithLevelId:self.levelId] andDestinationView:m_posterImageView andFull:YES];
+                [UtilsImage blurImageWithBottomRightBlurRect:bottomRightBlurRect andTopLeftBlurRect:topLeftBlurRect andOriginalImage:[self.media thumbImageWithLevelId:self.levelId] andDestinationView:self.posterImageView andFull:YES];
             }
         }
 //        [UtilsImage blurImageWithBottomRightBlurRect:m_poster.bottomRightBlurRect andTopLeftBlurRect:m_poster.topLeftBlurRect andBlurImageView:m_blurImageView andOriginalImage:m_poster.thumbImage andParentViewSize:self.posterImageView.frame.size];
@@ -96,7 +94,7 @@
 - (void)complete {
 //    [self.media setIsCompleted:YES];
     
-    for (UIView * view in m_posterImageView.subviews) {
+    for (UIView * view in self.posterImageView.subviews) {
         [view removeFromSuperview];
     }
     

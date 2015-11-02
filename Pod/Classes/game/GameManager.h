@@ -22,16 +22,6 @@ typedef enum {
     NSMutableArray * m_randomLetters;
     NSInteger m_currentRandomLetterIndex;
     NSMutableArray * m_chosenLetterButtonsKeys;
-    
-    id<PGameListener> m_listener;
-    Media * m_currentMedia;
-    NSArray * m_words;
-    NSString * m_currentWord;
-    NSString * m_normalizedAnswer;
-    NSString * m_currentAnswer;
-    NSMutableArray * m_startLetters;
-    
-    NSDate * m_lastHelpDate;
 }
 
 @property (nonatomic, retain) id<PGameListener> listener;

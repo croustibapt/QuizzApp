@@ -22,9 +22,6 @@
     //Keyboard
     int m_nbKeyboardRows;
     int m_nbLettersInKeyboardRow;
-    
-    UIView * m_answerView;
-    UIView * m_keyboardView;
 }
 
 @property (nonatomic, retain) UIView * answerView;

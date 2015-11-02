@@ -23,14 +23,6 @@
 
 @implementation GameViewController
 
-@synthesize pack = m_pack;
-@synthesize level = m_level;
-@synthesize isZoomed;
-@synthesize adView = m_adView;
-@synthesize gameView = m_gameView;
-@synthesize scrollView = m_scrollView;
-@synthesize replay;
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -164,19 +156,18 @@
 #pragma mark - Sound
 
 - (void)threadPlaySound:(NSString *)fileName {
-    @autoreleasepool {
-        @synchronized(m_audioPlayer) {
-            NSURL * wellDoneFile = [NSURL fileURLWithPath:[MAIN_BUNDLE pathForResource:fileName ofType:@"mp3"]];
-            m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
-            [m_audioPlayer play];
-        }
-    }
+    
 }
 
 - (void)playSoundWithFileName:(NSString *)fileName {
     if ([Constants isSoundActivated]) {
-        //Play sound
-        [NSThread detachNewThreadSelector:@selector(threadPlaySound:) toTarget:self withObject:fileName];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+            @synchronized(m_audioPlayer) {
+                NSURL * wellDoneFile = [NSURL fileURLWithPath:[MAIN_BUNDLE pathForResource:fileName ofType:@"mp3"]];
+                m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
+                [m_audioPlayer play];
+            }
+        });
     }
 }
 
@@ -250,7 +241,7 @@
         
         NSString * subject = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil), appName];
         
-        NSString * messageBody = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), NSLocalizedStringFromTableInBundle(@"STR_MOVIE", nil, MAIN_BUNDLE, nil), m_pack.title, appName];
+        NSString * messageBody = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), NSLocalizedStringFromTableInBundle(@"STR_MOVIE", nil, MAIN_BUNDLE, nil), self.pack.title, appName];
         
         [controller setSubject:subject];
         [controller setMessageBody:messageBody isHTML:NO];
@@ -315,10 +306,10 @@
     //If pack is completed
     if (packCompleted) {
         //Check level completed
-        [m_level refreshCompleted];
+        [self.level refreshCompleted];
         
         //If no replay and level just finished
-        if (!self.replay && m_level.isCompleted) {
+        if (!self.replay && self.level.isCompleted) {
             //Play sound
             [self playSoundWithFileName:@"finish"];
             
@@ -561,7 +552,7 @@
         m_ready = YES;
     }
     
-    if (!m_pack.isCompleted && [HelpViewController doesNeedHelp]) {
+    if (!self.pack.isCompleted && [HelpViewController doesNeedHelp]) {
         [self showHelp];
     }
 }

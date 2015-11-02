@@ -16,7 +16,6 @@
 #import "Level.h"
 
 @interface LevelsViewController : PSUICollectionViewController <PLevelDownloadListener, MBProgressHUDDelegate> {
-    NSMutableDictionary * m_levels;
     MBProgressHUD * HUD;
     Boolean m_refreshButtonEnabled;
 }

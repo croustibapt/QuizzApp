@@ -19,9 +19,6 @@
 
 @implementation HelpViewController
 
-@synthesize helpScrollView = m_helpScrollView;
-@synthesize pageControl = m_pageControl;
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -57,7 +54,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
-    [m_pageControl setCurrentPage:pageIndex];
+    [self.pageControl setCurrentPage:pageIndex];
 }
 
 #pragma mark - UI
@@ -101,7 +98,7 @@
         NSString * labelName = [NSString stringWithFormat:@"STR_HELP_LABEL%d", (i + 1)];
         [label setText:[NSLocalizedStringFromTableInBundle(labelName, nil, QUIZZ_APP_STRING_BUNDLE, nil) uppercaseString]];
         
-        [label setTextColor:[QuizzApp instance].oppositeThirdColor];
+        [label setTextColor:[QuizzApp sharedInstance].oppositeThirdColor];
         [helpContentView addSubview:label];
         
         //Image
@@ -117,8 +114,8 @@
     }
     
     //Scroll view
-    [m_helpScrollView setContentSize:CGSizeMake(scrollViewWidth, self.view.frame.size.height)];
-    [m_helpScrollView addSubview:helpContentView];
+    [self.helpScrollView setContentSize:CGSizeMake(scrollViewWidth, self.view.frame.size.height)];
+    [self.helpScrollView addSubview:helpContentView];
 }
 
 - (void)viewDidLoad {
@@ -128,16 +125,12 @@
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     //Page control
-    [m_pageControl setCurrentPage:0];
+    [self.pageControl setCurrentPage:0];
     
     //
     
     UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     [self.navigationItem setRightBarButtonItem:doneItem];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 @end

@@ -9,16 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface BaseLevel : NSObject {
-    NSDate * m_releaseDate;
-    NSString * m_language;
-    NSString * m_md5;
-    
-#pragma mark - Extra
-    
-    NSString * m_extra1;
-    NSString * m_extra2;
-    NSString * m_extra3;
-    
     NSDictionary * m_basePacks;
 }
 

@@ -12,9 +12,7 @@
 #import "Pack.h"
 #import "Difficulty.h"
 
-@interface PackMedia : NSObject {
-    
-}
+@interface PackMedia : NSObject
 
 @property (nonatomic, readwrite) int packId;
 

@@ -45,7 +45,7 @@
     CGPoint bottomMiddle = CGPointMake(middle2, height);
     CGPoint bottomRight = CGPointMake(width, height);
     
-    QuizzApp * quizzApp = [QuizzApp instance];
+    QuizzApp * quizzApp = [QuizzApp sharedInstance];
     
     //Background
     CGContextBeginPath(ctx);

@@ -18,10 +18,7 @@
 #import "BackViewController.h"
 #import "Level.h"
 
-@interface GameViewController : BackViewController <UIScrollViewDelegate, PGameListener, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate> {
-    Pack * m_pack;
-    Level * m_level;
-    
+@interface GameViewController : BackViewController <UIScrollViewDelegate, PGameListener, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate> {    
     GameAnswerView * m_gameAnswerView;
     NSInteger m_currentMediaIndex;
     NSMutableArray * m_posterViews;
@@ -31,9 +28,6 @@
     UISwipeGestureRecognizer * m_swipeDownGestureRecognizer;
     
     MBProgressHUD * HUD;
-    UIView * m_adView;
-    UIView * m_gameView;
-    UIScrollView * m_scrollView;
     
 #pragma mark - Sound
     

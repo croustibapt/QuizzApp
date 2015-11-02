@@ -9,17 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface Media : NSObject {
-    NSString * m_title;
-    NSString * m_rects;
-    NSArray * m_topLeftBlurRects;
-    NSArray * m_bottomRightBlurRects;
-    NSString * m_language;
-    NSString * m_strVariants;
-    NSArray * m_variants;
-    Boolean m_isCompleted;
-    Boolean m_isRemoteCompleted;
-}
+@interface Media : NSObject
 
 @property (nonatomic, readwrite) int identifier;
 

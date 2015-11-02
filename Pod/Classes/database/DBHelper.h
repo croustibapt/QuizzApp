@@ -14,7 +14,6 @@
 @protected
     //SQLITE database
     sqlite3 * m_database;
-    NSString * m_databasePath;
 }
 
 @property (nonatomic, retain) NSString * databasePath;

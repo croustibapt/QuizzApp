@@ -11,9 +11,7 @@
 #import "BaseLevel.h"
 
 @interface Level : BaseLevel {
-    NSDictionary * m_packs;
     float progression;
-//    Boolean m_isCompleted;
 }
 
 @property (nonatomic, retain) NSDictionary * packs;

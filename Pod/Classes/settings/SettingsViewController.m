@@ -53,8 +53,6 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
 @implementation SettingsViewController
 
-@synthesize tableView = m_tableView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -69,7 +67,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     NSString * nibName = ExtensionName(@"ProgressViewController");
 
     //Create progress controller
-    QuizzApp * quizzApp = [QuizzApp instance];
+    QuizzApp * quizzApp = [QuizzApp sharedInstance];
     
     ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:NO];
     
@@ -153,7 +151,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     if (indexPath.section == ESettingsSectionActions) {
         if (indexPath.row == ESettingsParametersRowLanguage) {
             //Language
-            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_flag" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp instance].secondColor]];
+            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_flag" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_CHANGE_LANGUAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             [cell.detailTextLabel setText:NSLocalizedStringFromTableInBundle([Utils currentLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             
@@ -161,17 +159,17 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
         } else if (indexPath.row == ESettingsParametersRowSound) {
             //Sound
             if ([Constants isSoundActivated]) {
-                [cell.imageView setImage:[UtilsImage imageNamed:@"ic_sound" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp instance].secondColor]];
+                [cell.imageView setImage:[UtilsImage imageNamed:@"ic_sound" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_DISABLE_SOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             } else {
-                [cell.imageView setImage:[UtilsImage imageNamed:@"ic_mute" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp instance].secondColor]];
+                [cell.imageView setImage:[UtilsImage imageNamed:@"ic_mute" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_ENABLE_SOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             }
         }
     } else if (indexPath.section == ESettingsSectionGame) {
         if (indexPath.row == ESettingsGameRowLogin) {
             //Login
-            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_google_plus" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp instance].secondColor]];
+            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_google_plus" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             
             if ([[ProgressManager instance] isConnected]) {
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
@@ -181,7 +179,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
             }
         } else if (indexPath.row == ESettingsGameRowHelp) {
             //Website
-            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_how_to" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp instance].secondColor]];
+            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_how_to" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_HOW_TO_PLAY", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             
             [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -195,7 +193,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     } else if (indexPath.section == ESettingsSectionMore) {
         if (indexPath.row == ESettingsMoreRowSuggest) {
             //Propose
-            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_suggest_pack" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp instance].secondColor]];
+            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_suggest_pack" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_SUGGEST_PACK", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
