@@ -8,7 +8,6 @@
 
 #import "LevelsViewController.h"
 
-#import "PSTCollectionViewCell.h"
 #import "LevelCell.h"
 #import "HeaderCell.h"
 #import "FooterCell.h"
@@ -22,10 +21,7 @@
 #import "UtilsImage.h"
 #import "BackView.h"
 
-@interface LevelsViewController () {
-    MBProgressHUD * HUD;
-    Boolean m_refreshButtonEnabled;
-}
+@interface LevelsViewController () 
 
 @end
 
@@ -68,7 +64,7 @@
 }
 
 - (id)initWithLevels:(NSMutableDictionary *)aLevels andRefreshButtonEnabled:(Boolean)refreshButtonEnabled {
-    PSTCollectionViewLayout * layout = [PSUICollectionViewFlowLayout new];
+    UICollectionViewFlowLayout * layout = [UICollectionViewFlowLayout new];
     self = [super initWithCollectionViewLayout:layout];
     
     if (self) {
@@ -163,11 +159,11 @@
 
 #pragma mark - PSTCollectionView
 
-- (NSInteger)numberOfSectionsInCollectionView:(PSTCollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return MAX([self.levels count], 1);
 }
 
-- (NSInteger)collectionView:(PSTCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if ([self.levels count] > 0) {
         NSDictionary * levels = [self getLevels:(int)section];
         return [levels count];
@@ -176,7 +172,7 @@
     }
 }
 
-- (PSTCollectionViewCell *)collectionView:(PSTCollectionView *)aCollectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)aCollectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     LevelCell * cell = [aCollectionView dequeueReusableCellWithReuseIdentifier:@"level_cell" forIndexPath:indexPath];
     NSDictionary * levels = [self getLevels:(int)indexPath.section];
     
@@ -202,11 +198,11 @@
     return nbFinishedLevels;
 }
 
-- (PSUICollectionReusableView *)collectionView:(PSUICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
 	NSString * identifier = nil;
-    PSUICollectionReusableView * supplementaryView = nil;
+    UICollectionReusableView * supplementaryView = nil;
 
-	if ([kind isEqualToString:PSTCollectionElementKindSectionHeader]) {
+	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
 		identifier = @"header";
         supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
         
@@ -233,7 +229,7 @@
         }
         
         [((HeaderCell *)supplementaryView).title setText:title];
-	} else if ([kind isEqualToString:PSTCollectionElementKindSectionFooter]) {
+	} else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
 		identifier = @"footer";
         supplementaryView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:identifier forIndexPath:indexPath];
 	}
@@ -248,7 +244,7 @@
     [self.navigationController pushViewController:packsViewController animated:YES];
 }
 
-- (void)collectionView:(PSTCollectionView *)aCollectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)aCollectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [aCollectionView deselectItemAtIndexPath:indexPath animated:YES];
 
     NSDictionary * levels = [self getLevels:(int)indexPath.section];
@@ -272,47 +268,47 @@
     }
 }
 
-- (BOOL)collectionView:(PSTCollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
 //    NSLog(@"shouldHighlightItemAtIndexPath");
-    PSTCollectionViewCell * cell = [collectionView cellForItemAtIndexPath:indexPath];
+    UICollectionViewCell * cell = [collectionView cellForItemAtIndexPath:indexPath];
     
     [((LevelCell *)cell) setTouched:YES];
     return YES;
 }
 
-- (void)collectionView:(PSTCollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
 //    NSLog(@"didUnhighlightItemAtIndexPath");
-    PSTCollectionViewCell * cell = [collectionView cellForItemAtIndexPath:indexPath];
+    UICollectionViewCell * cell = [collectionView cellForItemAtIndexPath:indexPath];
     
     [((LevelCell *)cell) setTouched:NO];
 }
 
 #pragma mark - PSTCollectionViewDelegateFlowLayout
 
-- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     float padding = PixelsSize(3.0 * 10.0);
     float width = (self.view.frame.size.width - padding) / 2.0;
     return CGSizeMake(width, PixelsSize(90.0));
 }
 
-- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return PixelsSize(5.0);
 }
 
-- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return PixelsSize(10.0);
 }
 
-- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     float height = PixelsSize(40.0);
     return CGSizeMake(self.view.frame.size.width, height);
 }
 
-//- (CGSize)collectionView:(PSTCollectionView *)collectionView layout:(PSTCollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
 //    return CGSizeMake(320, 5);
 //}
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(PSTCollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(PixelsSize(10.0), PixelsSize(10.0), PixelsSize(10.0), PixelsSize(10.0));
 }
 
@@ -426,8 +422,8 @@
     [self.collectionView setBackgroundColor:[UIColor clearColor]];
     
     [self.collectionView registerClass:[LevelCell class] forCellWithReuseIdentifier:@"level_cell"];
-    [self.collectionView registerClass:[HeaderCell class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-    [self.collectionView registerClass:[FooterCell class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    [self.collectionView registerClass:[HeaderCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    [self.collectionView registerClass:[FooterCell class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     
     //Background
     BackView * backgroundImageView = [[BackView alloc] initWithFrame:self.view.frame];

@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <Google/Analytics.h>
 
-#import "PSTCollectionView.h"
-#import "PSTCollectionViewController.h"
 #import "PLevelDownloadListener.h"
 #import "MBProgressHUD.h"
 #import "Level.h"
 
-@interface LevelsViewController : PSUICollectionViewController <PLevelDownloadListener, MBProgressHUDDelegate>
+@interface LevelsViewController : UICollectionViewController <PLevelDownloadListener, MBProgressHUDDelegate> {
+    
+@protected
+    MBProgressHUD * HUD;
+    Boolean m_refreshButtonEnabled;
+}
 
 @property (nonatomic, retain) NSMutableDictionary * levels;
 

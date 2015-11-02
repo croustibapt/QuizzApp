@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PSTCollectionView.h"
-
-@interface HeaderCell : PSUICollectionReusableView
+@interface HeaderCell : UICollectionReusableView
 
 @property (nonatomic, retain) UILabel * title;
 

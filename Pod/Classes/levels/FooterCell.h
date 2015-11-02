@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PSTCollectionView.h"
-
-@interface FooterCell : PSUICollectionReusableView
+@interface FooterCell : UICollectionReusableView
 
 @end

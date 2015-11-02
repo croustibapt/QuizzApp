@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PSTCollectionView.h"
 #import "Level.h"
 
-@interface LevelCell : PSUICollectionViewCell
+@interface LevelCell : UICollectionViewCell
 
 @property (nonatomic, readwrite) Boolean touched;
 
