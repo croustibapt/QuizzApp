@@ -15,6 +15,13 @@
 #import "Utils.h"
 #import "Constants.h"
 
+@interface LetterButton() {
+    CGRect m_startFrame;
+    CGRect m_destinationFrame;
+}
+
+@end
+
 @implementation LetterButton
 
 - (id)initWithFrame:(CGRect)frame andKey:(NSString *)aKey andGameAnswerView:(GameAnswerView *)aGameAnswerView {

@@ -8,12 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FlatButton : UIButton {
-    Boolean m_isTouched;
-    
-    UIColor * m_frontColor;
-    UIColor * m_backColor;
-}
+@interface FlatButton : UIButton
 
 @property (nonatomic, readwrite) Boolean isTouched;
 

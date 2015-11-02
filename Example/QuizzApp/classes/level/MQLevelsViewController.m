@@ -14,7 +14,10 @@ int const MQ_RELEASE_DATE = 1415612737;
 #import "MQConstants.h"
 #import "GameDBHelper.h"
 
-@interface MQLevelsViewController ()
+@interface MQLevelsViewController () {
+    CGRect m_startCollectionViewFrame;
+    FlatButton * m_flatButton;
+}
 
 @end
 

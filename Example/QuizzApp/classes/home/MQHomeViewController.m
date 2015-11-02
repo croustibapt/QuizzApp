@@ -15,7 +15,9 @@
 #import "GameProvider.h"
 #import "QuizzApp.h"
 
-@interface MQHomeViewController ()
+@interface MQHomeViewController () {
+    UIButton * m_tvShowQuizzButton;
+}
 
 @end
 

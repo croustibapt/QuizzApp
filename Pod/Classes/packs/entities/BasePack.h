@@ -9,18 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface BasePack : NSObject {
-    NSString * m_title;
-    
-#pragma mark - Extra
-    
-    NSString * m_extra1;
-    NSString * m_extra2;
-    NSString * m_extra3;
-    
-    Boolean m_isCompleted;
-    Boolean m_isRemoteCompleted;
-}
+@interface BasePack : NSObject
 
 @property (nonatomic, readwrite) int identifier;
 

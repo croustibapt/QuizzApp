@@ -14,6 +14,18 @@
 #import "BasePack.h"
 #import "QuizzApp.h"
 
+@interface LevelCell() {
+    Boolean m_downloaded;
+    Boolean m_touched;
+    CGRect m_originFrame;
+    
+    UILabel * m_pack1Label;
+    UILabel * m_pack2Label;
+    UILabel * m_pack3Label;
+}
+
+@end
+
 @implementation LevelCell
 
 @synthesize touched = m_touched;

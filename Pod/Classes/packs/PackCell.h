@@ -11,23 +11,7 @@
 #import "Pack.h"
 #import "DotView.h"
 
-@interface PackCell : UITableViewCell {
-    Boolean m_contentViewInitialized;
-    Boolean m_touched;
-    CGRect m_originFrame;
-    
-    UIView * m_postersView;
-    UIImageView * m_poster1;
-    UIImageView * m_poster2;
-    UIImageView * m_poster3;
-    UILabel * m_nameLabel;
-    UILabel * m_pointsLabel;
-    UILabel * m_finishedLabel;
-    NSArray * m_dotsCollection;
-    
-    UIColor * m_mainColor;
-    UIColor * m_secondColor;
-}
+@interface PackCell : UITableViewCell
 
 @property (nonatomic, retain) IBOutlet UIView * postersView;
 

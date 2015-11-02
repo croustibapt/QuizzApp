@@ -22,14 +22,6 @@ ProgressManager * s_progressManagerInstance;
 USERPREF_IMPL(NSNumber *, AuthDeclinedGooglePreviously, [NSNumber numberWithBool:NO]);
 USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
-@synthesize currentlySigningIn;
-@synthesize currentlyGamesSigningIn;
-@synthesize currentlySyncing;
-@synthesize clientId = m_clientId;
-@synthesize progressionKey = m_progressionKey;
-@synthesize listener;
-@synthesize userId = m_userId;
-
 + (ProgressManager *)instance {
     if (s_progressManagerInstance == nil) {
         s_progressManagerInstance = [[ProgressManager alloc] init];
@@ -292,9 +284,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getPrefsProgressionData {
     NSData * progressData = nil;
     
-    if (m_userId != nil) {
+    if (self.userId != nil) {
         NSDictionary * prefsProgression = [ProgressManager getProgressData];
-        progressData = [prefsProgression objectForKey:m_userId];
+        progressData = [prefsProgression objectForKey:self.userId];
     }
     
     return progressData;
@@ -458,10 +450,10 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //            data = [progression JSONDataWithOptions:JKSerializeOptionNone error:&error];
         }
         
-        if ((data != nil) && (m_userId != nil)) {
+        if ((data != nil) && (self.userId != nil)) {
             //First save it in UsersPref
             NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
-            [prefsProgression setObject:data forKey:m_userId];
+            [prefsProgression setObject:data forKey:self.userId];
             [ProgressManager setProgressData:prefsProgression];
 
 #warning TO PORT

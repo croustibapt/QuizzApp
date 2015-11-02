@@ -8,8 +8,6 @@
 
 #import "HomeViewController.h"
 
-@interface MQHomeViewController : HomeViewController {
-    UIButton * m_tvShowQuizzButton;
-}
+@interface MQHomeViewController : HomeViewController
 
 @end

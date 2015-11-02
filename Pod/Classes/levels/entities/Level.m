@@ -12,6 +12,10 @@
 #import "GameDBHelper.h"
 #import "Utils.h"
 
+@interface Level()
+
+@end
+
 @implementation Level
 
 - (id)initWithIdentifier:(int)aIdentifier andPacks:(NSDictionary *)aPacks {

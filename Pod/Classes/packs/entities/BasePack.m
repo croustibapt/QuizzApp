@@ -13,18 +13,7 @@
 
 @implementation BasePack
 
-@synthesize identifier;
-@synthesize title = m_title;
-@synthesize levelId;
-@synthesize extra1 = m_extra1;
-@synthesize extra2 = m_extra2;
-@synthesize extra3 = m_extra3;
-@synthesize fExtra1;
-@synthesize fExtra2;
-@synthesize fExtra3;
-@synthesize difficulty;
 @synthesize isCompleted = m_isCompleted;
-@synthesize isRemoteCompleted = m_isRemoteCompleted;
 
 - (id)initWithIdentifier:(int)aIdentifier andTitle:(NSString *)aTitle andLevelId:(int)aLevelId andExtra1:(NSString *)aExtra1 andExtra2:(NSString *)aExtra2 andExtra3:(NSString *)aExtra3 andFExtra1:(float)aFExtra1 andFExtra2:(float)aFExtra2 andFExtra3:(float)aFExtra3 andDifficulty:(float)aDifficulty {
     self = [super init];
@@ -92,7 +81,7 @@
     //Check if the user is connected
     Boolean userIsConnected = [[ProgressManager instance] isConnected];
     
-    return ((!userIsConnected && m_isCompleted) /*|| isMovieQuizz1Completed*/ || m_isRemoteCompleted);
+    return ((!userIsConnected && m_isCompleted) /*|| isMovieQuizz1Completed*/ || self.isRemoteCompleted);
 }
 
 - (void)setIsCompleted:(Boolean)isCompleted {

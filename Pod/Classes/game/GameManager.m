@@ -14,16 +14,25 @@
 #import "Constants.h"
 #import "ProgressManager.h"
 
-GameManager * s_gameManagerInstance;
+@interface GameManager() {
+    NSMutableArray * m_randomLetters;
+    NSInteger m_currentRandomLetterIndex;
+    NSMutableArray * m_chosenLetterButtonsKeys;
+}
+
+@end
 
 @implementation GameManager
 
-+ (GameManager *)instance {
-    if (s_gameManagerInstance == nil) {
-        s_gameManagerInstance = [[GameManager alloc] init];
-    }
++ (GameManager *)sharedInstance {
+    static GameManager * s_sharedGameManagerInstance = nil;
+    static dispatch_once_t onceToken;
     
-    return s_gameManagerInstance;
+    dispatch_once(&onceToken, ^{
+        s_sharedGameManagerInstance = [[self alloc] init];
+    });
+    
+    return s_sharedGameManagerInstance;
 }
 
 - (id)init {

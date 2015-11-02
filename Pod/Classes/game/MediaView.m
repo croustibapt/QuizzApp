@@ -14,6 +14,13 @@
 #import "UtilsImage.h"
 #import "Constants.h"
 
+@interface MediaView() {
+    Media * m_media;
+    StatusLabel * m_statusLabel;
+}
+
+@end
+
 @implementation MediaView
 
 @synthesize media = m_media;

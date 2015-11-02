@@ -22,10 +22,6 @@
 
 @implementation PacksViewController
 
-@synthesize tableView = m_tableView;
-@synthesize level = m_level;
-@synthesize packs = m_packs;
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -185,7 +181,7 @@
         Pack * pack = [self.packs objectAtIndex:sectionId];
         [pack restart];
         
-        [m_level setIsCompleted:NO];
+        [self.level setIsCompleted:NO];
         
         //        [pack refreshCompleted];
         

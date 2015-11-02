@@ -14,10 +14,7 @@
 
 @implementation Pack
 
-@synthesize author = m_author;
-@synthesize language = m_language;
 @synthesize medias = m_medias;
-@synthesize possiblePoints;
 
 + (Pack *)Pack {
     Pack * pack = [[Pack alloc] init];

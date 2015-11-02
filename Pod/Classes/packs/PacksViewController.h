@@ -12,11 +12,7 @@
 #import "BackViewController.h"
 #import "Pack.h"
 
-@interface PacksViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate> {
-    Level * m_level;
-    NSArray * m_packs;
-    UITableView * m_tableView;
-}
+@interface PacksViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITableView * tableView;
 

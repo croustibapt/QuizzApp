@@ -11,10 +11,7 @@
 #import "Media.h"
 #import "StatusLabel.h"
 
-@interface MediaView : UIView {
-    Media * m_media;
-    StatusLabel * m_statusLabel;
-}
+@interface MediaView : UIView
 
 @property (nonatomic, readwrite) int levelId;
 

@@ -11,18 +11,7 @@
 #import "BaseLevel.h"
 #import "PLevelDownloadListener.h"
 
-@interface LevelDownloader : NSObject <NSURLConnectionDelegate> {
-    BaseLevel * m_level;
-    id<PLevelDownloadListener> m_listener;
-    
-    NSString * m_unzipPath;
-    
-    NSURLConnection * m_connection;
-    NSMutableData * m_data;
-    
-    int m_currentDownloadSize;
-    Boolean m_continue;
-}
+@interface LevelDownloader : NSObject <NSURLConnectionDelegate>
 
 + (void)downloadLevelWithLevel:(BaseLevel *)level andListener:(id<PLevelDownloadListener>)listener;
 

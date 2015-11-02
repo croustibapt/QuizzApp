@@ -18,12 +18,7 @@ static int const kErrorCodeFromUserDecliningSignIn = -1;
 #import "PProgressGamesListener.h"
 #import "Constants.h"
 
-@interface ProgressManager : NSObject <GIDSignInDelegate, GPGStatusDelegate> {
-    NSString * m_clientId;
-    NSNumber * m_progressionKey;
-        
-    NSString * m_userId;
-}
+@interface ProgressManager : NSObject <GIDSignInDelegate, GPGStatusDelegate>
 
 USERPREF_DECL(NSNumber *, AuthDeclinedGooglePreviously);
 USERPREF_DECL(NSDictionary *, ProgressData);

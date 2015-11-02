@@ -11,10 +11,7 @@
 #import "Preferences.h"
 #import "FlatButton.h"
 
-@interface MQLevelsViewController : LevelsViewController {
-    CGRect m_startCollectionViewFrame;
-    FlatButton * m_flatButton;
-}
+@interface MQLevelsViewController : LevelsViewController
 
 USERPREF_DECL(NSNumber *, HasLocalLevels);
 

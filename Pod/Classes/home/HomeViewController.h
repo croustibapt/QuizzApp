@@ -17,10 +17,7 @@ typedef void (^HomeViewControllerLoadLevelsCompletionHandler)(void);
 #import "Preferences.h"
 #import "FlatButton.h"
 
-@interface HomeViewController : BackViewController <MBProgressHUDDelegate, UIAlertViewDelegate> {    
-    MBProgressHUD * HUD;
-    NSString * m_lastLanguage;
-}
+@interface HomeViewController : BackViewController <MBProgressHUDDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIButton * startButton;
 

@@ -10,6 +10,12 @@
 
 #import "GameDBHelper.h"
 
+@interface BaseLevel() {
+    NSDictionary * m_basePacks;
+}
+
+@end
+
 @implementation BaseLevel
 
 @synthesize basePacks = m_basePacks;

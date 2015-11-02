@@ -22,7 +22,10 @@
 #import "UtilsImage.h"
 #import "BackView.h"
 
-@interface LevelsViewController ()
+@interface LevelsViewController () {
+    MBProgressHUD * HUD;
+    Boolean m_refreshButtonEnabled;
+}
 
 @end
 

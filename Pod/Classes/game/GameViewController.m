@@ -17,7 +17,27 @@
 #import "UtilsImage.h"
 #import "HelpViewController.h"
 
-@interface GameViewController ()
+@interface GameViewController () {
+    GameAnswerView * m_gameAnswerView;
+    NSInteger m_currentMediaIndex;
+    NSMutableArray * m_posterViews;
+    
+    UITapGestureRecognizer * m_tapGestureRecognizer;
+    UISwipeGestureRecognizer * m_swipeUpGestureRecognizer;
+    UISwipeGestureRecognizer * m_swipeDownGestureRecognizer;
+    
+    MBProgressHUD * HUD;
+    
+#pragma mark - Sound
+    
+    AVAudioPlayer * m_audioPlayer;
+    
+#pragma mark - Ad
+    
+    ADBannerView * m_bannerView;
+    
+    Boolean m_ready;
+}
 
 @end
 
@@ -492,7 +512,7 @@
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     //Game listener
-    [[GameManager instance] setListener:self];
+    [[GameManager sharedInstance] setListener:self];
     
     //Tap
     m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGameViewTapped:)];

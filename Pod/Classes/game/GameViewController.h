@@ -18,27 +18,7 @@
 #import "BackViewController.h"
 #import "Level.h"
 
-@interface GameViewController : BackViewController <UIScrollViewDelegate, PGameListener, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate> {    
-    GameAnswerView * m_gameAnswerView;
-    NSInteger m_currentMediaIndex;
-    NSMutableArray * m_posterViews;
-    
-    UITapGestureRecognizer * m_tapGestureRecognizer;
-    UISwipeGestureRecognizer * m_swipeUpGestureRecognizer;
-    UISwipeGestureRecognizer * m_swipeDownGestureRecognizer;
-    
-    MBProgressHUD * HUD;
-    
-#pragma mark - Sound
-    
-    AVAudioPlayer * m_audioPlayer;
-    
-#pragma mark - Ad
-    
-    ADBannerView * m_bannerView;
-    
-    Boolean m_ready;
-}
+@interface GameViewController : BackViewController <UIScrollViewDelegate, PGameListener, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UIView * adView;
 

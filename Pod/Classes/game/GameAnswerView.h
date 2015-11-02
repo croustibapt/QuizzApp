@@ -10,19 +10,7 @@
 
 #import "Media.h"
 
-@interface GameAnswerView : UIView {
-    //UI
-    NSMutableArray * m_letterLabels;
-    NSMutableDictionary * m_letterButtons;
-    
-    //Answer
-    NSInteger m_nbAnswerRows;
-    int m_nbLettersInAnswerRow;
-    
-    //Keyboard
-    int m_nbKeyboardRows;
-    int m_nbLettersInKeyboardRow;
-}
+@interface GameAnswerView : UIView
 
 @property (nonatomic, retain) UIView * answerView;
 

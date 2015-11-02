@@ -33,16 +33,6 @@ typedef enum {
 
 @implementation ProgressViewController
 
-@synthesize signInButton = m_signInButton;
-@synthesize statusLabel = m_statusLabel;
-@synthesize activityIndicatorView = m_activityIndicatorView;
-@synthesize informationLabel = m_informationLabel;
-@synthesize syncButton = m_syncButton;
-@synthesize gameImageView = m_gameImageView;
-@synthesize clientId = m_clientId;
-@synthesize progressionKey = m_progressionKey;
-@synthesize autoSignIn;
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -151,12 +141,12 @@ typedef enum {
 #pragma mark - PProgressAuthListener
 
 - (void)showHideIndicator:(Boolean)start {
-    [m_activityIndicatorView setHidden:!start];
+    [self.activityIndicatorView setHidden:!start];
     
     if (start) {
-        [m_activityIndicatorView startAnimating];
+        [self.activityIndicatorView startAnimating];
     } else {
-        [m_activityIndicatorView stopAnimating];
+        [self.activityIndicatorView stopAnimating];
     }
 }
 
@@ -186,17 +176,17 @@ typedef enum {
     Boolean canInteract = (!isSigningIn && !isGamesSigningIn && !isSyncing);
     
     //Enabled only if not signing in (auth or games)
-    [m_signInButton setEnabled:canInteract];
+    [self.signInButton setEnabled:canInteract];
     
     //Button title
     Boolean isSignedIn = [GPGManager sharedInstance].isSignedIn;
     NSString * buttonTitle = (isSignedIn ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
     
-    [m_signInButton setTitle:buttonTitle forState:UIControlStateNormal];
-    [m_signInButton setTitle:buttonTitle forState:UIControlStateDisabled];
+    [self.signInButton setTitle:buttonTitle forState:UIControlStateNormal];
+    [self.signInButton setTitle:buttonTitle forState:UIControlStateDisabled];
     
     //Sync button
-    [m_syncButton setEnabled:(isSignedIn && canInteract)];
+    [self.syncButton setEnabled:(isSignedIn && canInteract)];
     
     if (isSignedIn) {
         [self.signInButton setFrontColor:QUIZZ_APP_RED_MAIN_COLOR];
@@ -397,7 +387,7 @@ typedef enum {
     //Game image
     NSString * gameImageName = ExtensionName(@"game_header");
     
-    [m_gameImageView setImage:[UtilsImage imageNamed:gameImageName bundle:QUIZZ_APP_IMAGE_BUNDLE]];
+    [self.gameImageView setImage:[UtilsImage imageNamed:gameImageName bundle:QUIZZ_APP_IMAGE_BUNDLE]];
     
     float labelFont = PixelsSize(15.0);
     
@@ -424,7 +414,7 @@ typedef enum {
     }
     
     //Sync button
-    [m_syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
+    [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
     
     //Sign in button
     [self.signInButton.titleLabel setTextAlignment:NSTextAlignmentCenter];

@@ -11,15 +11,7 @@
 #import "PSTCollectionView.h"
 #import "Level.h"
 
-@interface LevelCell : PSUICollectionViewCell {
-    Boolean m_downloaded;
-    Boolean m_touched;
-    CGRect m_originFrame;
-    
-    UILabel * m_pack1Label;
-    UILabel * m_pack2Label;
-    UILabel * m_pack3Label;
-}
+@interface LevelCell : PSUICollectionViewCell
 
 @property (nonatomic, readwrite) Boolean touched;
 

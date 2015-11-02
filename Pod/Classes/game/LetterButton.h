@@ -11,10 +11,7 @@
 
 @class GameAnswerView;
 
-@interface LetterButton : UIButton {
-    CGRect m_startFrame;
-    CGRect m_destinationFrame;
-}
+@interface LetterButton : UIButton
 
 @property (nonatomic, retain) NSString * key;
 

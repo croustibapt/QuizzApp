@@ -10,9 +10,7 @@
 
 #import "BaseLevel.h"
 
-@interface Level : BaseLevel {
-    float progression;
-}
+@interface Level : BaseLevel
 
 @property (nonatomic, retain) NSDictionary * packs;
 

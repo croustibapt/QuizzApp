@@ -10,11 +10,7 @@
 
 #import "BasePack.h"
 
-@interface Pack : BasePack {    
-    NSString * m_author;
-    NSString * m_language;
-    NSArray * m_medias;
-}
+@interface Pack : BasePack
 
 @property (nonatomic, retain) NSString * author;
 

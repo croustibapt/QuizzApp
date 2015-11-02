@@ -13,22 +13,7 @@
 #import "BackViewController.h"
 #import "FlatButton.h"
 
-@interface ProgressViewController : BackViewController <PProgressAuthListener, PProgressGamesListener, UIWebViewDelegate> {
-    NSString * m_clientId;
-    NSNumber * m_progressionKey;
-    NSString * m_leaderBoardId;
-    
-    FlatButton * m_signInButton;
-    UILabel * m_statusLabel;
-    UIActivityIndicatorView * m_activityIndicatorView;
-    UILabel * m_informationLabel;
-    
-    FlatButton * m_syncButton;
-    
-    UIImageView * m_gameImageView;
-    
-    UINavigationController * m_loginNavigationController;
-}
+@interface ProgressViewController : BackViewController <PProgressAuthListener, PProgressGamesListener, UIWebViewDelegate>
 
 @property (nonatomic, retain) IBOutlet FlatButton * signInButton;
 

@@ -15,6 +15,21 @@
 #import "LevelDBHelper.h"
 #import "GameDBHelper.h"
 
+@interface LevelDownloader() {
+    BaseLevel * m_level;
+    id<PLevelDownloadListener> m_listener;
+    
+    NSString * m_unzipPath;
+    
+    NSURLConnection * m_connection;
+    NSMutableData * m_data;
+    
+    int m_currentDownloadSize;
+    Boolean m_continue;
+}
+
+@end
+
 @implementation LevelDownloader
 
 - (id)initWithLevel:(BaseLevel *)level andListener:(id<PLevelDownloadListener>)listener {

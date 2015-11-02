@@ -15,10 +15,7 @@
 #import "MBProgressHUD.h"
 #import "Level.h"
 
-@interface LevelsViewController : PSUICollectionViewController <PLevelDownloadListener, MBProgressHUDDelegate> {
-    MBProgressHUD * HUD;
-    Boolean m_refreshButtonEnabled;
-}
+@interface LevelsViewController : PSUICollectionViewController <PLevelDownloadListener, MBProgressHUDDelegate>
 
 @property (nonatomic, retain) NSMutableDictionary * levels;
 

@@ -14,19 +14,17 @@
 #import "Constants.h"
 #import "UtilsImage.h"
 
+@interface PackCell() {
+    Boolean m_contentViewInitialized;
+    Boolean m_touched;
+    CGRect m_originFrame;
+}
+
+@end
+
 @implementation PackCell
 
-@synthesize postersView = m_postersView;
-@synthesize poster1 = m_poster1;
-@synthesize poster2 = m_poster2;
-@synthesize poster3 = m_poster3;
-@synthesize nameLabel = m_nameLabel;
-@synthesize pointsLabel = m_pointsLabel;
-@synthesize finishedLabel = m_finishedLabel;
-@synthesize dotsCollection = m_dotsCollection;
 @synthesize touched = m_touched;
-@synthesize mainColor = m_mainColor;
-@synthesize secondColor = m_secondColor;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -163,9 +161,9 @@
     }
     
     //Finished image    
-    [m_finishedLabel setText:NSLocalizedStringFromTableInBundle(@"STR_FINISHED", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    [m_finishedLabel setHidden:!pack.isCompleted];
-    [m_finishedLabel setBackgroundColor:QUIZZ_APP_FOUND_COLOR];
+    [self.finishedLabel setText:NSLocalizedStringFromTableInBundle(@"STR_FINISHED", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    [self.finishedLabel setHidden:!pack.isCompleted];
+    [self.finishedLabel setBackgroundColor:QUIZZ_APP_FOUND_COLOR];
     
     //Images
     [self setPosters:pack];

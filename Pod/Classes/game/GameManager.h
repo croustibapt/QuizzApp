@@ -18,11 +18,7 @@ typedef enum {
     EQuizzAppCheckWordNone,
 } EQuizzAppCheckWord;
 
-@interface GameManager : NSObject <PProgressGamesListener> {
-    NSMutableArray * m_randomLetters;
-    NSInteger m_currentRandomLetterIndex;
-    NSMutableArray * m_chosenLetterButtonsKeys;
-}
+@interface GameManager : NSObject <PProgressGamesListener>
 
 @property (nonatomic, retain) id<PGameListener> listener;
 
@@ -46,7 +42,7 @@ typedef enum {
 
 @property (nonatomic, retain) NSDate * lastHelpDate;
 
-+ (GameManager *)instance;
++ (GameManager *)sharedInstance;
 
 - (void)resetWithMedia:(Media *)media andPackId:(int)packId andNbRows:(int)nbRows andNbColumns:(int)nbColums;
 

@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DotView : UIView {
-    UIColor * m_color;
-}
+@interface DotView : UIView
 
 @property (nonatomic, retain) UIColor * color;
 

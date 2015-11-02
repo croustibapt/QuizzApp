@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BaseLevel : NSObject {
-    NSDictionary * m_basePacks;
-}
+@interface BaseLevel : NSObject
 
 @property (nonatomic, readwrite) int identifier;
 

@@ -27,7 +27,10 @@ int const AUTH_ALERT_VIEW = 0;
 #import "SettingsViewController.h"
 #import "UtilsImage.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () {
+    MBProgressHUD * HUD;
+    NSString * m_lastLanguage;
+}
 
 @end
 
