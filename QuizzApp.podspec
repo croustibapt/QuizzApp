@@ -30,7 +30,7 @@ QuizzApp description
     s.platform     = :ios, '7.0'
     s.requires_arc = true
 
-    s.source_files = 'Pod/Classes/**/*.{m,mm,h,c}'
+    s.source_files = 'Pod/Classes/**/*.{m,h}'
     s.resource_bundles = {
         'QuizzAppXib' => ['Pod/Assets/xib/**/*.{xib}'],
         'QuizzAppImage' => ['Pod/Assets/images/**/*.{png}'],
@@ -48,5 +48,6 @@ QuizzApp description
     s.dependency 'MBProgressHUD', '~> 0.9.1'
     s.dependency 'GooglePlayGames'
     s.dependency 'Google/Analytics', '~> 1.0.0'
+    s.dependency 'ZipArchive'
 
 end
