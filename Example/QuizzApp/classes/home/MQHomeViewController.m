@@ -43,7 +43,7 @@
     NSMutableDictionary * levels = [LevelsViewController getLevelsWithMinId:MOVIE_QUIZZ_IOS_START_ID andMaxId:INT16_MAX];
             
     //Main thread
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
+    dispatch_async(dispatch_get_main_queue(), ^(void){
         MQLevelsViewController * levelsViewController = [[MQLevelsViewController alloc] initWithLevels:levels];
         [self.navigationController pushViewController:levelsViewController animated:YES];
         

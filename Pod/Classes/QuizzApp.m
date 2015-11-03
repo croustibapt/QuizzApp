@@ -21,4 +21,12 @@
     return s_sharedQuizzAppInstance;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.gameManager = [[GameManager alloc] init];
+    }
+    return self;
+}
+
 @end

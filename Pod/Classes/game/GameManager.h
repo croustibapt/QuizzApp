@@ -42,8 +42,6 @@ typedef enum {
 
 @property (nonatomic, retain) NSDate * lastHelpDate;
 
-+ (GameManager *)sharedInstance;
-
 - (void)resetWithMedia:(Media *)media andPackId:(int)packId andNbRows:(int)nbRows andNbColumns:(int)nbColums;
 
 - (Boolean)canType;

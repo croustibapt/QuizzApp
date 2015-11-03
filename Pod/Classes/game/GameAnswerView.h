@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class GameManager;
+
 #import "Media.h"
 
 @interface GameAnswerView : UIView
@@ -15,6 +17,10 @@
 @property (nonatomic, retain) UIView * answerView;
 
 @property (nonatomic, retain) UIView * keyboardView;
+
+@property (nonatomic, weak) GameManager * gameManager;
+
+- (instancetype)initWithFrame:(CGRect)frame andGameManager:(GameManager *)gameManager;
 
 - (CGRect)initializeWithMedia:(Media *)media andPackId:(int)packId andParentView:(UIView *)parentView andReset:(Boolean)reset andReplay:(Boolean)replay;
 

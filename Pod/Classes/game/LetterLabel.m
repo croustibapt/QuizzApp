@@ -27,7 +27,7 @@
         
         [self setTextColor:[UIColor whiteColor]];
 
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
             if (!self.goodString || [aGoodLetter isEqualToString:@" "]) {
     //            [self setBackgroundColor:[QuizzApp instance].oppositeSecondColor];
                 [self setBackgroundColor:[UIColor clearColor]];
@@ -49,7 +49,7 @@
 }
 
 - (void)setFound:(Boolean)found {
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
+    dispatch_async(dispatch_get_main_queue(), ^(void){
         m_found = found;
         
         if (m_found) {

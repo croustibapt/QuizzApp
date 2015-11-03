@@ -357,9 +357,7 @@
 #pragma mark - IBAction
 
 - (void)mainShowRefreshError {
-    //Popup connectivity
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
-    [alertView show];
+    
 }
 
 - (void)threadRefreshLevels {
@@ -369,7 +367,11 @@
             //Refresh list
             [self refresh:NO];
         } else {
-            [self performSelectorOnMainThread:@selector(mainShowRefreshError) withObject:nil waitUntilDone:YES];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                //Popup connectivity
+                UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+                [alertView show];
+            });
         }
     }
 }

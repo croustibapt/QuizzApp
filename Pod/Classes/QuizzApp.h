@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "GameManager.h"
+
 @interface QuizzApp : NSObject
 
 @property (nonatomic, retain) NSString * appId;
@@ -34,6 +36,10 @@
 @property (nonatomic, retain) UIColor * oppositeThirdColor;
 
 @property (nonatomic, retain) NSString * gameServiceName;
+
+#pragma mark - Game
+
+@property (nonatomic, retain) GameManager * gameManager;
 
 + (QuizzApp *)sharedInstance;
 

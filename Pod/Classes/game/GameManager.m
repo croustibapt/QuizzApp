@@ -24,17 +24,6 @@
 
 @implementation GameManager
 
-+ (GameManager *)sharedInstance {
-    static GameManager * s_sharedGameManagerInstance = nil;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^{
-        s_sharedGameManagerInstance = [[self alloc] init];
-    });
-    
-    return s_sharedGameManagerInstance;
-}
-
 - (id)init {
     self = [super init];
     if (self) {

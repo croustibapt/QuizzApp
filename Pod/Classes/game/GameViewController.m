@@ -16,6 +16,7 @@
 #import "LevelsViewController.h"
 #import "UtilsImage.h"
 #import "HelpViewController.h"
+#import "QuizzApp.h"
 
 @interface GameViewController () {
     GameAnswerView * m_gameAnswerView;
@@ -181,7 +182,7 @@
 
 - (void)playSoundWithFileName:(NSString *)fileName {
     if ([Constants isSoundActivated]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             @synchronized(m_audioPlayer) {
                 NSURL * wellDoneFile = [NSURL fileURLWithPath:[MAIN_BUNDLE pathForResource:fileName ofType:@"mp3"]];
                 m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
@@ -369,7 +370,9 @@
         [self.view setUserInteractionEnabled:NO];
         
         //Else go to next uncompleted media
-        [self performSelector:@selector(nextPoster) withObject:nil afterDelay:QUIZZ_APP_MEDIA_FOUND_DURATION];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, QUIZZ_APP_MEDIA_FOUND_DURATION * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self nextPoster];
+        });
     }
 }
 
@@ -512,7 +515,8 @@
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     //Game listener
-    [[GameManager sharedInstance] setListener:self];
+    GameManager * gameManager = [QuizzApp sharedInstance].gameManager;
+    [gameManager setListener:self];
     
     //Tap
     m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGameViewTapped:)];
@@ -524,7 +528,7 @@
     [self.gameView addGestureRecognizer:m_tapGestureRecognizer];
     
     //Answer view
-    m_gameAnswerView = [[GameAnswerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0)];
+    m_gameAnswerView = [[GameAnswerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0) andGameManager:gameManager];
     [self.gameView addSubview:m_gameAnswerView];
     
     //Up

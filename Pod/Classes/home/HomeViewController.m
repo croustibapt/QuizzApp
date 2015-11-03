@@ -73,11 +73,11 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (void)loadLevels:(HomeViewControllerLoadLevelsCompletionHandler)completionHandler {
     //Background thread
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         NSMutableDictionary * levels = [LevelsViewController getLevels];
         
         //Main thread
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
+        dispatch_async(dispatch_get_main_queue(), ^(void){
             LevelsViewController * levelsViewController = [[LevelsViewController alloc] initWithLevels:levels];
             [self.navigationController pushViewController:levelsViewController animated:YES];
             
@@ -169,7 +169,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     
     //Init game information
     if (![GameProvider start]) {
-        [self performSelectorOnMainThread:@selector(showInitErrorAlertView) withObject:nil waitUntilDone:YES];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self showInitErrorAlertView];
+        });
     }
     
     m_lastLanguage = [Utils currentLanguage];
@@ -179,36 +181,6 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     QuizzApp * quizzApp = [QuizzApp instance];
     [self initAnalytics:quizzApp.googleAnalyticsId];
 #endif
-}
-
-- (void)mainOnInitDone {
-    //Labels
-    [self reinitLabels];
-    
-    if (IS_IOS_7) {
-        if ([[HomeViewController getAuthWanted] boolValue]) {
-            //Show progress view controller
-            [self showProgressViewController];
-        } else {
-            
-            //Check if we can notify the user
-            if (![[HomeViewController getAuthAlertShown] boolValue]) {
-                [self showAuthAlertView];
-            }
-        }
-    }
-    
-    [HUD hide:YES];
-}
-
-- (void)threadInitApplication {
-    @autoreleasepool {
-        //Super initialization
-        [self initApplication];
-        
-        //Labels
-        [self performSelectorOnMainThread:@selector(mainOnInitDone) withObject:nil waitUntilDone:YES];
-    }
 }
 
 #pragma mark - UIAlertView
@@ -340,8 +312,32 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
         [HUD setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
         
         [HUD show:YES];
-        [NSThread detachNewThreadSelector:@selector(threadInitApplication) toTarget:self withObject:nil];
-        //        [HUD showWhileExecuting:@selector(threadInitApplication) onTarget:self withObject:nil animated:YES];
+        
+        //Background job
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            //Super initialization
+            [self initApplication];
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                //Labels
+                [self reinitLabels];
+                
+                if (IS_IOS_7) {
+                    if ([[HomeViewController getAuthWanted] boolValue]) {
+                        //Show progress view controller
+                        [self showProgressViewController];
+                    } else {
+                        
+                        //Check if we can notify the user
+                        if (![[HomeViewController getAuthAlertShown] boolValue]) {
+                            [self showAuthAlertView];
+                        }
+                    }
+                }
+                
+                [HUD hide:YES];
+            });
+        });
     }
     
     [self reinitLabels];

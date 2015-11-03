@@ -38,9 +38,11 @@
 
 @implementation GameAnswerView
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame andGameManager:(GameManager *)gameManager {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setGameManager:gameManager];
+        
         m_letterButtons = [[NSMutableDictionary alloc] init];
         m_letterLabels = [[NSMutableArray alloc] init];
         
@@ -160,7 +162,7 @@
         [m_letterLabels removeAllObjects];
         for (UIView * view in self.answerView.subviews) {
             //UI Thread
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^(void){
                 [view removeFromSuperview];
             });
         }
@@ -192,7 +194,7 @@
                         }
                     }
                     
-                    dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    dispatch_async(dispatch_get_main_queue(), ^(void){
                         //UI Thread
                         [self.answerView addSubview:letterView];
                     });
@@ -262,7 +264,7 @@
     }
     
     //Get the n first letters
-    NSMutableArray * startLetters = [GameManager sharedInstance].startLetters;
+    NSMutableArray * startLetters = self.gameManager.startLetters;
     
     //Loop for each button
     for (int row = 0; row < m_nbKeyboardRows; row++) {
@@ -347,7 +349,7 @@
     m_nbLettersInKeyboardRow = floor(keyboardBaseWidth/KEYBOARD_ELEMENT_SIZE) - 1;
     
     //Reset the GameManager
-    [[GameManager sharedInstance] resetWithMedia:media andPackId:packId andNbRows:m_nbKeyboardRows andNbColumns:m_nbLettersInKeyboardRow];
+    [self.gameManager resetWithMedia:media andPackId:packId andNbRows:m_nbKeyboardRows andNbColumns:m_nbLettersInKeyboardRow];
     
     //Create answer view
     [self createAnswerView:media andReplay:replay];
@@ -378,41 +380,41 @@
 }
 
 - (void)revealCurrentWord {
-    for (int i = 0; i < [GameManager sharedInstance].nbLettersFound; i++) {
+    for (int i = 0; i < self.gameManager.nbLettersFound; i++) {
         LetterLabel * letterLabel = [m_letterLabels objectAtIndex:i];
         [letterLabel setFound:YES];
     }
 }
 
 - (void)showBadAnswer {
-    for (int i = 0; i < [GameManager sharedInstance].currentWord.length; i++) {
-        LetterLabel * letterLabel = [m_letterLabels objectAtIndex:i + [GameManager sharedInstance].nbLettersFound];
+    for (int i = 0; i < self.gameManager.currentWord.length; i++) {
+        LetterLabel * letterLabel = [m_letterLabels objectAtIndex:i + self.gameManager.nbLettersFound];
         [letterLabel setBad:YES];
     }
 }
 
 - (void)hideBadAnswer {
-    for (int i = 0; i < [GameManager sharedInstance].currentAnswer.length; i++) {
-        LetterLabel * letterLabel = [m_letterLabels objectAtIndex:i + [GameManager sharedInstance].nbLettersFound];
+    for (int i = 0; i < self.gameManager.currentAnswer.length; i++) {
+        LetterLabel * letterLabel = [m_letterLabels objectAtIndex:i + self.gameManager.nbLettersFound];
         [letterLabel setBad:NO];
     }
 }
 
 - (IBAction)onLetterPressed:(id)sender {
-    if ([[GameManager sharedInstance] canType]) {
+    if ([self.gameManager canType]) {
         //Get the corresponding LetterButton
         LetterButton * letterButton = (LetterButton *)sender;
         
         //
         NSString * chosenLetter = letterButton.titleLabel.text;
-        NSInteger letterLabelIndex = [[GameManager sharedInstance] onLetterPressed:letterButton.key andLetter:chosenLetter];
+        NSInteger letterLabelIndex = [self.gameManager onLetterPressed:letterButton.key andLetter:chosenLetter];
         
         //Check letter
         if (letterLabelIndex < [m_letterLabels count]) {
             LetterLabel * letterLabel = [m_letterLabels objectAtIndex:letterLabelIndex];
             [letterLabel type:chosenLetter];
             
-            NSString * letter = [[GameManager sharedInstance] getNextRandomLetter];
+            NSString * letter = [self.gameManager getNextRandomLetter];
             if (letter != nil) {                
                 [letterButton showLetter:letter];
             } else {
@@ -421,7 +423,7 @@
         }
         
         //Check current word
-        EQuizzAppCheckWord checkWord = [[GameManager sharedInstance] checkWord];
+        EQuizzAppCheckWord checkWord = [self.gameManager checkWord];
         if (checkWord == EQuizzAppCheckWordFound) {
             [self revealCurrentWord];
         } else if (checkWord == EQuizzAppCheckWordWrong) {
@@ -431,18 +433,18 @@
 }
 
 - (IBAction)onDelete:(id)sender {
-    if ([[GameManager sharedInstance] canDelete]) {
+    if ([self.gameManager canDelete]) {
         //Hide bad answer
         [self hideBadAnswer];
         
-        NSInteger letterLabelIndex = [[GameManager sharedInstance] onDelete];
+        NSInteger letterLabelIndex = [self.gameManager onDelete];
         
         //Get the last filled label
         LetterLabel * label = [m_letterLabels objectAtIndex:letterLabelIndex];
         NSString * letter = label.text;
         
         //Get the last chosen letter key
-        NSString * key = [[GameManager sharedInstance] getLastKey];
+        NSString * key = [self.gameManager getLastKey];
         
         //Get the related LetterButton
         LetterButton * lastLetterButton = [m_letterButtons objectForKey:key];
@@ -454,7 +456,7 @@
 }
 
 - (void)highlightGoodLetters {
-    NSString * word = [GameManager sharedInstance].currentWord;
+    NSString * word = self.gameManager.currentWord;
     
     for (NSString * key in m_letterButtons) {
         LetterButton * letterButton = [m_letterButtons objectForKey:key];
@@ -465,8 +467,8 @@
         }
     }
     
-    NSInteger start = [GameManager sharedInstance].nbLettersFound;
-    NSInteger end = start + [[GameManager sharedInstance].currentWord length];
+    NSInteger start = self.gameManager.nbLettersFound;
+    NSInteger end = start + [self.gameManager.currentWord length];
     
     for (NSInteger i = start; i < end; i++) {
         LetterLabel * letterLabel = [m_letterLabels objectAtIndex:i];
@@ -475,19 +477,19 @@
 }
 
 - (IBAction)onShuffle:(id)sender {
-    [self onMediaChangedWithMedia:[GameManager sharedInstance].currentMedia andPackId:[GameManager sharedInstance].currentPackId andReset:NO andReplay:NO];
+    [self onMediaChangedWithMedia:self.gameManager.currentMedia andPackId:self.gameManager.currentPackId andReset:NO andReplay:NO];
 }
 
 - (IBAction)onHelp:(id)sender {
     int timeInterval = INT_MAX;
     
-    NSDate * lastHelpDate = [GameManager sharedInstance].lastHelpDate;
+    NSDate * lastHelpDate = self.gameManager.lastHelpDate;
     if (lastHelpDate != nil) {
         timeInterval = (int)round([[NSDate date] timeIntervalSinceDate:lastHelpDate]);
     }
     
     if (timeInterval >= QUIZZ_APP_HELP_LIMIT) {
-        [[GameManager sharedInstance] setLastHelpDate:[NSDate date]];
+        [self.gameManager setLastHelpDate:[NSDate date]];
         [self highlightGoodLetters];
     } else {
         //Popup
