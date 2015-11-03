@@ -1,6 +1,6 @@
 # QuizzApp
 
-[![CI Status](http://img.shields.io/travis/Baptiste LE GUELVOUIT/QuizzApp.svg?style=flat)](https://travis-ci.org/Baptiste LE GUELVOUIT/QuizzApp)
+[![CI Status](http://img.shields.io/travis/croustibapt/QuizzApp.svg?style=flat)](https://travis-ci.org/croustibapt/QuizzApp)
 [![Version](https://img.shields.io/cocoapods/v/QuizzApp.svg?style=flat)](http://cocoapods.org/pods/QuizzApp)
 [![License](https://img.shields.io/cocoapods/l/QuizzApp.svg?style=flat)](http://cocoapods.org/pods/QuizzApp)
 [![Platform](https://img.shields.io/cocoapods/p/QuizzApp.svg?style=flat)](http://cocoapods.org/pods/QuizzApp)
