@@ -73,7 +73,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
     
-    [self presentModalViewController:navigationController animated:YES];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Help
@@ -84,7 +84,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE];
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
     
-    [self presentModalViewController:navigationController animated:YES];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (int)nbOtherGames {

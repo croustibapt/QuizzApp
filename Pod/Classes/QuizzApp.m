@@ -29,4 +29,23 @@
     return self;
 }
 
+- (void)initializeWithGameServiceName:(NSString *)gameServiceName appId:(NSString *)appId googlePlayClientId:(NSString *)googlePlayClientId googlePlayProgressionKey:(NSNumber *)googlePlayProgressionKey googlePlayLeaderBoardId:(NSString *)googlePlayLeaderBoardId googleAnalyticsId:(NSString *)googleAnalyticsId mainColor:(UIColor *)mainColor secondColor:(UIColor *)secondColor thirdColor:(UIColor *)thirdColor oppositeMainColor:(UIColor *)oppositeMainColor oppositeSecondColor:(UIColor *)oppositeSecondColor oppositeThirdColor:(UIColor *)oppositeThirdColor {
+    [self setGameServiceName:gameServiceName];
+    
+    [self setAppId:appId];
+    [self setGooglePlayClientId:googlePlayClientId];
+    [self setGooglePlayProgressionKey:googlePlayProgressionKey];
+    [self setGooglePlayLeaderBoardId:googlePlayLeaderBoardId];
+    
+    [self setGoogleAnalyticsId:googleAnalyticsId];
+    
+    [self setMainColor:mainColor];
+    [self setSecondColor:secondColor];
+    [self setThirdColor:thirdColor];
+    
+    [self setOppositeMainColor:oppositeMainColor];
+    [self setOppositeSecondColor:oppositeSecondColor];
+    [self setOppositeThirdColor:oppositeThirdColor];
+}
+
 @end

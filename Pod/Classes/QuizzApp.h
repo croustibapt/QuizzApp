@@ -13,6 +13,8 @@
 
 @interface QuizzApp : NSObject
 
+@property (nonatomic, retain) NSString * gameServiceName;
+
 @property (nonatomic, retain) NSString * appId;
 
 @property (nonatomic, retain) NSString * googlePlayClientId;
@@ -35,12 +37,12 @@
 
 @property (nonatomic, retain) UIColor * oppositeThirdColor;
 
-@property (nonatomic, retain) NSString * gameServiceName;
-
 #pragma mark - Game
 
 @property (nonatomic, retain) GameManager * gameManager;
 
 + (QuizzApp *)sharedInstance;
+
+- (void)initializeWithGameServiceName:(NSString *)gameServiceName appId:(NSString *)appId googlePlayClientId:(NSString *)googlePlayClientId googlePlayProgressionKey:(NSNumber *)googlePlayProgressionKey googlePlayLeaderBoardId:(NSString *)googlePlayLeaderBoardId googleAnalyticsId:(NSString *)googleAnalyticsId mainColor:(UIColor *)mainColor secondColor:(UIColor *)secondColor thirdColor:(UIColor *)thirdColor oppositeMainColor:(UIColor *)oppositeMainColor oppositeSecondColor:(UIColor *)oppositeSecondColor oppositeThirdColor:(UIColor *)oppositeThirdColor;
 
 @end

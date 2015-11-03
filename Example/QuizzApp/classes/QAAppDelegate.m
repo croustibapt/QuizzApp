@@ -50,18 +50,8 @@
 
 - (void)initializeQuizzApp {
     QuizzApp * quizzApp = [QuizzApp sharedInstance];
-    [quizzApp setAppId:MOVIE_QUIZZ_APP_ID];
-    [quizzApp setGooglePlayClientId:MOVIE_QUIZZ_GOOGLE_PLAY_CLIENT_ID];
-    [quizzApp setGooglePlayProgressionKey:MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY];
-    [quizzApp setGooglePlayLeaderBoardId:MOVIE_QUIZZ_GOOGLE_PLAY_LEADER_BOARD_ID];
-    [quizzApp setGoogleAnalyticsId:MOVIE_QUIZZ_GOOGLE_ANALYTICS_ID];
-    [quizzApp setMainColor:MOVIE_QUIZZ_MAIN_COLOR];
-    [quizzApp setSecondColor:MOVIE_QUIZZ_SECOND_COLOR];
-    [quizzApp setThirdColor:MOVIE_QUIZZ_THIRD_COLOR];
-    [quizzApp setOppositeMainColor:MOVIE_QUIZZ_OPPOSITE_MAIN_COLOR];
-    [quizzApp setOppositeSecondColor:MOVIE_QUIZZ_OPPOSITE_SECOND_COLOR];
-    [quizzApp setOppositeThirdColor:MOVIE_QUIZZ_OPPOSITE_THIRD_COLOR];
-    [quizzApp setGameServiceName:MOVIE_QUIZZ_SERVICE_NAME];
+    
+    [quizzApp initializeWithGameServiceName:MOVIE_QUIZZ_SERVICE_NAME appId:MOVIE_QUIZZ_APP_ID googlePlayClientId:MOVIE_QUIZZ_GOOGLE_PLAY_CLIENT_ID googlePlayProgressionKey:MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY googlePlayLeaderBoardId:MOVIE_QUIZZ_GOOGLE_PLAY_LEADER_BOARD_ID googleAnalyticsId:MOVIE_QUIZZ_GOOGLE_ANALYTICS_ID mainColor:MOVIE_QUIZZ_MAIN_COLOR secondColor:MOVIE_QUIZZ_SECOND_COLOR thirdColor:MOVIE_QUIZZ_THIRD_COLOR oppositeMainColor:MOVIE_QUIZZ_OPPOSITE_MAIN_COLOR oppositeSecondColor:MOVIE_QUIZZ_OPPOSITE_SECOND_COLOR oppositeThirdColor:MOVIE_QUIZZ_OPPOSITE_THIRD_COLOR];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
