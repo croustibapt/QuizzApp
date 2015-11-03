@@ -14,13 +14,13 @@
 
 @interface PackMedia : NSObject
 
-@property (nonatomic, readwrite) int packId;
+@property (nonatomic) int packId;
 
-@property (nonatomic, readwrite) int mediaId;
+@property (nonatomic) int mediaId;
 
-@property (nonatomic, readwrite) int position;
+@property (nonatomic) int position;
 
-@property (nonatomic, readwrite) float fExtra1;
+@property (nonatomic) float fExtra1;
 
 + (PackMedia *)packMediaWithPackId:(int)packId andMediaId:(int)mediaId andPosition:(int)position andFextra1:(float)fExtra1;
 

@@ -223,7 +223,7 @@
     
     m_currentRandomLetterIndex++;
     
-    [self.listener onLetterPressed:NO];
+    [self.delegate onLetterPressed:NO];
     
     NSInteger letterLabelIndex = (self.currentAnswer.length - 1) + self.nbLettersFound;
     return letterLabelIndex;
@@ -251,7 +251,7 @@
     //Update current answer
     [self setCurrentAnswer:[self.currentAnswer substringToIndex:(self.currentAnswer.length - 1)]];
     
-    [self.listener onLetterPressed:YES];
+    [self.delegate onLetterPressed:YES];
     
     return letterLabelIndex;
 }
@@ -269,9 +269,9 @@
     NSDictionary * instantProgression = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:mediaId]] forKey:packKey];
     
     //And save progression online
-    [[ProgressManager instance] saveProgressionWithListener:self andInstantProgression:instantProgression];
+    [[ProgressManager instance] saveProgressionWithDelegate:self andInstantProgression:instantProgression];
     
-    [self.listener onMediaFound:media];
+    [self.delegate onMediaFound:media];
 }
 
 - (EQuizzAppCheckWord)checkWord {
@@ -296,8 +296,8 @@
             
             //Go to next word
             if (self.currentWordIndex < [self.words count]) {
-                //Notify listener
-                [self.listener onGoodWord:self.currentWord];
+                //Notify delegate
+                [self.delegate onGoodWord:self.currentWord];
                 
                 [self setCurrentWord:[self.words objectAtIndex:self.currentWordIndex]];
             } else {
@@ -308,8 +308,8 @@
     }
     
     if (returnValue == EQuizzAppCheckWordWrong) {
-        //Notify listener
-        [self.listener onBadWord];
+        //Notify delegate
+        [self.delegate onBadWord];
     }
     
     return returnValue;
@@ -322,7 +322,7 @@
     return key;
 }
 
-#pragma mark - PProgressGamesListener
+#pragma mark - ProgressGameDelegate
 
 - (void)onGamesSaveDoneWithError:(NSError *)error {
     

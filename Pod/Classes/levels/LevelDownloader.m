@@ -17,7 +17,7 @@
 
 @interface LevelDownloader() {
     BaseLevel * m_level;
-    id<PLevelDownloadListener> m_listener;
+    id<LevelDownloadDelegate> m_delegate;
     
     NSString * m_unzipPath;
     
@@ -32,11 +32,11 @@
 
 @implementation LevelDownloader
 
-- (id)initWithLevel:(BaseLevel *)level andListener:(id<PLevelDownloadListener>)listener {
+- (id)initWithLevel:(BaseLevel *)level andDelegate:(id<LevelDownloadDelegate>)delegate {
     self = [super init];
     if (self) {
         m_level = level;
-        m_listener = listener;
+        m_delegate = delegate;
         m_data = [[NSMutableData alloc] init];
         m_currentDownloadSize = 0;
         
@@ -46,8 +46,8 @@
     return self;
 }
 
-+ (void)downloadLevelWithLevel:(BaseLevel *)level andListener:(id<PLevelDownloadListener>)listener {
-    LevelDownloader * levelDownloader = [[LevelDownloader alloc] initWithLevel:level andListener:listener];
++ (void)downloadLevelWithLevel:(BaseLevel *)level andDelegate:(id<LevelDownloadDelegate>)delegate {
+    LevelDownloader * levelDownloader = [[LevelDownloader alloc] initWithLevel:level andDelegate:delegate];
     [levelDownloader downloadLevel];
 }
 
@@ -94,8 +94,8 @@
         [m_data appendData:data];
         m_currentDownloadSize += [data length];
         
-        //Notify listener
-        [m_listener onDownloadProgressWithProgress:m_currentDownloadSize andTotal:m_level.zipSize andLevel:m_level];
+        //Notify delegate
+        [m_delegate onDownloadProgressWithProgress:m_currentDownloadSize andTotal:m_level.zipSize andLevel:m_level];
     }
 }
 
@@ -136,20 +136,20 @@
     }
     
     if (errorOccured) {
-        [m_listener onDownloadDoneWithSuccess:NO andBaseLevel:m_level];
+        [m_delegate onDownloadDoneWithSuccess:NO andBaseLevel:m_level];
     } else {
         NSString * databasePath = [NSString stringWithFormat:@"%@/level_%d.sqlite", m_unzipPath, m_level.identifier];
         
         Level * level = [LevelDBHelper getLevel:databasePath];
         [GameDBHelper addLevel:level];
         
-        [m_listener onDownloadDoneWithSuccess:YES andBaseLevel:m_level];
+        [m_delegate onDownloadDoneWithSuccess:YES andBaseLevel:m_level];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"%@", error);
-    [m_listener onDownloadDoneWithSuccess:NO andBaseLevel:m_level];
+    [m_delegate onDownloadDoneWithSuccess:NO andBaseLevel:m_level];
 }
 
 - (void)dealloc {

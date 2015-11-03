@@ -13,33 +13,33 @@
 
 @interface QuizzApp : NSObject
 
-@property (nonatomic, retain) NSString * gameServiceName;
+@property (nonatomic, strong) NSString * gameServiceName;
 
-@property (nonatomic, retain) NSString * appId;
+@property (nonatomic, strong) NSString * appId;
 
-@property (nonatomic, retain) NSString * googlePlayClientId;
+@property (nonatomic, strong) NSString * googlePlayClientId;
 
-@property (nonatomic, retain) NSNumber * googlePlayProgressionKey;
+@property (nonatomic, strong) NSNumber * googlePlayProgressionKey;
 
-@property (nonatomic, retain) NSString * googlePlayLeaderBoardId;
+@property (nonatomic, strong) NSString * googlePlayLeaderBoardId;
 
-@property (nonatomic, retain) NSString * googleAnalyticsId;
+@property (nonatomic, strong) NSString * googleAnalyticsId;
 
-@property (nonatomic, retain) UIColor * mainColor;
+@property (nonatomic, strong) UIColor * mainColor;
 
-@property (nonatomic, retain) UIColor * secondColor;
+@property (nonatomic, strong) UIColor * secondColor;
 
-@property (nonatomic, retain) UIColor * thirdColor;
+@property (nonatomic, strong) UIColor * thirdColor;
 
-@property (nonatomic, retain) UIColor * oppositeMainColor;
+@property (nonatomic, strong) UIColor * oppositeMainColor;
 
-@property (nonatomic, retain) UIColor * oppositeSecondColor;
+@property (nonatomic, strong) UIColor * oppositeSecondColor;
 
-@property (nonatomic, retain) UIColor * oppositeThirdColor;
+@property (nonatomic, strong) UIColor * oppositeThirdColor;
 
 #pragma mark - Game
 
-@property (nonatomic, retain) GameManager * gameManager;
+@property (nonatomic, strong) GameManager * gameManager;
 
 + (QuizzApp *)sharedInstance;
 

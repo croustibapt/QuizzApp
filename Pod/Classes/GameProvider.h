@@ -12,11 +12,11 @@
 
 @interface GameProvider : NSObject
 
-@property (nonatomic, retain) NSDate * levelRecentDate;
+@property (nonatomic, strong) NSDate * levelRecentDate;
 
-@property (nonatomic, retain) NSMutableDictionary * difficulties;
+@property (nonatomic, strong) NSMutableDictionary * difficulties;
 
-@property (nonatomic, retain) NSMutableDictionary * baseLevels;
+@property (nonatomic, strong) NSMutableDictionary * baseLevels;
 
 + (Boolean)start;
 

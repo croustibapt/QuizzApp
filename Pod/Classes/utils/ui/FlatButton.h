@@ -10,10 +10,10 @@
 
 @interface FlatButton : UIButton
 
-@property (nonatomic, readwrite) Boolean isTouched;
+@property (nonatomic) Boolean isTouched;
 
-@property (nonatomic, retain) UIColor * frontColor;
+@property (nonatomic, strong) UIColor * frontColor;
 
-@property (nonatomic, retain) UIColor * backColor;
+@property (nonatomic, strong) UIColor * backColor;
 
 @end

@@ -10,13 +10,13 @@
 
 @interface LetterLabel : UILabel
 
-@property (nonatomic, readwrite) Boolean goodString;
+@property (nonatomic) Boolean goodString;
 
-@property (nonatomic, retain) NSString * goodLetter;
+@property (nonatomic, strong) NSString * goodLetter;
 
-@property (nonatomic, readwrite) Boolean found;
+@property (nonatomic) Boolean found;
 
-@property (nonatomic, readwrite) Boolean bad;
+@property (nonatomic) Boolean bad;
 
 - (id)initWithFrame:(CGRect)frame andGoodLetter:(NSString *)goodLetter;
 

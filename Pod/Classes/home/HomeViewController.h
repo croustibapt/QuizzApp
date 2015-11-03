@@ -24,13 +24,13 @@ typedef void (^HomeViewControllerLoadLevelsCompletionHandler)(void);
     NSString * m_lastLanguage;
 }
 
-@property (nonatomic, retain) IBOutlet UIButton * startButton;
+@property (nonatomic, strong) IBOutlet UIButton * startButton;
 
-@property (nonatomic, retain) IBOutlet FlatButton * scoresButton;
+@property (nonatomic, strong) IBOutlet FlatButton * scoresButton;
 
-@property (nonatomic, retain) IBOutlet FlatButton * rateButton;
+@property (nonatomic, strong) IBOutlet FlatButton * rateButton;
 
-@property (nonatomic, retain) IBOutlet FlatButton * settingsButton;
+@property (nonatomic, strong) IBOutlet FlatButton * settingsButton;
 
 USERPREF_DECL(NSNumber *, AuthWanted);
 USERPREF_DECL(NSNumber *, AuthAlertShown);

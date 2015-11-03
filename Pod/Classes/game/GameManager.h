@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Media.h"
-#import "PGameListener.h"
-#import "PProgressGamesListener.h"
+#import "ProgressManager.h"
 
 typedef enum {
     EQuizzAppCheckWordFound = 1,
@@ -18,29 +17,41 @@ typedef enum {
     EQuizzAppCheckWordNone,
 } EQuizzAppCheckWord;
 
-@interface GameManager : NSObject <PProgressGamesListener>
+@protocol GameDelegate <NSObject>
 
-@property (nonatomic, retain) id<PGameListener> listener;
+- (void)onMediaFound:(Media *)media;
 
-@property (nonatomic, readwrite) int currentPackId;
+- (void)onGoodWord:(NSString *)word;
 
-@property (nonatomic, retain) Media * currentMedia;
+- (void)onBadWord;
 
-@property (nonatomic, retain) NSArray * words;
+- (void)onLetterPressed:(Boolean)back;
 
-@property (nonatomic, readwrite) int currentWordIndex;
+@end
 
-@property (nonatomic, readwrite) NSInteger nbLettersFound;
+@interface GameManager : NSObject <ProgressGameDelegate>
 
-@property (nonatomic, retain) NSString * currentWord;
+@property (nonatomic, weak) id<GameDelegate> delegate;
 
-@property (nonatomic, retain) NSString * normalizedAnswer;
+@property (nonatomic) int currentPackId;
 
-@property (nonatomic, retain) NSString * currentAnswer;
+@property (nonatomic, strong) Media * currentMedia;
 
-@property (nonatomic, retain) NSMutableArray * startLetters;
+@property (nonatomic, strong) NSArray * words;
 
-@property (nonatomic, retain) NSDate * lastHelpDate;
+@property (nonatomic) int currentWordIndex;
+
+@property (nonatomic) NSInteger nbLettersFound;
+
+@property (nonatomic, strong) NSString * currentWord;
+
+@property (nonatomic, strong) NSString * normalizedAnswer;
+
+@property (nonatomic, strong) NSString * currentAnswer;
+
+@property (nonatomic, strong) NSMutableArray * startLetters;
+
+@property (nonatomic, strong) NSDate * lastHelpDate;
 
 - (void)resetWithMedia:(Media *)media andPackId:(int)packId andNbRows:(int)nbRows andNbColumns:(int)nbColums;
 

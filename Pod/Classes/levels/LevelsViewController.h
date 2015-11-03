@@ -9,18 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <Google/Analytics.h>
 
-#import "PLevelDownloadListener.h"
 #import "MBProgressHUD.h"
 #import "Level.h"
+#import "LevelDownloader.h"
 
-@interface LevelsViewController : UICollectionViewController <PLevelDownloadListener, MBProgressHUDDelegate> {
+@interface LevelsViewController : UICollectionViewController <LevelDownloadDelegate, MBProgressHUDDelegate> {
     
 @protected
     MBProgressHUD * HUD;
     Boolean m_refreshButtonEnabled;
 }
 
-@property (nonatomic, retain) NSMutableDictionary * levels;
+@property (nonatomic, strong) NSMutableDictionary * levels;
 
 + (NSMutableDictionary *)getLevelsWithMinId:(int)minId andMaxId:(int)maxId;
 

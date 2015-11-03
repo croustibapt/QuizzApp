@@ -14,11 +14,11 @@
 
 @interface PacksViewController : BackViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UITableView * tableView;
+@property (nonatomic, strong) IBOutlet UITableView * tableView;
 
-@property (nonatomic, retain) Level * level;
+@property (nonatomic, strong) Level * level;
 
-@property (nonatomic, retain) NSArray * packs;
+@property (nonatomic, strong) NSArray * packs;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andLevel:(Level *)level;
 

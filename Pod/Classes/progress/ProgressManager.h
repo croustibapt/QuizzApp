@@ -14,28 +14,48 @@
 static int const kErrorCodeFromUserDecliningSignIn = -1;
 #define ApplicationOpenGoogleAuthNotification @"ApplicationOpenGoogleAuthNotification"
 
-#import "PProgressAuthListener.h"
-#import "PProgressGamesListener.h"
 #import "Constants.h"
+
+@protocol ProgressGameDelegate <NSObject>
+
+- (void)onGamesSaveDoneWithError:(NSError *)error;
+
+- (void)onGamesLoadDoneWithError:(NSError *)error;
+
+@end
+
+@protocol ProgressAuthDelegate <NSObject>
+
+- (void)onSignInDoneWithError:(NSError *)error;
+
+- (void)onSignOutDoneWithError:(NSError *)error;
+
+- (void)onGamesSignInDoneWithError:(NSError *)error;
+
+- (void)onGamesSignOutDoneWithError:(NSError *)error;
+
+- (void)onAuthDeclined;
+
+@end
 
 @interface ProgressManager : NSObject <GIDSignInDelegate, GPGStatusDelegate>
 
 USERPREF_DECL(NSNumber *, AuthDeclinedGooglePreviously);
 USERPREF_DECL(NSDictionary *, ProgressData);
 
-@property (nonatomic, readwrite) Boolean currentlySigningIn;
+@property (nonatomic) Boolean currentlySigningIn;
 
-@property (nonatomic, readwrite) Boolean currentlyGamesSigningIn;
+@property (nonatomic) Boolean currentlyGamesSigningIn;
 
-@property (nonatomic, readwrite) Boolean currentlySyncing;
+@property (nonatomic) Boolean currentlySyncing;
 
-@property (nonatomic, retain) NSString * clientId;
+@property (nonatomic, strong) NSString * clientId;
 
-@property (nonatomic, retain) NSNumber * progressionKey;
+@property (nonatomic, strong) NSNumber * progressionKey;
 
-@property (assign) id<PProgressAuthListener> listener;
+@property (nonatomic, weak) id<ProgressAuthDelegate> delegate;
 
-@property (nonatomic, retain) NSString * userId;
+@property (nonatomic, strong) NSString * userId;
 
 + (ProgressManager *)instance;
 
@@ -47,23 +67,23 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 - (void)setCredentialsWithClientId:(NSString *)clientId andProgressionKey:(NSNumber *)progressionKey;
 
-- (void)signInWithListener:(id<PProgressAuthListener>)listener;
+- (void)signInWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
-- (void)authenticateWithListener:(id<PProgressAuthListener>)listener;
+- (void)authenticateWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
-- (void)signOutWithListener:(id<PProgressAuthListener>)listener;
+- (void)signOutWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
 #pragma mark - GooglePlayGames
 
-- (void)signInGamesWithListener:(id<PProgressAuthListener>)listener;
+- (void)signInGamesWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
-- (void)signOutGamesWithListener:(id<PProgressAuthListener>)listener;
+- (void)signOutGamesWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
 #pragma mark - Progress
 
-- (Boolean)loadProgression:(id<PProgressGamesListener>)gamesListener;
+- (Boolean)loadProgression:(id<ProgressGameDelegate>)delegate;
 
-- (Boolean)saveProgressionWithListener:(id<PProgressGamesListener>)gamesListener andInstantProgression:(NSDictionary *)instantProgression;
+- (Boolean)saveProgressionWithDelegate:(id<ProgressGameDelegate>)delegate andInstantProgression:(NSDictionary *)instantProgression;
 
 + (NSDictionary *)getRemoteProgression;
 

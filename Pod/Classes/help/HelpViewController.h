@@ -11,9 +11,9 @@
 
 @interface HelpViewController : GAITrackedViewController <UIScrollViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UIScrollView * helpScrollView;
+@property (nonatomic, strong) IBOutlet UIScrollView * helpScrollView;
 
-@property (nonatomic, retain) IBOutlet UIPageControl * pageControl;
+@property (nonatomic, strong) IBOutlet UIPageControl * pageControl;
 
 + (Boolean)doesNeedHelp;
 

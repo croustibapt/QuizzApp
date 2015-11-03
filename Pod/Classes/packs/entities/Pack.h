@@ -12,11 +12,11 @@
 
 @interface Pack : BasePack
 
-@property (nonatomic, retain) NSString * author;
+@property (nonatomic, strong) NSString * author;
 
-@property (nonatomic, retain) NSString * language;
+@property (nonatomic, strong) NSString * language;
 
-@property (nonatomic, retain) NSArray * medias;
+@property (nonatomic, strong) NSArray * medias;
 
 @property (nonatomic, readonly) int possiblePoints;
 

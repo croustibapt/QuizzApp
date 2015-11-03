@@ -9,10 +9,17 @@
 #import <Foundation/Foundation.h>
 
 #import "BaseLevel.h"
-#import "PLevelDownloadListener.h"
+
+@protocol LevelDownloadDelegate <NSObject>
+
+- (void)onDownloadProgressWithProgress:(int)progress andTotal:(int)total andLevel:(BaseLevel *)level;
+
+- (void)onDownloadDoneWithSuccess:(Boolean)success andBaseLevel:(BaseLevel *)baseLevel;
+
+@end
 
 @interface LevelDownloader : NSObject <NSURLConnectionDelegate>
 
-+ (void)downloadLevelWithLevel:(BaseLevel *)level andListener:(id<PLevelDownloadListener>)listener;
++ (void)downloadLevelWithLevel:(BaseLevel *)level andDelegate:(id<LevelDownloadDelegate>)delegate;
 
 @end

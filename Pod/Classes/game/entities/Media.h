@@ -11,27 +11,27 @@
 
 @interface Media : NSObject
 
-@property (nonatomic, readwrite) int identifier;
+@property (nonatomic) int identifier;
 
-@property (nonatomic, retain) NSString * title;
+@property (nonatomic, strong) NSString * title;
 
-@property (nonatomic, retain) NSString * rects;
+@property (nonatomic, strong) NSString * rects;
 
-@property (nonatomic, retain) NSArray * topLeftBlurRects;
+@property (nonatomic, strong) NSArray * topLeftBlurRects;
 
-@property (nonatomic, retain) NSArray * bottomRightBlurRects;
+@property (nonatomic, strong) NSArray * bottomRightBlurRects;
 
-@property (nonatomic, readwrite) int difficulty;
+@property (nonatomic) int difficulty;
 
-@property (nonatomic, retain) NSString * language;
+@property (nonatomic, strong) NSString * language;
 
-@property (nonatomic, retain) NSString * strVariants;
+@property (nonatomic, strong) NSString * strVariants;
 
-@property (nonatomic, retain) NSArray * variants;
+@property (nonatomic, strong) NSArray * variants;
 
-@property (nonatomic, readwrite) Boolean isCompleted;
+@property (nonatomic) Boolean isCompleted;
 
-@property (nonatomic, readwrite) Boolean isRemoteCompleted;
+@property (nonatomic) Boolean isRemoteCompleted;
 
 + (Media *)Media;
 

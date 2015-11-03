@@ -13,11 +13,11 @@
 
 @interface MediaView : UIView
 
-@property (nonatomic, readwrite) int levelId;
+@property (nonatomic) int levelId;
 
-@property (nonatomic, retain) Media * media;
+@property (nonatomic, strong) Media * media;
 
-@property (nonatomic, retain) UIImageView * posterImageView;
+@property (nonatomic, strong) UIImageView * posterImageView;
 
 - (id)initWithFrame:(CGRect)frame andMedia:(Media *)media andLevelId:(int)levelId andReplay:(Boolean)replay;
 

@@ -283,7 +283,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - PGameListener
+#pragma mark - GameDelegate
 
 - (CGRect)loadIndex:(NSInteger)index animated:(Boolean)animated {
     //Scroll
@@ -514,9 +514,9 @@
 - (void)threadInitView {
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    //Game listener
+    //Game delegate
     GameManager * gameManager = [QuizzApp sharedInstance].gameManager;
-    [gameManager setListener:self];
+    [gameManager setDelegate:self];
     
     //Tap
     m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGameViewTapped:)];

@@ -16,7 +16,7 @@
     sqlite3 * m_database;
 }
 
-@property (nonatomic, retain) NSString * databasePath;
+@property (nonatomic, strong) NSString * databasePath;
 
 - (id)initWithDatabasePath:(NSString *)databasePath;
 

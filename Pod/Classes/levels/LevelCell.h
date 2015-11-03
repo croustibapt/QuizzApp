@@ -12,15 +12,15 @@
 
 @interface LevelCell : UICollectionViewCell
 
-@property (nonatomic, readwrite) Boolean touched;
+@property (nonatomic) Boolean touched;
 
-@property (nonatomic, retain) UILabel * label;
+@property (nonatomic, strong) UILabel * label;
 
-@property (nonatomic, retain) UIColor * frontColor;
+@property (nonatomic, strong) UIColor * frontColor;
 
-@property (nonatomic, retain) UIColor * backColor;
+@property (nonatomic, strong) UIColor * backColor;
 
-@property (nonatomic, readwrite) float progression;
+@property (nonatomic) float progression;
 
 - (void)initializeWithLevel:(BaseLevel *)level;
 

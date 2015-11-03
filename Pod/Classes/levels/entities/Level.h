@@ -12,7 +12,7 @@
 
 @interface Level : BaseLevel
 
-@property (nonatomic, retain) NSDictionary * packs;
+@property (nonatomic, strong) NSDictionary * packs;
 
 - (id)initWithIdentifier:(int)identifier andPacks:(NSDictionary *)packs;
 

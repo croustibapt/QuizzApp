@@ -11,12 +11,12 @@
 
 @interface BackViewController : GAITrackedViewController
 
-@property (nonatomic, retain) IBOutlet UIImageView * headerLeftImageView;
+@property (nonatomic, strong) IBOutlet UIImageView * headerLeftImageView;
 
-@property (nonatomic, retain) IBOutlet UIImageView * headerRightImageView;
+@property (nonatomic, strong) IBOutlet UIImageView * headerRightImageView;
 
-@property (nonatomic, retain) IBOutlet UIImageView * footerLeftImageView;
+@property (nonatomic, strong) IBOutlet UIImageView * footerLeftImageView;
 
-@property (nonatomic, retain) IBOutlet UIImageView * footerRightImageView;
+@property (nonatomic, strong) IBOutlet UIImageView * footerRightImageView;
 
 @end

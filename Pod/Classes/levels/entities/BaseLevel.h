@@ -10,37 +10,37 @@
 
 @interface BaseLevel : NSObject
 
-@property (nonatomic, readwrite) int identifier;
+@property (nonatomic) int identifier;
 
-@property (nonatomic, readwrite) int value;
+@property (nonatomic) int value;
 
-@property (nonatomic, readwrite) int difficultyId;
+@property (nonatomic) int difficultyId;
 
-@property (nonatomic, retain) NSDate * releaseDate;
+@property (nonatomic, strong) NSDate * releaseDate;
 
-@property (nonatomic, retain) NSString * language;
+@property (nonatomic, strong) NSString * language;
 
-@property (nonatomic, retain) NSString * md5;
+@property (nonatomic, strong) NSString * md5;
 
-@property (nonatomic, readwrite) int zipSize;
+@property (nonatomic) int zipSize;
 
-@property (nonatomic, retain) NSString * extra1;
+@property (nonatomic, strong) NSString * extra1;
 
-@property (nonatomic, retain) NSString * extra2;
+@property (nonatomic, strong) NSString * extra2;
 
-@property (nonatomic, retain) NSString * extra3;
+@property (nonatomic, strong) NSString * extra3;
 
-@property (nonatomic, readwrite) double fExtra1;
+@property (nonatomic) double fExtra1;
 
-@property (nonatomic, readwrite) double fExtra2;
+@property (nonatomic) double fExtra2;
 
-@property (nonatomic, readwrite) double fExtra3;
+@property (nonatomic) double fExtra3;
 
-@property (nonatomic, retain) NSDictionary * basePacks;
+@property (nonatomic, strong) NSDictionary * basePacks;
 
-@property (nonatomic, readwrite) Boolean isCompleted;
+@property (nonatomic) Boolean isCompleted;
 
-@property (nonatomic, readwrite) float progression;
+@property (nonatomic) float progression;
 
 @property (nonatomic, readonly) NSNumber * key;
 

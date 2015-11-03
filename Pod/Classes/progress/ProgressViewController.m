@@ -101,7 +101,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Re authenticate user
-    [[ProgressManager instance] authenticateWithListener:self];
+    [[ProgressManager instance] authenticateWithDelegate:self];
     
 }
 
@@ -110,7 +110,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign out user
-    [[ProgressManager instance] signOutGamesWithListener:self];
+    [[ProgressManager instance] signOutGamesWithDelegate:self];
 }
 
 - (void)initProgression {
@@ -118,7 +118,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[ProgressManager instance] signInWithListener:self];
+    [[ProgressManager instance] signInWithDelegate:self];
 }
 
 #pragma mark - UIAlertView
@@ -138,7 +138,7 @@ typedef enum {
     [alertView show];
 }
 
-#pragma mark - PProgressAuthListener
+#pragma mark - ProgressAuthDelegate
 
 - (void)showHideIndicator:(Boolean)start {
     [self.activityIndicatorView setHidden:!start];
@@ -213,7 +213,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Sign in scores
-        [[ProgressManager instance] signInGamesWithListener:self];
+        [[ProgressManager instance] signInGamesWithDelegate:self];
     }
     
     //Refresh sign in button state
@@ -281,7 +281,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Google+ sign out
-        [[ProgressManager instance] signOutWithListener:self];
+        [[ProgressManager instance] signOutWithDelegate:self];
     }
     
     //Refresh sign in button state
@@ -293,7 +293,7 @@ typedef enum {
     [self showHideIndicator:NO];
 }
 
-#pragma mark - PProgressGamesListener
+#pragma mark - ProgressGameDelegate
 
 - (void)onGamesSaveDoneWithError:(NSError *)error {
     //Stop loading
@@ -325,7 +325,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Try to save progression
-        if (![[ProgressManager instance] saveProgressionWithListener:self andInstantProgression:nil]) {
+        if (![[ProgressManager instance] saveProgressionWithDelegate:self andInstantProgression:nil]) {
             //Show loading
             [self showHideIndicator:NO];
             

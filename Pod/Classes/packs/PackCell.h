@@ -13,27 +13,27 @@
 
 @interface PackCell : UITableViewCell
 
-@property (nonatomic, retain) IBOutlet UIView * postersView;
+@property (nonatomic, strong) IBOutlet UIView * postersView;
 
-@property (nonatomic, retain) IBOutlet UIImageView * poster1;
+@property (nonatomic, strong) IBOutlet UIImageView * poster1;
 
-@property (nonatomic, retain) IBOutlet UIImageView * poster2;
+@property (nonatomic, strong) IBOutlet UIImageView * poster2;
 
-@property (nonatomic, retain) IBOutlet UIImageView * poster3;
+@property (nonatomic, strong) IBOutlet UIImageView * poster3;
 
-@property (nonatomic, retain) IBOutlet UILabel * nameLabel;
+@property (nonatomic, strong) IBOutlet UILabel * nameLabel;
 
-@property (nonatomic, retain) IBOutlet UILabel * pointsLabel;
+@property (nonatomic, strong) IBOutlet UILabel * pointsLabel;
 
-@property (nonatomic, retain) IBOutlet UILabel * finishedLabel;
+@property (nonatomic, strong) IBOutlet UILabel * finishedLabel;
 
-@property (nonatomic, retain) IBOutletCollection(DotView) NSArray * dotsCollection;
+@property (nonatomic, strong) IBOutletCollection(DotView) NSArray * dotsCollection;
 
-@property (nonatomic, readwrite) Boolean touched;
+@property (nonatomic) Boolean touched;
 
-@property (nonatomic, retain) UIColor * mainColor;
+@property (nonatomic, strong) UIColor * mainColor;
 
-@property (nonatomic, retain) UIColor * secondColor;
+@property (nonatomic, strong) UIColor * secondColor;
 
 - (void)initializeWithPack:(Pack *)pack;
 

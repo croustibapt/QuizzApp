@@ -18,7 +18,7 @@ typedef enum {
 
 @interface ActionButton : UIButton
 
-@property (nonatomic, readwrite) EQuizzAppAction action;
+@property (nonatomic) EQuizzAppAction action;
 
 @property (assign) GameAnswerView * gameAnswerView;
 

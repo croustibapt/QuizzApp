@@ -53,7 +53,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 - (void)cancel {
-    [self setListener:nil];
+    [self setDelegate:nil];
     
     [self setCurrentlySyncing:NO];
     [self setCurrentlyGamesSigningIn:NO];
@@ -81,9 +81,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //    [[GPGManager sharedInstance] setStatusDelegate:self];
 }
 
-- (void)signInWithListener:(id<PProgressAuthListener>)aListener {
-    //Set listener
-    [self setListener:aListener];
+- (void)signInWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
+    //Set delegate
+    [self setDelegate:aDelegate];
 
 #warning TO PORT
 //    GPPSignIn * signIn = [GPPSignIn sharedInstance];
@@ -93,29 +93,29 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         //Have we tried signing the user in before?
         Boolean previouslyDeclined = [[ProgressManager getAuthDeclinedGooglePreviously] boolValue];
         if (previouslyDeclined) {
-            //Notify listener
-            [self.listener onAuthDeclined];
+            //Notify delegate
+            [self.delegate onAuthDeclined];
         } else {
             //Re-authenticate
-            [self authenticateWithListener:aListener];
+            [self authenticateWithDelegate:aDelegate];
         }
     }
 }
 
-- (void)authenticateWithListener:(id<PProgressAuthListener>)aListener {
+- (void)authenticateWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
     self.currentlySigningIn = YES;
     
-    //Set listener
-    [self setListener:aListener];
+    //Set delegate
+    [self setDelegate:aDelegate];
 
 #warning TO PORT
 //    GPPSignIn * signIn = [GPPSignIn sharedInstance];
 //    [signIn authenticate];
 }
 
-- (void)signOutWithListener:(id<PProgressAuthListener>)aListener {
-    //Set listener
-    [self setListener:aListener];
+- (void)signOutWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
+    //Set delegate
+    [self setDelegate:aDelegate];
 
 #warning TO PORT
 //    GPPSignIn * signIn = [GPPSignIn sharedInstance];
@@ -145,7 +145,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         }
     }
     
-    [self.listener onSignInDoneWithError:error];
+    [self.delegate onSignInDoneWithError:error];
 }
 
 - (void)didDisconnectWithError:(NSError *)error {
@@ -157,16 +157,16 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         //???
     }
     
-    [self.listener onSignOutDoneWithError:error];
+    [self.delegate onSignOutDoneWithError:error];
 }
 
 #pragma mark - GooglePlayGames
 
-- (void)signInGamesWithListener:(id<PProgressAuthListener>)aListener {
+- (void)signInGamesWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
     self.currentlyGamesSigningIn = YES;
     
-    //Set listener
-    [self setListener:aListener];
+    //Set delegate
+    [self setDelegate:aDelegate];
 
 #warning TO PORT
     //The GPPSignIn object has an auth token now. Pass it to the GPGManager.
@@ -176,16 +176,16 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //        
 //        //Most likely you can refresh behind the scenes
 //        if (requiresKeychainWipe) {
-//            [self signOutWithListener:aListener];
+//            [self signOutWithDelegate:aDelegate];
 //        }
 //        
-//        [self authenticateWithListener:aListener];
+//        [self authenticateWithDelegate:aDelegate];
 //    }];
 }
 
-- (void)signOutGamesWithListener:(id<PProgressAuthListener>)aListener {
-    //Set listener
-    [self setListener:aListener];
+- (void)signOutGamesWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
+    //Set delegate
+    [self setDelegate:aDelegate];
     
     //Sign out games
     [[GPGManager sharedInstance] signOut];
@@ -201,8 +201,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         NSLog(@"ERROR signing in: %@", [error localizedDescription]);
     }
     
-    //Notify listener
-    [self.listener onGamesSignInDoneWithError:error];
+    //Notify delegate
+    [self.delegate onGamesSignInDoneWithError:error];
 }
 
 - (void)didFinishGamesSignOutWithError:(NSError *)error {
@@ -211,8 +211,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         NSLog(@"ERROR signing out: %@", [error localizedDescription]);
     }
     
-    //Notify listener
-    [self.listener onGamesSignOutDoneWithError:error];
+    //Notify delegate
+    [self.delegate onGamesSignOutDoneWithError:error];
 }
 
 #pragma mark - Progress
@@ -233,7 +233,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //    }];
 }
 
-- (Boolean)loadProgression:(id<PProgressGamesListener>)gamesListener {
+- (Boolean)loadProgression:(id<ProgressGameDelegate>)gamesDelegate {
     //    //TEMP DEBUG
     //    [self clean];
     //    return YES;
@@ -257,7 +257,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //            
 //            [self setCurrentlySyncing:NO];
 //            
-//            [gamesListener onGamesLoadDoneWithError:error];
+//            [gamesDelegate onGamesLoadDoneWithError:error];
 //        } conflictHandler:^NSData * (NSNumber * key, NSData * localState, NSData * remoteState) {
 //            //Always load remote state
 //            return remoteState;
@@ -430,7 +430,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     return mergedProgression;
 }
 
-- (Boolean)saveProgressionWithListener:(id<PProgressGamesListener>)gamesListener andInstantProgression:(NSDictionary *)instantProgression {
+- (Boolean)saveProgressionWithDelegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
     //Check if the user is connected and if we have a progression key
     if ((self.progressionKey != nil) && [GPGManager sharedInstance].isSignedIn) {
         //Notify we are syncing
@@ -467,8 +467,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //            [model updateForKey:self.progressionKey completionHandler:^(GPGAppStateWriteStatus status, NSError * error) {
 //                [self setCurrentlySyncing:NO];
 //                
-//                //Notify end to listener
-//                [gamesListener onGamesSaveDoneWithError:error];
+//                //Notify end to delegate
+//                [gamesDelegate onGamesSaveDoneWithError:error];
 //            } conflictHandler:^NSData * (NSNumber * key, NSData * localState, NSData * remoteState) {
 //                //Conflict handling
 //                return [self resolveState:localState andSecondState:remoteState];
@@ -476,8 +476,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         } else {
             [self setCurrentlySyncing:NO];
             
-            //Notify end to listener
-            [gamesListener onGamesSaveDoneWithError:nil];
+            //Notify end to delegate
+            [gamesDelegate onGamesSaveDoneWithError:nil];
         }
         
         return YES;

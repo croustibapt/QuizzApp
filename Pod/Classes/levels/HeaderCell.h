@@ -10,6 +10,6 @@
 
 @interface HeaderCell : UICollectionReusableView
 
-@property (nonatomic, retain) UILabel * title;
+@property (nonatomic, strong) UILabel * title;
 
 @end

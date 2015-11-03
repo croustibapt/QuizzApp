@@ -12,7 +12,7 @@
 
 @implementation Application
 
-- (BOOL)openURL:(NSURL*)url {
+- (BOOL)openURL:(NSURL *)url {
     if ([[url absoluteString] hasPrefix:@"googlechrome-x-callback:"]) {
         return NO;
     } else if ([[url absoluteString] hasPrefix:@"https://accounts.google.com/o/oauth2/auth"]) {

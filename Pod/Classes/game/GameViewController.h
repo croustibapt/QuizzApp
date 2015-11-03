@@ -13,26 +13,26 @@
 
 #import "GameAnswerView.h"
 #import "Pack.h"
-#import "PGameListener.h"
 #import "MBProgressHUD.h"
 #import "BackViewController.h"
 #import "Level.h"
+#import "GameManager.h"
 
-@interface GameViewController : BackViewController <UIScrollViewDelegate, PGameListener, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate>
+@interface GameViewController : BackViewController <UIScrollViewDelegate, GameDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UIView * adView;
+@property (nonatomic, strong) IBOutlet UIView * adView;
 
-@property (nonatomic, retain) IBOutlet UIView * gameView;
+@property (nonatomic, strong) IBOutlet UIView * gameView;
 
-@property (nonatomic, retain) IBOutlet UIScrollView * scrollView;
+@property (nonatomic, strong) IBOutlet UIScrollView * scrollView;
 
-@property (nonatomic, retain) Pack * pack;
+@property (nonatomic, strong) Pack * pack;
 
-@property (nonatomic, retain) Level * level;
+@property (nonatomic, strong) Level * level;
 
-@property (nonatomic, readwrite) Boolean isZoomed;
+@property (nonatomic) Boolean isZoomed;
 
-@property (nonatomic, readwrite) Boolean replay;
+@property (nonatomic) Boolean replay;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPack:(Pack *)pack andLevel:(Level *)level andReplay:(Boolean)replay;
 

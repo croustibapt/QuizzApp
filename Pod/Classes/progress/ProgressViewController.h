@@ -9,31 +9,30 @@
 #import <UIKit/UIKit.h>
 
 #import "ProgressManager.h"
-#import "PProgressAuthListener.h"
 #import "BackViewController.h"
 #import "FlatButton.h"
 
-@interface ProgressViewController : BackViewController <PProgressAuthListener, PProgressGamesListener, UIWebViewDelegate>
+@interface ProgressViewController : BackViewController <ProgressAuthDelegate, ProgressGameDelegate, UIWebViewDelegate>
 
-@property (nonatomic, retain) IBOutlet FlatButton * signInButton;
+@property (nonatomic, strong) IBOutlet FlatButton * signInButton;
 
-@property (nonatomic, retain) IBOutlet UILabel * statusLabel;
+@property (nonatomic, strong) IBOutlet UILabel * statusLabel;
 
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView * activityIndicatorView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView * activityIndicatorView;
 
-@property (nonatomic, retain) IBOutlet UILabel * informationLabel;
+@property (nonatomic, strong) IBOutlet UILabel * informationLabel;
 
-@property (nonatomic, retain) IBOutlet FlatButton * syncButton;
+@property (nonatomic, strong) IBOutlet FlatButton * syncButton;
 
-@property (nonatomic, retain) IBOutlet UIImageView * gameImageView;
+@property (nonatomic, strong) IBOutlet UIImageView * gameImageView;
 
-@property (nonatomic, retain) NSString * clientId;
+@property (nonatomic, strong) NSString * clientId;
 
-@property (nonatomic, retain) NSNumber * progressionKey;
+@property (nonatomic, strong) NSNumber * progressionKey;
 
-@property (nonatomic, retain) NSString * leaderBoardId;
+@property (nonatomic, strong) NSString * leaderBoardId;
 
-@property (nonatomic, readwrite) Boolean autoSignIn;
+@property (nonatomic) Boolean autoSignIn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSNumber *)progressionKey andAutoSignIn:(Boolean)autoSignIn;
 

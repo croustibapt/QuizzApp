@@ -10,13 +10,13 @@
 
 @interface Difficulty : NSObject
 
-@property (nonatomic, readwrite) int identifier;
+@property (nonatomic) int identifier;
 
-@property (nonatomic, retain) NSString * name;
+@property (nonatomic, strong) NSString * name;
 
-@property (nonatomic, readwrite) int enumValue;
+@property (nonatomic) int enumValue;
 
-@property (nonatomic, retain) NSString * language;
+@property (nonatomic, strong) NSString * language;
 
 - (id)initWithIdentifier:(int)identifier andName:(NSString *)name andEnumValue:(int)enumValue andLanguage:(NSString *)language;
 

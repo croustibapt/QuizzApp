@@ -11,29 +11,29 @@
 
 @interface BasePack : NSObject
 
-@property (nonatomic, readwrite) int identifier;
+@property (nonatomic) int identifier;
 
-@property (nonatomic, retain) NSString * title;
+@property (nonatomic, strong) NSString * title;
 
-@property (nonatomic, readwrite) int levelId;
+@property (nonatomic) int levelId;
 
-@property (nonatomic, retain) NSString * extra1;
+@property (nonatomic, strong) NSString * extra1;
 
-@property (nonatomic, retain) NSString * extra2;
+@property (nonatomic, strong) NSString * extra2;
 
-@property (nonatomic, retain) NSString * extra3;
+@property (nonatomic, strong) NSString * extra3;
 
-@property (nonatomic, readwrite) float fExtra1;
+@property (nonatomic) float fExtra1;
 
-@property (nonatomic, readwrite) float fExtra2;
+@property (nonatomic) float fExtra2;
 
-@property (nonatomic, readwrite) float fExtra3;
+@property (nonatomic) float fExtra3;
 
-@property (nonatomic, readwrite) float difficulty;
+@property (nonatomic) float difficulty;
 
-@property (nonatomic, readwrite) Boolean isCompleted;
+@property (nonatomic) Boolean isCompleted;
 
-@property (nonatomic, readwrite) Boolean isRemoteCompleted;
+@property (nonatomic) Boolean isRemoteCompleted;
 
 - (id)initWithIdentifier:(int)identifier andTitle:(NSString *)title andLevelId:(int)levelId andExtra1:(NSString *)extra1 andExtra2:(NSString *)extra2 andExtra3:(NSString *)extra3 andFExtra1:(float)fExtra1 andFExtra2:(float)fExtra2 andFExtra3:(float)fExtra3 andDifficulty:(float)difficulty;
 

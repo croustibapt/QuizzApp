@@ -13,11 +13,11 @@
 
 @interface LetterButton : UIButton
 
-@property (nonatomic, retain) NSString * key;
+@property (nonatomic, strong) NSString * key;
 
 @property (assign) GameAnswerView * gameAnswerView;
 
-@property (nonatomic, readwrite) Boolean touched;
+@property (nonatomic) Boolean touched;
 
 - (id)initWithFrame:(CGRect)frame andKey:(NSString *)key andGameAnswerView:(GameAnswerView *)gameAnswerView;
 

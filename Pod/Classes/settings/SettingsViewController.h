@@ -11,7 +11,7 @@
 
 @interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UITableView * tableView;
+@property (nonatomic, strong) IBOutlet UITableView * tableView;
 
 #pragma mark - Progress
 

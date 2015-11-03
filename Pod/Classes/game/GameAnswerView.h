@@ -14,9 +14,9 @@
 
 @interface GameAnswerView : UIView
 
-@property (nonatomic, retain) UIView * answerView;
+@property (nonatomic, strong) UIView * answerView;
 
-@property (nonatomic, retain) UIView * keyboardView;
+@property (nonatomic, strong) UIView * keyboardView;
 
 @property (nonatomic, weak) GameManager * gameManager;
 

@@ -264,7 +264,7 @@
         HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_DOWNLOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
         [HUD show:YES];
         
-        [LevelDownloader downloadLevelWithLevel:level andListener:self];
+        [LevelDownloader downloadLevelWithLevel:level andDelegate:self];
     }
 }
 
@@ -312,7 +312,7 @@
     return UIEdgeInsetsMake(PixelsSize(10.0), PixelsSize(10.0), PixelsSize(10.0), PixelsSize(10.0));
 }
 
-#pragma mark - PLevelDownloadListener
+#pragma mark - PLevelDownloadDelegate
 
 - (void)onDownloadProgressWithProgress:(int)progress andTotal:(int)total andLevel:(BaseLevel *)level {
     float realProgress = ((float)progress/(float)total);
