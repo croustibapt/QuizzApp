@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5724409A1BE67CE900EC09F1 /* MQConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 572440841BE67CE900EC09F1 /* MQConstants.m */; };
 		5724409B1BE67CE900EC09F1 /* MQHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572440871BE67CE900EC09F1 /* MQHomeViewController.m */; };
-		5724409C1BE67CE900EC09F1 /* MQLevelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408A1BE67CE900EC09F1 /* MQLevelsViewController.m */; };
 		5724409D1BE67CE900EC09F1 /* QAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */; };
 		5724409E1BE67CE900EC09F1 /* MQSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408F1BE67CE900EC09F1 /* MQSettingsViewController.m */; };
 		572440A01BE67CE900EC09F1 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 572440941BE67CE900EC09F1 /* Roboto-Black.ttf */; };
@@ -56,8 +55,6 @@
 		572440841BE67CE900EC09F1 /* MQConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQConstants.m; sourceTree = "<group>"; };
 		572440861BE67CE900EC09F1 /* MQHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQHomeViewController.h; sourceTree = "<group>"; };
 		572440871BE67CE900EC09F1 /* MQHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQHomeViewController.m; sourceTree = "<group>"; };
-		572440891BE67CE900EC09F1 /* MQLevelsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQLevelsViewController.h; sourceTree = "<group>"; };
-		5724408A1BE67CE900EC09F1 /* MQLevelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQLevelsViewController.m; sourceTree = "<group>"; };
 		5724408B1BE67CE900EC09F1 /* QAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QAAppDelegate.h; sourceTree = "<group>"; };
 		5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QAAppDelegate.m; sourceTree = "<group>"; };
 		5724408E1BE67CE900EC09F1 /* MQSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQSettingsViewController.h; sourceTree = "<group>"; };
@@ -127,7 +124,6 @@
 			children = (
 				572440821BE67CE900EC09F1 /* common */,
 				572440851BE67CE900EC09F1 /* home */,
-				572440881BE67CE900EC09F1 /* level */,
 				5724408B1BE67CE900EC09F1 /* QAAppDelegate.h */,
 				5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */,
 				5724408D1BE67CE900EC09F1 /* settings */,
@@ -151,15 +147,6 @@
 				572440871BE67CE900EC09F1 /* MQHomeViewController.m */,
 			);
 			path = home;
-			sourceTree = "<group>";
-		};
-		572440881BE67CE900EC09F1 /* level */ = {
-			isa = PBXGroup;
-			children = (
-				572440891BE67CE900EC09F1 /* MQLevelsViewController.h */,
-				5724408A1BE67CE900EC09F1 /* MQLevelsViewController.m */,
-			);
-			path = level;
 			sourceTree = "<group>";
 		};
 		5724408D1BE67CE900EC09F1 /* settings */ = {
@@ -514,7 +501,6 @@
 				5724409A1BE67CE900EC09F1 /* MQConstants.m in Sources */,
 				5724409B1BE67CE900EC09F1 /* MQHomeViewController.m in Sources */,
 				5724409D1BE67CE900EC09F1 /* QAAppDelegate.m in Sources */,
-				5724409C1BE67CE900EC09F1 /* MQLevelsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import "MQHomeViewController.h"
 
-#import "MQLevelsViewController.h"
+#import "LevelsViewController.h"
 #import "MQConstants.h"
 #import "MQSettingsViewController.h"
 #import "PacksViewController.h"
@@ -37,20 +37,6 @@
 
 - (void)onTvShowQuizzButtonPush:(id)sender {
     [SettingsViewController showOtherGame:TV_SHOW_QUIZZ_APP_ID];
-}
-
-- (void)loadLevels:(HomeViewControllerLoadLevelsCompletionHandler)completionHandler {
-    NSMutableDictionary * levels = [LevelsViewController getLevelsWithMinId:MOVIE_QUIZZ_IOS_START_ID andMaxId:INT16_MAX];
-            
-    //Main thread
-    dispatch_async(dispatch_get_main_queue(), ^(void){
-        MQLevelsViewController * levelsViewController = [[MQLevelsViewController alloc] initWithLevels:levels];
-        [self.navigationController pushViewController:levelsViewController animated:YES];
-        
-        if (completionHandler) {
-            completionHandler();
-        }
-    });
 }
 
 - (void)reinitLabels {
