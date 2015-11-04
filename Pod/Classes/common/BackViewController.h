@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Google/Analytics.h>
 
-@interface BackViewController : GAITrackedViewController
+@interface BackViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIImageView * headerLeftImageView;
 

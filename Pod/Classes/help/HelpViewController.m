@@ -8,6 +8,8 @@
 
 #import "HelpViewController.h"
 
+#import <Google/Analytics.h>
+
 #import "UtilsImage.h"
 #import "Constants.h"
 #import "UtilsColors.h"
@@ -91,7 +93,7 @@
         [label setFont:[UIFont fontWithName:@"RobotoCondensed-Bold" size:labelFontSize]];
         [label setNumberOfLines:0];
         [label setAdjustsFontSizeToFitWidth:YES];
-        [label setMinimumFontSize:10.0];
+//        [label setMinimumFontSize:10.0];
         [label setTextAlignment:NSTextAlignmentCenter];
         [label setBackgroundColor:[UIColor clearColor]];
         
@@ -120,15 +122,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setScreenName:@"Help screen"];
+    
+    //Analytics
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Help Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     //Page control
     [self.pageControl setCurrentPage:0];
     
-    //
-    
+    //Done button
     UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     [self.navigationItem setRightBarButtonItem:doneItem];
 }

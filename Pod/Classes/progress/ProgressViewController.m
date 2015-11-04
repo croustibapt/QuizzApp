@@ -382,7 +382,10 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    [self setScreenName:@"Progress screen"];
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Progress Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     //Game image
     NSString * gameImageName = ExtensionName(@"game_header");

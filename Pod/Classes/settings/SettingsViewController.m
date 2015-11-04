@@ -8,6 +8,8 @@
 
 #import "SettingsViewController.h"
 
+#import <Google/Analytics.h>
+
 #import "ProgressManager.h"
 #import "HelpViewController.h"
 #import "ProgressViewController.h"
@@ -327,6 +329,11 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    
+    //Analytics
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Settings Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     //Table view tint color
     if ([self.tableView respondsToSelector:@selector(setTintColor:)]) {

@@ -22,26 +22,10 @@
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
     //Title
-    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"RobotoCondensed-Regular" size:20.0], UITextAttributeFont, nil]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], NSForegroundColorAttributeName, [UIFont fontWithName:@"RobotoCondensed-Regular" size:20.0], NSFontAttributeName, nil]];
     
     //UIBarButtonItem
-    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], UITextAttributeTextColor, [UIFont fontWithName:@"RobotoCondensed-Bold" size:20.0], UITextAttributeFont, nil] forState:UIControlStateNormal];
-    
-    if (!IS_IOS_7) {
-        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UtilsImage imageNamed:@"button_back"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setBackgroundImage:[UtilsImage imageNamed:@"button_normal"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        NSDictionary * navigationBarTextAttributes = @{UITextAttributeTextColor : [UIColor whiteColor],
-                                                       UITextAttributeTextShadowColor : [UIColor clearColor],
-                                                       UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)]};
-        [[UINavigationBar appearance] setTitleTextAttributes:navigationBarTextAttributes];
-        [[UIBarButtonItem appearance] setTitleTextAttributes:navigationBarTextAttributes forState:UIControlStateNormal];
-        
-        NSDictionary * highlightNavigationBarTextAttributes = @{UITextAttributeTextColor : UIColorFromRGB(0x888888),
-                                                                UITextAttributeTextShadowColor : [UIColor clearColor],
-                                                                UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)]};
-        [[UIBarButtonItem appearance] setTitleTextAttributes:highlightNavigationBarTextAttributes forState:UIControlStateHighlighted];
-        
-    }
+    [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], NSForegroundColorAttributeName, [UIFont fontWithName:@"RobotoCondensed-Bold" size:20.0], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     if ([_window respondsToSelector:@selector(setTintColor:)]) {
         [_window setTintColor:[UIColor whiteColor]];

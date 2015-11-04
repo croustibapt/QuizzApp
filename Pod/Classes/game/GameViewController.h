@@ -13,12 +13,11 @@
 
 #import "GameAnswerView.h"
 #import "Pack.h"
-#import "MBProgressHUD.h"
 #import "BackViewController.h"
 #import "Level.h"
 #import "GameManager.h"
 
-@interface GameViewController : BackViewController <UIScrollViewDelegate, GameDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate>
+@interface GameViewController : BackViewController <UIScrollViewDelegate, GameDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, MFMailComposeViewControllerDelegate, ADBannerViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView * adView;
 

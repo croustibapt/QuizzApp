@@ -26,8 +26,11 @@ int const AUTH_ALERT_VIEW = 0;
 #import "ProgressViewController.h"
 #import "SettingsViewController.h"
 #import "UtilsImage.h"
+#import "MBProgressHUD.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () {
+    NSString * m_lastLanguage;
+}
 
 @end
 
@@ -221,14 +224,14 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     //TEMP DEBUG
     //    NSArray * array = [NSArray arrayWithObject:nil];
     
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
-    HUD.delegate = self;
-    HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-    [HUD show:YES];
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
 
+    //Load levels
     [self loadLevels:^{
-        [HUD hide:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     }];
 }
 
@@ -281,14 +284,6 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
-#pragma mark - MBProgressHUD
-
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidded
-	[HUD removeFromSuperview];
-	HUD = nil;
-}
-
 #pragma mark - UI
 
 - (void)reinitLabels {
@@ -306,12 +301,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     
     if ((m_lastLanguage == nil) || ![m_lastLanguage isEqualToString:[Utils currentLanguage]]) {
         //Init game
-        HUD = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:HUD];
-        HUD.delegate = self;
-        [HUD setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-        
-        [HUD show:YES];
+        MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [hud setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
         
         //Background job
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
@@ -335,7 +326,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
                     }
                 }
                 
-                [HUD hide:YES];
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         });
     }
@@ -345,7 +336,11 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setScreenName:@"Home screen"];
+    
+    //Analytics
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Home Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     //Start button
     NSString * btnOffImageName = ExtensionName(@"btn_icon_off");

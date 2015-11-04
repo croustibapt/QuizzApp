@@ -8,6 +8,8 @@
 
 #import "PacksViewController.h"
 
+#import <Google/Analytics.h>
+
 #import "UtilsColors.h"
 #import "PackCell.h"
 #import "GameDBHelper.h"
@@ -210,8 +212,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setScreenName:@"Packs screen"];
     [self setTitle:[NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_LEVEL", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.level.value]];
+    
+    //Analytics
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Packs Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     if ([Utils isIPad]) {
         [self.tableView setBackgroundView:nil];

@@ -17,6 +17,7 @@
 #import "UtilsImage.h"
 #import "HelpViewController.h"
 #import "QuizzApp.h"
+#import "MBProgressHUD.h"
 
 @interface GameViewController () {
     GameAnswerView * m_gameAnswerView;
@@ -26,8 +27,6 @@
     UITapGestureRecognizer * m_tapGestureRecognizer;
     UISwipeGestureRecognizer * m_swipeUpGestureRecognizer;
     UISwipeGestureRecognizer * m_swipeDownGestureRecognizer;
-    
-    MBProgressHUD * HUD;
     
 #pragma mark - Sound
     
@@ -293,19 +292,6 @@
     return [self loadCurrentMedia];
 }
 
-- (void)nextPoster {
-    //Update index
-    m_currentMediaIndex = [self.pack getNextPosterIndexWithCurrentIndex:m_currentMediaIndex andReplay:self.replay];
-    
-    //Load poster
-    [self loadIndex:m_currentMediaIndex animated:YES];
-    
-    [HUD hide:YES];
-    
-    //Enable user interaction
-    [self.view setUserInteractionEnabled:YES];
-}
-
 - (void)onMediaFound:(Media *)media {
     //Unblur
     MediaView * mediaView = [m_posterViews objectAtIndex:m_currentMediaIndex];
@@ -359,19 +345,26 @@
         [self playSoundWithFileName:@"success"];
 
         //Show message
-        HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
-        [self.view.window addSubview:HUD];
-        HUD.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
-        HUD.mode = MBProgressHUDModeCustomView;
-        HUD.delegate = self;
-        [HUD show:YES];
+        MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
         
         //Disable user interaction
         [self.view setUserInteractionEnabled:NO];
         
         //Else go to next uncompleted media
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, QUIZZ_APP_MEDIA_FOUND_DURATION * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self nextPoster];
+            //Update index
+            m_currentMediaIndex = [self.pack getNextPosterIndexWithCurrentIndex:m_currentMediaIndex andReplay:self.replay];
+            
+            //Load poster
+            [self loadIndex:m_currentMediaIndex animated:YES];
+            
+            //Enable user interaction
+            [self.view setUserInteractionEnabled:YES];
+            
+            //Hide HUD
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
     }
 }
@@ -423,14 +416,6 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
-}
-
-#pragma mark - MBProgressHUD
-
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidded
-	[HUD removeFromSuperview];
-	HUD = nil;
 }
 
 #pragma mark - iAd
@@ -583,7 +568,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setScreenName:@"Game screen"];
+    
+    //Analytics
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Game Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     [self updateTitle];
     [m_gameAnswerView setHidden:YES];

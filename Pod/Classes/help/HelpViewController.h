@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Google/Analytics.h>
 
-@interface HelpViewController : GAITrackedViewController <UIScrollViewDelegate>
+@interface HelpViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIScrollView * helpScrollView;
 

@@ -20,8 +20,11 @@
 #import "GameDBHelper.h"
 #import "UtilsImage.h"
 #import "BackView.h"
+#import "MBProgressHUD.h"
 
-@interface LevelsViewController () 
+@interface LevelsViewController () {
+    Boolean m_refreshButtonEnabled;
+}
 
 @end
 
@@ -136,25 +139,13 @@
     return [self.levels objectForKey:key];
 }
 
-- (void)refresh:(Boolean)hud {
-    if (hud) {
-        HUD = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:HUD];
-        HUD.delegate = self;
-        HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-        [HUD show:YES];
-    }
-    
+- (void)refresh {
     //Update levels
     NSMutableDictionary * aLevels = [LevelsViewController getLevels];
     [self setLevels:aLevels];
     
     //And reload collection view
     [self.collectionView reloadData];
-    
-    if (hud) {
-        [HUD hide:YES];
-    }
 }
 
 #pragma mark - PSTCollectionView
@@ -257,12 +248,9 @@
         [self startLevel:(Level *)level];
     } else {
         //Download
-        HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
-        [self.view.window addSubview:HUD];
-        HUD.mode = MBProgressHUDModeDeterminateHorizontalBar;
-        HUD.delegate = self;
-        HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_DOWNLOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-        [HUD show:YES];
+        MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        hud.mode = MBProgressHUDModeDeterminateHorizontalBar;
+        hud.labelText = NSLocalizedStringFromTableInBundle(@"STR_DOWNLOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
         
         [LevelDownloader downloadLevelWithLevel:level andDelegate:self];
     }
@@ -316,7 +304,12 @@
 
 - (void)onDownloadProgressWithProgress:(int)progress andTotal:(int)total andLevel:(BaseLevel *)level {
     float realProgress = ((float)progress/(float)total);
-    HUD.progress = realProgress;
+    
+    MBProgressHUD * hud = [MBProgressHUD HUDForView:self.view.window];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        hud.progress = realProgress;
+    });
 }
 
 - (void)onDownloadDoneWithSuccess:(Boolean)success andBaseLevel:(BaseLevel *)baseLevel {
@@ -336,22 +329,18 @@
             [self.collectionView reloadData];
         }
         
-        [HUD hide:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view.window animated:YES];
+        });
     } else {
-        [HUD hide:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view.window animated:YES];
+        });
 
         //Popup connectivity
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
         [alertView show];
     }
-}
-
-#pragma mark - MBProgressHUD
-
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-	// Remove HUD from screen when the HUD was hidded
-	[HUD removeFromSuperview];
-	HUD = nil;
 }
 
 #pragma mark - IBAction
@@ -360,12 +349,15 @@
     
 }
 
-- (void)threadRefreshLevels {
-    @autoreleasepool {
+- (IBAction)onRefreshButtonPush:(id)sender {
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    hud.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         //Update levels from servers
         if ([GameProvider requestLevels]) {
             //Refresh list
-            [self refresh:NO];
+            [self refresh];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 //Popup connectivity
@@ -373,15 +365,12 @@
                 [alertView show];
             });
         }
-    }
-}
-
-- (IBAction)onRefreshButtonPush:(id)sender {
-    HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
-    [self.view.window addSubview:HUD];
-    HUD.delegate = self;
-    HUD.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-    [HUD showWhileExecuting:@selector(threadRefreshLevels) onTarget:self withObject:nil animated:YES];
+        
+        //Finally hide HUD
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view.window animated:YES];
+        });
+    });
 }
 
 #pragma mark - UI
@@ -397,7 +386,7 @@
     //Set icon badge number to zero
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 
-#warning TO MOVE
+#warning TO MOVE?
     //Parse stuff
 //    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
 //    [currentInstallation setBadge:0];
@@ -409,8 +398,8 @@
     
     //Analytics
     id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Levels screen"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [tracker set:kGAIScreenName value:@"Levels Screen"];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVELS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
