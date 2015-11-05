@@ -24,9 +24,7 @@
 //    NSLog(@"afn");
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
++ (void)drawBackView:(CGRect)rect {
     // Drawing code
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
@@ -91,6 +89,26 @@
     
     CGContextSetRGBFillColor(ctx, mr, mg, mb, ma);
     CGContextFillPath(ctx);
+}
+
++ (UIImage *)backViewImage:(CGRect)rect {
+    //Create image context
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+
+    [BackView drawBackView:rect];
+    
+    UIImage * backViewImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //End image context
+    UIGraphicsEndImageContext();
+
+    return backViewImage;
+}
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    [BackView drawBackView:rect];
 }
 
 @end

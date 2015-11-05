@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Onboard/OnboardingViewController.h>
 
-@interface HelpViewController : UIViewController <UIScrollViewDelegate>
+@interface HelpViewController : OnboardingViewController
 
-@property (nonatomic, strong) IBOutlet UIScrollView * helpScrollView;
-
-@property (nonatomic, strong) IBOutlet UIPageControl * pageControl;
+- (instancetype)initWithContentFrame:(CGRect)contentFrame;
 
 + (Boolean)doesNeedHelp;
 

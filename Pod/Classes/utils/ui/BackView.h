@@ -10,4 +10,6 @@
 
 @interface BackView : UIView
 
++ (UIImage *)backViewImage:(CGRect)rect;
+
 @end

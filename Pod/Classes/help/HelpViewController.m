@@ -1,4 +1,4 @@
-//
+ //
 //  HelpViewController.m
 //  moviequizz2
 //
@@ -10,10 +10,9 @@
 
 #import <Google/Analytics.h>
 
-#import "UtilsImage.h"
 #import "Constants.h"
-#import "UtilsColors.h"
 #import "QuizzApp.h"
+#import "BackView.h"
 
 @interface HelpViewController ()
 
@@ -21,19 +20,49 @@
 
 @implementation HelpViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        NSString * nibName = ExtensionName(@"HelpViewController");
-        [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
-    }
-    return self;
++ (OnboardingContentViewController *)createPage:(int)index {
+    NSString * imageName = [NSString stringWithFormat:@"help%d", index];
+    NSString * labelName = [NSString stringWithFormat:@"STR_HELP_LABEL%d", index];
+    
+    UIImage * image = [UIImage imageNamed:imageName];
+    NSString * body = [NSLocalizedStringFromTableInBundle(labelName, nil, QUIZZ_APP_STRING_BUNDLE, nil) uppercaseString];
+    
+    OnboardingContentViewController * page = [OnboardingContentViewController contentWithTitle:nil body:body image:image buttonText:nil action:nil];
+    page.iconHeight = 200;
+    
+    page.bodyTextColor = [QuizzApp sharedInstance].oppositeThirdColor;
+    page.buttonFontName = @"RobotoCondensed-Bold";
+    
+    return page;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
++ (NSArray *)getPages {
+    OnboardingContentViewController * firstPage = [HelpViewController createPage:1];
+    OnboardingContentViewController * secondPage = [HelpViewController createPage:2];
+    OnboardingContentViewController * thirdPage = [HelpViewController createPage:3];
+    
+    return @[firstPage, secondPage, thirdPage];
+}
 
+- (instancetype)initWithContentFrame:(CGRect)contentFrame {
+    UIImage * backViewImage = [BackView backViewImage:contentFrame];
+    NSArray * contents = [HelpViewController getPages];
+    
+    self = [super initWithBackgroundImage:backViewImage contents:contents];
+    if (self) {
+        self.topPadding = 16;
+        self.underIconPadding = 16;
+        self.underTitlePadding = 0;
+        self.shouldFadeTransitions = YES;
+        self.fadePageControlOnLastPage = YES;
+        self.fadeSkipButtonOnLastPage = YES;
+        
+        // If you want to allow skipping the onboarding process, enable skipping and set a block to be executed
+        // when the user hits the skip button.
+        self.allowSkipping = YES;
+        self.skipHandler = ^{
+//            [self dismissViewControllerAnimated:YES completion:nil];
+        };
     }
     return self;
 }
@@ -52,13 +81,6 @@
     return needHelp;
 }
 
-#pragma mark - UIScrollView
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    int pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
-    [self.pageControl setCurrentPage:pageIndex];
-}
-
 #pragma mark - UI
 
 - (void)dismiss {
@@ -69,73 +91,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    //Labels
-    float labelFontSize = PixelsSize(25.0);
-    
-    if (!IS_IPHONE_5 && !IS_IOS_7) {
-        labelFontSize = PixelsSize(20.0);
-    }
-    
-    float scrollViewWidth = (self.view.frame.size.width * 3);
-    UIView * helpContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, scrollViewWidth, self.view.frame.size.height)];
-    
-    float labelHeight = helpContentView.frame.size.height / 6.0;
-    float imageHeight = helpContentView.frame.size.height - labelHeight;
-    
-    for (int i = 0; i < 3; i++) {
-        float labelX = (i * self.view.frame.size.width) + 5;
-        
-        //Label
-        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(labelX, 0, self.view.frame.size.width - (2 * 5), labelHeight)];
-        [label setFont:[UIFont fontWithName:@"RobotoCondensed-Bold" size:labelFontSize]];
-        [label setNumberOfLines:0];
-        [label setAdjustsFontSizeToFitWidth:YES];
-//        [label setMinimumFontSize:10.0];
-        [label setTextAlignment:NSTextAlignmentCenter];
-        [label setBackgroundColor:[UIColor clearColor]];
-        
-        NSString * labelName = [NSString stringWithFormat:@"STR_HELP_LABEL%d", (i + 1)];
-        [label setText:[NSLocalizedStringFromTableInBundle(labelName, nil, QUIZZ_APP_STRING_BUNDLE, nil) uppercaseString]];
-        
-        [label setTextColor:[QuizzApp sharedInstance].oppositeThirdColor];
-        [helpContentView addSubview:label];
-        
-        //Image
-        float imageX = (i * self.view.frame.size.width);
-        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, labelHeight, self.view.frame.size.width, imageHeight)];
-
-        [imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [imageView setClipsToBounds:YES];
-        
-        NSString * imageName = ExtensionName([NSString stringWithFormat:@"help%d", (i + 1)]);
-        [imageView setImage:[UtilsImage imageNamed:imageName]];
-        [helpContentView addSubview:imageView];
-    }
-    
-    //Scroll view
-    [self.helpScrollView setContentSize:CGSizeMake(scrollViewWidth, self.view.frame.size.height)];
-    [self.helpScrollView addSubview:helpContentView];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+
     //Analytics
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Help Screen"];
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    
-    //Page control
-    [self.pageControl setCurrentPage:0];
-    
-    //Done button
-    UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
-    [self.navigationItem setRightBarButtonItem:doneItem];
 }
 
 @end

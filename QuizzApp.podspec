@@ -49,5 +49,6 @@ QuizzApp description
     s.dependency 'GooglePlayGames'
     s.dependency 'Google/Analytics', '~> 1.0.0'
     s.dependency 'ZipArchive'
+    s.dependency 'Onboard'
 
 end

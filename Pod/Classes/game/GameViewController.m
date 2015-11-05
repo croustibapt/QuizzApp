@@ -459,12 +459,8 @@
 #pragma mark - Help
 
 - (void)showHelp {
-    NSString * nibName = ExtensionName(@"HelpViewController");    
-    
-    HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE];
-    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
+    HelpViewController * helpViewController = [[HelpViewController alloc] init];
+    [self presentViewController:helpViewController animated:YES completion:nil];
 }
 
 #pragma mark - UI
