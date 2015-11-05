@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "GameManager.h"
+#import "ProgressManager.h"
 
 @interface QuizzApp : NSObject
 
@@ -40,6 +41,10 @@
 #pragma mark - Game
 
 @property (nonatomic, strong) GameManager * gameManager;
+
+#pragma mark - Progress
+
+@property (nonatomic, strong) ProgressManager * progressManager;
 
 + (QuizzApp *)sharedInstance;
 

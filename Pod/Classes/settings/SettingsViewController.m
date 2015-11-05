@@ -169,7 +169,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
             //Login
             [cell.imageView setImage:[UtilsImage imageNamed:@"ic_google_plus" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             
-            if ([[ProgressManager instance] isConnected]) {
+            if ([[QuizzApp sharedInstance].progressManager isConnected]) {
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GOOGLE_PLUS", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             } else {
@@ -212,11 +212,9 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     [self.navigationController popViewControllerAnimated:YES];
     
     //Change scores current language
-    if (IS_IOS_7) {
 #warning TO PORT
 //        GPPSignIn * signIn = [GPPSignIn sharedInstance];
 //        [signIn setLanguage:[Utils currentLanguage]];
-    }
     
 #warning TO MOVE?
 //    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
@@ -279,13 +277,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     } else if (indexPath.section == ESettingsSectionGame) {
         if (indexPath.row == ESettingsGameRowLogin) {
             //Login
-            if (IS_IOS_7) {
-                [self showProgress];
-            } else {
-                //Show alert
-                UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
-                [alertView show];
-            }
+            [self showProgress];
         } else if (indexPath.row == ESettingsGameRowHelp) {
             //Website
             [self showHelp];

@@ -11,7 +11,7 @@
 #import "Level.h"
 #import "UtilsImage.h"
 #import "Utils.h"
-#import "ProgressManager.h"
+#import "QuizzApp.h"
 
 @implementation Media
 
@@ -23,7 +23,7 @@
 }
 
 - (Boolean)isCompleted {
-    Boolean userIsConnected = [[ProgressManager instance] isConnected];
+    Boolean userIsConnected = [[QuizzApp sharedInstance].progressManager isConnected];
     self.isRemoteCompleted = [ProgressManager isMediaRemoteCompleted:self.identifier];
     
     return ((!userIsConnected && m_isCompleted) || self.isRemoteCompleted);

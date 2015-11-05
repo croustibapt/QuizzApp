@@ -9,7 +9,7 @@
 #import "BasePack.h"
 
 #import "GameDBHelper.h"
-#import "ProgressManager.h"
+#import "QuizzApp.h"
 
 @implementation BasePack
 
@@ -75,13 +75,10 @@
 }
 
 - (Boolean)isCompleted {
-    //Movie Quizz 1
-//    Boolean isMovieQuizz1Completed = [GameDBHelper isPackFinishedInMovieQuizz1:self.fExtra1];
-    
     //Check if the user is connected
-    Boolean userIsConnected = [[ProgressManager instance] isConnected];
+    Boolean userIsConnected = [[QuizzApp sharedInstance].progressManager isConnected];
     
-    return ((!userIsConnected && m_isCompleted) /*|| isMovieQuizz1Completed*/ || self.isRemoteCompleted);
+    return ((!userIsConnected && m_isCompleted) || self.isRemoteCompleted);
 }
 
 - (void)setIsCompleted:(Boolean)isCompleted {

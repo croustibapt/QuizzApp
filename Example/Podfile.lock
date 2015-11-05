@@ -28,7 +28,7 @@ PODS:
     - GoogleAuthUtilities (~> 1.0)
     - GoogleNetworkingUtilities (~> 1.0)
     - GoogleUtilities (~> 1.0)
-  - GoogleSymbolUtilities (1.0.0)
+  - GoogleSymbolUtilities (1.0.3)
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
   - MBProgressHUD (0.9.1)
@@ -64,7 +64,7 @@ SPEC CHECKSUMS:
   GooglePlayGames: 35885db09543086c35ad7f84c15a71ef92bc36f4
   GooglePlusOpenSource: 5d514063287e1e87060eb4f9fab9d23d1c8fa601
   GoogleSignIn: 79929b51e6299c69f1197bbd9c7a1367d523ecd8
-  GoogleSymbolUtilities: a7b0feed1fe667c8d5e647177938d0ecd62d6948
+  GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Onboard: 87648089e1b76d13b4f5bf8f7a1cdb144092f0af

@@ -12,17 +12,21 @@
 
 @implementation Application
 
-- (BOOL)openURL:(NSURL *)url {
-    if ([[url absoluteString] hasPrefix:@"googlechrome-x-callback:"]) {
-        return NO;
-    } else if ([[url absoluteString] hasPrefix:@"https://accounts.google.com/o/oauth2/auth"]) {
-        //Register for Google + requests
-        [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationOpenGoogleAuthNotification object:url];
-        
-        return NO;
-    }
-    
-    return [super openURL:url];
+//- (BOOL)openURL:(NSURL *)url {
+//    if ([[url absoluteString] hasPrefix:@"googlechrome-x-callback:"]) {
+//        return NO;
+//    } else if ([[url absoluteString] hasPrefix:@"https://accounts.google.com/o/oauth2/auth"]) {
+//        //Register for Google + requests
+//        [[NSNotificationCenter defaultCenter] postNotificationName:ApplicationOpenGoogleAuthNotification object:url];
+//        
+//        return NO;
+//    }
+//    
+//    return [super openURL:url];
+//}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [[GIDSignIn sharedInstance] handleURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 @end

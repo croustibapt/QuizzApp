@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <gpg/GooglePlayGames.h>
-#import <GoogleSignIn/GoogleSignIn.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
 
 static int const kErrorCodeFromUserDecliningSignIn = -1;
 #define ApplicationOpenGoogleAuthNotification @"ApplicationOpenGoogleAuthNotification"
@@ -38,14 +36,14 @@ static int const kErrorCodeFromUserDecliningSignIn = -1;
 
 @end
 
-@interface ProgressManager : NSObject <GIDSignInDelegate, GPGStatusDelegate>
+@interface ProgressManager : NSObject <GPGStatusDelegate>
 
 USERPREF_DECL(NSNumber *, AuthDeclinedGooglePreviously);
 USERPREF_DECL(NSDictionary *, ProgressData);
 
-@property (nonatomic) Boolean currentlySigningIn;
-
-@property (nonatomic) Boolean currentlyGamesSigningIn;
+//@property (nonatomic) Boolean currentlySigningIn;
+//
+//@property (nonatomic) Boolean currentlyGamesSigningIn;
 
 @property (nonatomic) Boolean currentlySyncing;
 
@@ -55,29 +53,15 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 @property (nonatomic, weak) id<ProgressAuthDelegate> delegate;
 
-@property (nonatomic, strong) NSString * userId;
-
-+ (ProgressManager *)instance;
-
-- (Boolean)isConnected;
-
 - (void)cancel;
 
-#pragma mark - Google+
-
-- (void)setCredentialsWithClientId:(NSString *)clientId andProgressionKey:(NSNumber *)progressionKey;
-
-- (void)signInWithDelegate:(id<ProgressAuthDelegate>)delegate;
-
-- (void)authenticateWithDelegate:(id<ProgressAuthDelegate>)delegate;
-
-- (void)signOutWithDelegate:(id<ProgressAuthDelegate>)delegate;
+- (BOOL)isConnected;
 
 #pragma mark - GooglePlayGames
 
-- (void)signInGamesWithDelegate:(id<ProgressAuthDelegate>)delegate;
+- (void)signInWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
-- (void)signOutGamesWithDelegate:(id<ProgressAuthDelegate>)delegate;
+- (void)signOutWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
 #pragma mark - Progress
 

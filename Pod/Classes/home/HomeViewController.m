@@ -236,35 +236,29 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 }
 
 - (IBAction)onScoresButtonPush:(id)sender {
-    if (IS_IOS_7) {
-        //Check if we have a game authorizer
-        if ([GPGManager sharedInstance].isSignedIn) {
-            //Get score
-            float score = [ProgressManager getScore];
-            
-            QuizzApp * quizzApp = [QuizzApp sharedInstance];
-            
-            //Prepare saving
-            GPGScore * remoteScore = [GPGScore scoreWithLeaderboardId:quizzApp.googlePlayLeaderBoardId];
-            remoteScore.value = score;
-            
-            //Submit score
-            [remoteScore submitScoreWithCompletionHandler: ^(GPGScoreReport * report, NSError * error) {
-                if (error != nil) {
-                    // Handle the error
-                    NSLog(@"score error");
-                } else {
-                    [[GPGLauncherController sharedInstance] presentLeaderboardWithLeaderboardId:quizzApp.googlePlayLeaderBoardId];
-                }
-            }];
-        } else {
-            //Show alert
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
-            [alertView show];
-        }
+    //Check if we have a game authorizer
+    if ([GPGManager sharedInstance].isSignedIn) {
+        //Get score
+        float score = [ProgressManager getScore];
+        
+        QuizzApp * quizzApp = [QuizzApp sharedInstance];
+        
+        //Prepare saving
+        GPGScore * remoteScore = [GPGScore scoreWithLeaderboardId:quizzApp.googlePlayLeaderBoardId];
+        remoteScore.value = score;
+        
+        //Submit score
+        [remoteScore submitScoreWithCompletionHandler: ^(GPGScoreReport * report, NSError * error) {
+            if (error != nil) {
+                // Handle the error
+                NSLog(@"score error");
+            } else {
+                [[GPGLauncherController sharedInstance] presentLeaderboardWithLeaderboardId:quizzApp.googlePlayLeaderBoardId];
+            }
+        }];
     } else {
         //Show alert
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
         [alertView show];
     }
 }
@@ -313,16 +307,14 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
                 //Labels
                 [self reinitLabels];
                 
-                if (IS_IOS_7) {
-                    if ([[HomeViewController getAuthWanted] boolValue]) {
-                        //Show progress view controller
-                        [self showProgressViewController];
-                    } else {
-                        
-                        //Check if we can notify the user
-                        if (![[HomeViewController getAuthAlertShown] boolValue]) {
-                            [self showAuthAlertView];
-                        }
+                if ([[HomeViewController getAuthWanted] boolValue]) {
+                    //Show progress view controller
+                    [self showProgressViewController];
+                } else {
+                    
+                    //Check if we can notify the user
+                    if (![[HomeViewController getAuthAlertShown] boolValue]) {
+                        [self showAuthAlertView];
                     }
                 }
                 

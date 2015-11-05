@@ -12,7 +12,7 @@
 #import "UtilsString.h"
 #import "GameDBHelper.h"
 #import "Constants.h"
-#import "ProgressManager.h"
+#import "QuizzApp.h"
 
 @interface GameManager() {
     NSMutableArray * m_randomLetters;
@@ -269,7 +269,7 @@
     NSDictionary * instantProgression = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:mediaId]] forKey:packKey];
     
     //And save progression online
-    [[ProgressManager instance] saveProgressionWithDelegate:self andInstantProgression:instantProgression];
+    [[QuizzApp sharedInstance].progressManager saveProgressionWithDelegate:self andInstantProgression:instantProgression];
     
     [self.delegate onMediaFound:media];
 }

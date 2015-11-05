@@ -8,27 +8,16 @@
 
 #import "ProgressManager.h"
 
-NSString * const QA_PROGRESS_KEY = @"QA_PROGRESS_KEY";
-
 #import "GameDBHelper.h"
 #import "Constants.h"
 #import "Utils.h"
 #import "GameProvider.h"
-
-ProgressManager * s_progressManagerInstance;
+#import "QuizzApp.h"
 
 @implementation ProgressManager
 
 USERPREF_IMPL(NSNumber *, AuthDeclinedGooglePreviously, [NSNumber numberWithBool:NO]);
 USERPREF_IMPL(NSDictionary *, ProgressData, nil);
-
-+ (ProgressManager *)instance {
-    if (s_progressManagerInstance == nil) {
-        s_progressManagerInstance = [[ProgressManager alloc] init];
-    }
-    
-    return s_progressManagerInstance;
-}
 
 - (id)init {
     self = [super init];
@@ -38,26 +27,16 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     return self;
 }
 
-- (Boolean)isConnected {
-    if (IS_IOS_7) {
-        Boolean isSigningIn = self.currentlySigningIn;
-        Boolean isGamesSigningIn = self.currentlyGamesSigningIn;
-        
-        Boolean isSignedIn = [GPGManager sharedInstance].isSignedIn;
-        
-        return isSignedIn && !isSigningIn && !isGamesSigningIn;
-    } else {
-        //Never connected
-        return NO;
-    }
-}
-
 - (void)cancel {
     [self setDelegate:nil];
     
     [self setCurrentlySyncing:NO];
-    [self setCurrentlyGamesSigningIn:NO];
-    [self setCurrentlySigningIn:NO];
+//    [self setCurrentlyGamesSigningIn:NO];
+//    [self setCurrentlySigningIn:NO];
+}
+
+- (BOOL)isConnected {
+    return [GPGManager sharedInstance].isSignedIn;
 }
 
 #pragma mark - Google+
@@ -68,17 +47,17 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     [self setProgressionKey:aProgressionKey];
     
 #warning TO PORT
-    //Create Google+ sign in instance
-//    GPPSignIn * signIn = [GPPSignIn sharedInstance];
+//    //Create Google+ sign in instance
+//    GIDSignIn * signIn = [GIDSignIn sharedInstance];
 //    
 //    //Set client information
 //    [signIn setClientID:self.clientId];
-//    [signIn setScopes:[NSArray arrayWithObjects:@"https://www.googleapis.com/auth/games", @"https://www.googleapis.com/auth/appstate", nil]];
+//    [signIn setScopes:];
 //    [signIn setLanguage:[Utils currentLanguage]];
 //    [signIn setDelegate:self];
-//    [signIn setShouldFetchGoogleUserID:YES];
-//    
-//    [[GPGManager sharedInstance] setStatusDelegate:self];
+////    [signIn setShouldFetchGoogleUserID:YES];
+    
+    [[GPGManager sharedInstance] setStatusDelegate:self];
 }
 
 - (void)signInWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
@@ -86,116 +65,28 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     [self setDelegate:aDelegate];
 
 #warning TO PORT
-//    GPPSignIn * signIn = [GPPSignIn sharedInstance];
-//    self.currentlySigningIn = [signIn trySilentAuthentication];
+    GPGManager * gpgManager = [GPGManager sharedInstance];
+    [gpgManager setStatusDelegate:self];
+    NSArray * scopes = @[@"https://www.googleapis.com/auth/games", @"https://www.googleapis.com/auth/appstate"];
     
-    if (!self.currentlySigningIn) {
-        //Have we tried signing the user in before?
-        Boolean previouslyDeclined = [[ProgressManager getAuthDeclinedGooglePreviously] boolValue];
-        if (previouslyDeclined) {
-            //Notify delegate
-            [self.delegate onAuthDeclined];
-        } else {
-            //Re-authenticate
-            [self authenticateWithDelegate:aDelegate];
-        }
+    BOOL silentlySigned = [gpgManager signInWithClientID:self.clientId silently:YES withExtraScopes:scopes];
+    
+    if (!silentlySigned) {
+        [gpgManager signInWithClientID:self.clientId silently:NO withExtraScopes:scopes];
     }
-}
-
-- (void)authenticateWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
-    self.currentlySigningIn = YES;
-    
-    //Set delegate
-    [self setDelegate:aDelegate];
-
-#warning TO PORT
-//    GPPSignIn * signIn = [GPPSignIn sharedInstance];
-//    [signIn authenticate];
 }
 
 - (void)signOutWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
     //Set delegate
     [self setDelegate:aDelegate];
 
-#warning TO PORT
-//    GPPSignIn * signIn = [GPPSignIn sharedInstance];
-//    [signIn disconnect];
-}
-
-#pragma mark - GPPSignInDelegate
-
-- (void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error {
-    NSLog(@"Finished with auth.");
-    self.currentlySigningIn = NO;
-    
-    //Check error
-    if (error == nil && auth) {
-#warning TO PORT
-//        GPPSignIn * signIn = [GPPSignIn sharedInstance];
-//        [self setUserId:signIn.userID];
-        
-        NSLog(@"Success signing in to Google! Auth object is %@", auth);
-    } else {
-        [self setUserId:nil];
-        
-        //If its a declination error
-        if ([error code] == kErrorCodeFromUserDecliningSignIn) {
-            //Remember decline
-            [ProgressManager setAuthDeclinedGooglePreviously:[NSNumber numberWithBool:YES]];
-        }
-    }
-    
-    [self.delegate onSignInDoneWithError:error];
-}
-
-- (void)didDisconnectWithError:(NSError *)error {
-    if (error == nil) {
-        [self setUserId:nil];
-        
-        NSLog(@"Success signing out from Google!");
-    } else {
-        //???
-    }
-    
-    [self.delegate onSignOutDoneWithError:error];
-}
-
-#pragma mark - GooglePlayGames
-
-- (void)signInGamesWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
-    self.currentlyGamesSigningIn = YES;
-    
-    //Set delegate
-    [self setDelegate:aDelegate];
-
-#warning TO PORT
-    //The GPPSignIn object has an auth token now. Pass it to the GPGManager.
-//    [[GPGManager sharedInstance] signIn:[GPPSignIn sharedInstance] reauthorizeHandler:^(BOOL requiresKeychainWipe, NSError * error) {
-//        //If you hit this, auth has failed and you need to authenticate.
-//        self.currentlyGamesSigningIn = NO;
-//        
-//        //Most likely you can refresh behind the scenes
-//        if (requiresKeychainWipe) {
-//            [self signOutWithDelegate:aDelegate];
-//        }
-//        
-//        [self authenticateWithDelegate:aDelegate];
-//    }];
-}
-
-- (void)signOutGamesWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
-    //Set delegate
-    [self setDelegate:aDelegate];
-    
-    //Sign out games
+    //Sign out from Google Play Games
     [[GPGManager sharedInstance] signOut];
 }
 
 #pragma mark - GPGStatusDelegate
 
 - (void)didFinishGamesSignInWithError:(NSError *)error {
-    self.currentlyGamesSigningIn = NO;
-    
     //Check error
     if (error != nil) {
         NSLog(@"ERROR signing in: %@", [error localizedDescription]);
@@ -214,6 +105,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     //Notify delegate
     [self.delegate onGamesSignOutDoneWithError:error];
 }
+
+
 
 #pragma mark - Progress
 
@@ -272,7 +165,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getRemoteProgressionData {
     NSData * progressData = nil;
     
-    if (IS_IOS_7 && [GPGManager sharedInstance].isSignedIn) {
+    if ([GPGManager sharedInstance].isSignedIn) {
 #warning TO PORT
 //        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //        progressData = [model stateDataForKey:self.progressionKey];
@@ -283,11 +176,12 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 - (NSData *)getPrefsProgressionData {
     NSData * progressData = nil;
-    
-    if (self.userId != nil) {
-        NSDictionary * prefsProgression = [ProgressManager getProgressData];
-        progressData = [prefsProgression objectForKey:self.userId];
-    }
+
+#warning TO FIX
+//    if (self.userId != nil) {
+//        NSDictionary * prefsProgression = [ProgressManager getProgressData];
+//        progressData = [prefsProgression objectForKey:self.userId];
+//    }
     
     return progressData;
 }
@@ -328,7 +222,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 + (NSDictionary *)getRemoteProgression {
     NSDictionary * remoteCompletedPacks = nil;
-    NSData * progressData = [[ProgressManager instance] getRemoteProgressionData];
+    NSData * progressData = [[QuizzApp sharedInstance].progressManager getRemoteProgressionData];
     
     if (progressData != nil) {
         remoteCompletedPacks = [NSJSONSerialization JSONObjectWithData:progressData options:NSJSONReadingMutableContainers error:nil];
@@ -339,7 +233,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 + (NSDictionary *)getPrefsProgression {
     NSDictionary * remoteCompletedPacks = nil;
-    NSData * progressData = [[ProgressManager instance] getPrefsProgressionData];
+    NSData * progressData = [[QuizzApp sharedInstance].progressManager getPrefsProgressionData];
     
     if (progressData != nil) {
         remoteCompletedPacks = [NSJSONSerialization JSONObjectWithData:progressData options:NSJSONReadingMutableContainers error:nil];
@@ -449,15 +343,15 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
             data = [NSJSONSerialization dataWithJSONObject:progression options:NSJSONWritingPrettyPrinted error:&error];
 //            data = [progression JSONDataWithOptions:JKSerializeOptionNone error:&error];
         }
-        
-        if ((data != nil) && (self.userId != nil)) {
-            //First save it in UsersPref
-            NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
-            [prefsProgression setObject:data forKey:self.userId];
-            [ProgressManager setProgressData:prefsProgression];
 
 #warning TO PORT
-            //Get app model
+//        if ((data != nil) && (self.userId != nil)) {
+//            //First save it in UsersPref
+//            NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
+//            [prefsProgression setObject:data forKey:self.userId];
+//            [ProgressManager setProgressData:prefsProgression];
+//
+//            //Get app model
 //            GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //            
 //            //Set progression data
@@ -473,12 +367,12 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //                //Conflict handling
 //                return [self resolveState:localState andSecondState:remoteState];
 //            }];
-        } else {
-            [self setCurrentlySyncing:NO];
-            
-            //Notify end to delegate
-            [gamesDelegate onGamesSaveDoneWithError:nil];
-        }
+//        } else {
+//            [self setCurrentlySyncing:NO];
+//            
+//            //Notify end to delegate
+//            [gamesDelegate onGamesSaveDoneWithError:nil];
+//        }
         
         return YES;
     }

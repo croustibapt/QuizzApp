@@ -45,12 +45,12 @@ typedef enum {
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)aClientId andProgressionKey:(NSNumber *)aProgressionKey andAutoSignIn:(Boolean)aAutoSignIn {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         [self setClientId:aClientId];
         [self setProgressionKey:aProgressionKey];
         [self setAutoSignIn:aAutoSignIn];
         
-        [[ProgressManager instance] setCredentialsWithClientId:self.clientId andProgressionKey:self.progressionKey];
+#warning TO CHECK
+//        [[QuizzApp sharedInstance].progressManager setCredentialsWithClientId:self.clientId andProgressionKey:self.progressionKey];
         
         //Add observer for internal web view
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationOpenGoogleAuthNotification:) name:ApplicationOpenGoogleAuthNotification object:nil];
@@ -101,7 +101,8 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Re authenticate user
-    [[ProgressManager instance] authenticateWithDelegate:self];
+#warning TO PORT
+//    [[QuizzApp sharedInstance].progressManager authenticateWithDelegate:self];
     
 }
 
@@ -110,7 +111,8 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign out user
-    [[ProgressManager instance] signOutGamesWithDelegate:self];
+#warning TO PORT
+//    [[QuizzApp sharedInstance].progressManager signOutGamesWithDelegate:self];
 }
 
 - (void)initProgression {
@@ -118,7 +120,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[ProgressManager instance] signInWithDelegate:self];
+    [[QuizzApp sharedInstance].progressManager signInWithDelegate:self];
 }
 
 #pragma mark - UIAlertView
@@ -155,19 +157,22 @@ typedef enum {
     [self.statusLabel setText:@""];
     
     //Check signing in
-    Boolean isSigningIn = [ProgressManager instance].currentlySigningIn;
+#warning TO PORT
+    Boolean isSigningIn = NO;//[ProgressManager instance].currentlySigningIn;
     if (isSigningIn) {
         [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
     //Check signing in games
-    Boolean isGamesSigningIn = [ProgressManager instance].currentlyGamesSigningIn;
+#warning TO PORT
+    Boolean isGamesSigningIn = NO;//[ProgressManager instance].currentlyGamesSigningIn;
     if (isGamesSigningIn) {
         [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN_GAMES", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
     //Check syncing
-    Boolean isSyncing = [ProgressManager instance].currentlySyncing;
+#warning TO PORT
+    Boolean isSyncing = NO;//[ProgressManager instance].currentlySyncing;
     if (isSyncing) {
         [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
@@ -213,7 +218,8 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Sign in scores
-        [[ProgressManager instance] signInGamesWithDelegate:self];
+#warning TO PORT
+//        [[QuizzApp sharedInstance].progressManager signInGamesWithDelegate:self];
     }
     
     //Refresh sign in button state
@@ -242,7 +248,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Load progression
-    if (![[ProgressManager instance] loadProgression:self]) {
+    if (![[QuizzApp sharedInstance].progressManager loadProgression:self]) {
         //Stop loading
         [self showHideIndicator:NO];
         
@@ -281,7 +287,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Google+ sign out
-        [[ProgressManager instance] signOutWithDelegate:self];
+        [[QuizzApp sharedInstance].progressManager signOutWithDelegate:self];
     }
     
     //Refresh sign in button state
@@ -325,7 +331,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Try to save progression
-        if (![[ProgressManager instance] saveProgressionWithDelegate:self andInstantProgression:nil]) {
+        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithDelegate:self andInstantProgression:nil]) {
             //Show loading
             [self showHideIndicator:NO];
             
@@ -369,7 +375,7 @@ typedef enum {
     }];
     
     //Cancel sign in
-    [[ProgressManager instance] cancel];
+    [[QuizzApp sharedInstance].progressManager cancel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
