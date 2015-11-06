@@ -46,17 +46,6 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     [self setClientId:aClientId];
     [self setProgressionKey:aProgressionKey];
     
-#warning TO PORT
-//    //Create Google+ sign in instance
-//    GIDSignIn * signIn = [GIDSignIn sharedInstance];
-//    
-//    //Set client information
-//    [signIn setClientID:self.clientId];
-//    [signIn setScopes:];
-//    [signIn setLanguage:[Utils currentLanguage]];
-//    [signIn setDelegate:self];
-////    [signIn setShouldFetchGoogleUserID:YES];
-    
     [[GPGManager sharedInstance] setStatusDelegate:self];
 }
 
@@ -64,11 +53,10 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     //Set delegate
     [self setDelegate:aDelegate];
 
-#warning TO PORT
     GPGManager * gpgManager = [GPGManager sharedInstance];
     [gpgManager setStatusDelegate:self];
-    NSArray * scopes = @[@"https://www.googleapis.com/auth/games", @"https://www.googleapis.com/auth/appstate"];
     
+    NSArray * scopes = @[@"https://www.googleapis.com/auth/games", @"https://www.googleapis.com/auth/appstate"];
     BOOL silentlySigned = [gpgManager signInWithClientID:self.clientId silently:YES withExtraScopes:scopes];
     
     if (!silentlySigned) {
@@ -105,8 +93,6 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     //Notify delegate
     [self.delegate onGamesSignOutDoneWithError:error];
 }
-
-
 
 #pragma mark - Progress
 

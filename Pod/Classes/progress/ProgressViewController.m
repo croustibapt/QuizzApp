@@ -49,9 +49,6 @@ typedef enum {
         [self setProgressionKey:aProgressionKey];
         [self setAutoSignIn:aAutoSignIn];
         
-#warning TO CHECK
-//        [[QuizzApp sharedInstance].progressManager setCredentialsWithClientId:self.clientId andProgressionKey:self.progressionKey];
-        
         //Add observer for internal web view
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationOpenGoogleAuthNotification:) name:ApplicationOpenGoogleAuthNotification object:nil];
     }
@@ -77,22 +74,22 @@ typedef enum {
 
 #pragma mark - UIWebView
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    //Application prefix to check
-    NSString * appPrefix = [NSString stringWithFormat:@"%@:/oauth2callback", [MAIN_BUNDLE bundleIdentifier]];
-    
-    if ([[[request URL] absoluteString] hasPrefix:appPrefix]) {
-#warning TO PORT
-//        [GPPURLHandler handleURL:request.URL sourceApplication:@"com.google.chrome.ios" annotation:nil];
-        
-        //Looks like we did log in (onhand of the url), we are logged in, the Google APi handles the rest
-        [self.navigationController popViewControllerAnimated:YES];
-        
-        return NO;
-    }
-    
-    return YES;
-}
+#warning TO CHECK
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+//    //Application prefix to check
+//    NSString * appPrefix = [NSString stringWithFormat:@"%@:/oauth2callback", [MAIN_BUNDLE bundleIdentifier]];
+//    
+//    if ([[[request URL] absoluteString] hasPrefix:appPrefix]) {
+////        [GPPURLHandler handleURL:request.URL sourceApplication:@"com.google.chrome.ios" annotation:nil];
+//        
+//        //Looks like we did log in (onhand of the url), we are logged in, the Google APi handles the rest
+//        [self.navigationController popViewControllerAnimated:YES];
+//        
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
 
 #pragma mark - Progress
 
@@ -100,9 +97,8 @@ typedef enum {
     //Show loading
     [self showHideIndicator:YES];
     
-    //Re authenticate user
-#warning TO PORT
-//    [[QuizzApp sharedInstance].progressManager authenticateWithDelegate:self];
+    //Sign in user
+    [[QuizzApp sharedInstance].progressManager signInWithDelegate:self];
     
 }
 
@@ -111,8 +107,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign out user
-#warning TO PORT
-//    [[QuizzApp sharedInstance].progressManager signOutGamesWithDelegate:self];
+    [[QuizzApp sharedInstance].progressManager signOutWithDelegate:self];
 }
 
 - (void)initProgression {

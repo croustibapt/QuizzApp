@@ -113,16 +113,16 @@
 }
 
 + (UIImage *)imageWithGradientWithStartColor:(UIColor *)startColor andEndColor:(UIColor *)endColor andSize:(CGSize)size {
-    float r0;
-    float g0;
-    float b0;
-    float a0;
+    CGFloat r0;
+    CGFloat g0;
+    CGFloat b0;
+    CGFloat a0;
     [startColor getRed:&r0 green:&g0 blue:&b0 alpha:&a0];
     
-    float r1;
-    float g1;
-    float b1;
-    float a1;
+    CGFloat r1;
+    CGFloat g1;
+    CGFloat b1;
+    CGFloat a1;
     [endColor getRed:&r1 green:&g1 blue:&b1 alpha:&a1];
     
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
@@ -188,7 +188,7 @@
     CGContextDrawPath(context,kCGPathFill);
     
     //Generate a new UIImage from the graphics context we drew onto
-    UIImage *coloredImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage * coloredImg = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     //Return the color-burned image

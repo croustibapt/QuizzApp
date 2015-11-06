@@ -35,7 +35,7 @@
 	while (!done) {
         @autoreleasepool {
             NSData * fileData = [handle readDataOfLength:512];
-            CC_MD5_Update(&md5, [fileData bytes], [fileData length]);
+            CC_MD5_Update(&md5, [fileData bytes], (CC_LONG)[fileData length]);
             
             if ([fileData length] == 0){
                 done = YES;
@@ -60,7 +60,7 @@
 + (NSString *)stringMD5:(NSString *)str {
     const char *cStr = [str UTF8String];
     unsigned char result[16];
-    CC_MD5( cStr, strlen(cStr), result );
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
     return [NSString stringWithFormat:
             @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
             result[0], result[1], result[2], result[3],
@@ -128,9 +128,8 @@
     CGContextRelease(context);
     
     // Now your rawData contains the image data in the RGBA8888 pixel format.
-    int byteIndex = (bytesPerRow * yy) + xx * bytesPerPixel;
-    for (int ii = 0 ; ii < count ; ++ii)
-    {
+    NSUInteger byteIndex = (bytesPerRow * yy) + xx * bytesPerPixel;
+    for (int ii = 0 ; ii < count ; ++ii) {
         CGFloat red   = (rawData[byteIndex]     * 1.0) / 255.0;
         CGFloat green = (rawData[byteIndex + 1] * 1.0) / 255.0;
         CGFloat blue  = (rawData[byteIndex + 2] * 1.0) / 255.0;
@@ -163,8 +162,8 @@
     
     for (NSUInteger i = 0; i < count; ++i) {
         //Select a random element between i and end of array to swap with.
-        int nElements = count - i;
-        int n = (arc4random() % nElements) + i;
+        NSUInteger nElements = count - i;
+        NSUInteger n = (arc4random() % nElements) + i;
         [values exchangeObjectAtIndex:i withObjectAtIndex:n];
     }}
 
