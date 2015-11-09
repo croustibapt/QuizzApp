@@ -8,6 +8,8 @@
 
 #import "ProgressViewController.h"
 
+#import <GoogleSignIn/GoogleSignIn.h>
+
 typedef enum {
     EProgressSectionHeader = 0,
     EProgressSectionProfile,
@@ -98,7 +100,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager signInWithDelegate:self];
+    [[QuizzApp sharedInstance].progressManager signInWithClientId:self.clientId delegate:self];
     
 }
 
@@ -115,7 +117,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager signInWithDelegate:self];
+    [[QuizzApp sharedInstance].progressManager signInWithClientId:self.clientId delegate:self];
 }
 
 #pragma mark - UIAlertView
@@ -326,7 +328,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Try to save progression
-        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithDelegate:self andInstantProgression:nil]) {
+        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:self.progressionKey delegate:self andInstantProgression:nil]) {
             //Show loading
             [self showHideIndicator:NO];
             
@@ -347,6 +349,7 @@ typedef enum {
     if (isSignedIn) {
         [self signOut];
     } else {
+        [GIDSignIn sharedInstance].uiDelegate = self;
         [self signIn];
     }
     

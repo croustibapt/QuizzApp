@@ -47,10 +47,6 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 @property (nonatomic) Boolean currentlySyncing;
 
-@property (nonatomic, strong) NSString * clientId;
-
-@property (nonatomic, strong) NSNumber * progressionKey;
-
 @property (nonatomic, weak) id<ProgressAuthDelegate> delegate;
 
 - (void)cancel;
@@ -59,7 +55,7 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 #pragma mark - GooglePlayGames
 
-- (void)signInWithDelegate:(id<ProgressAuthDelegate>)delegate;
+- (void)signInWithClientId:(NSString *)clientId delegate:(id<ProgressAuthDelegate>)delegate;
 
 - (void)signOutWithDelegate:(id<ProgressAuthDelegate>)delegate;
 
@@ -67,7 +63,7 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 - (Boolean)loadProgression:(id<ProgressGameDelegate>)delegate;
 
-- (Boolean)saveProgressionWithDelegate:(id<ProgressGameDelegate>)delegate andInstantProgression:(NSDictionary *)instantProgression;
+- (Boolean)saveProgressionWithProgressionKey:(NSNumber *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression;
 
 + (NSDictionary *)getRemoteProgression;
 

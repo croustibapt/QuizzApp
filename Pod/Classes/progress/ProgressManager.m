@@ -41,26 +41,18 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 #pragma mark - Google+
 
-- (void)setCredentialsWithClientId:(NSString *)aClientId andProgressionKey:(NSNumber *)aProgressionKey {
-    //Store client information
-    [self setClientId:aClientId];
-    [self setProgressionKey:aProgressionKey];
-    
-    [[GPGManager sharedInstance] setStatusDelegate:self];
-}
-
-- (void)signInWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
+- (void)signInWithClientId:(NSString *)clientId delegate:(id<ProgressAuthDelegate>)delegate {
     //Set delegate
-    [self setDelegate:aDelegate];
+    [self setDelegate:delegate];
 
     GPGManager * gpgManager = [GPGManager sharedInstance];
     [gpgManager setStatusDelegate:self];
     
     NSArray * scopes = @[@"https://www.googleapis.com/auth/games", @"https://www.googleapis.com/auth/appstate"];
-    BOOL silentlySigned = [gpgManager signInWithClientID:self.clientId silently:YES withExtraScopes:scopes];
+    BOOL silentlySigned = [gpgManager signInWithClientID:clientId silently:YES withExtraScopes:scopes];
     
     if (!silentlySigned) {
-        [gpgManager signInWithClientID:self.clientId silently:NO withExtraScopes:scopes];
+        [gpgManager signInWithClientID:clientId silently:NO withExtraScopes:scopes];
     }
 }
 
@@ -310,9 +302,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     return mergedProgression;
 }
 
-- (Boolean)saveProgressionWithDelegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
+- (Boolean)saveProgressionWithProgressionKey:(NSNumber *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
     //Check if the user is connected and if we have a progression key
-    if ((self.progressionKey != nil) && [GPGManager sharedInstance].isSignedIn) {
+    if ((progressionKey != nil) && [GPGManager sharedInstance].isSignedIn) {
         //Notify we are syncing
         [self setCurrentlySyncing:YES];
         

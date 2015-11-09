@@ -269,7 +269,7 @@
     NSDictionary * instantProgression = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:mediaId]] forKey:packKey];
     
     //And save progression online
-    [[QuizzApp sharedInstance].progressManager saveProgressionWithDelegate:self andInstantProgression:instantProgression];
+    [[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:nil delegate:self andInstantProgression:instantProgression];
     
     [self.delegate onMediaFound:media];
 }

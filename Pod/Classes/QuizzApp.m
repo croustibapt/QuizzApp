@@ -25,6 +25,7 @@
     self = [super init];
     if (self) {
         self.gameManager = [[GameManager alloc] init];
+        self.progressManager = [[ProgressManager alloc] init];
     }
     return self;
 }
