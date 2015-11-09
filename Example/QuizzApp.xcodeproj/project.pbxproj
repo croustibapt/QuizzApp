@@ -124,9 +124,9 @@
 			children = (
 				572440821BE67CE900EC09F1 /* common */,
 				572440851BE67CE900EC09F1 /* home */,
+				5724408D1BE67CE900EC09F1 /* settings */,
 				5724408B1BE67CE900EC09F1 /* QAAppDelegate.h */,
 				5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */,
-				5724408D1BE67CE900EC09F1 /* settings */,
 			);
 			path = classes;
 			sourceTree = "<group>";

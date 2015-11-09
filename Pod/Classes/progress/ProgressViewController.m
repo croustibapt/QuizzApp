@@ -440,4 +440,18 @@ typedef enum {
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - Google
+
+//- (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
+//    NSLog(@"%@", error);
+//}
+//
+//- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController {
+//    
+//}
+//
+//- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
+//    
+//}
+
 @end
