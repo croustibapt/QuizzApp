@@ -19,37 +19,34 @@
 USERPREF_IMPL(NSNumber *, AuthDeclinedGooglePreviously, [NSNumber numberWithBool:NO]);
 USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (void)cancel {
     [self setDelegate:nil];
     
+    [self setCurrentlySigningIn:NO];
     [self setCurrentlySyncing:NO];
-//    [self setCurrentlyGamesSigningIn:NO];
-//    [self setCurrentlySigningIn:NO];
 }
 
 - (BOOL)isConnected {
-    return [GPGManager sharedInstance].isSignedIn;
+    return !self.currentlySigningIn && [GPGManager sharedInstance].isSignedIn;
 }
 
-#pragma mark - Google+
+#pragma mark - SignIn
 
 - (void)signInWithClientId:(NSString *)clientId delegate:(id<ProgressAuthDelegate>)delegate {
+    [self setCurrentlySigningIn:YES];
+    
     //Set delegate
     [self setDelegate:delegate];
 
     GPGManager * gpgManager = [GPGManager sharedInstance];
     [gpgManager setStatusDelegate:self];
     
-    NSArray * scopes = @[@"https://www.googleapis.com/auth/games", @"https://www.googleapis.com/auth/appstate"];
-    BOOL silentlySigned = [gpgManager signInWithClientID:clientId silently:YES withExtraScopes:scopes];
+    NSArray * scopes = @[@"https://www.googleapis.com/auth/games",
+                         @"https://www.googleapis.com/auth/appstate"];
+    
+    BOOL silentlySigned = [gpgManager signInWithClientID:clientId
+                                                silently:YES
+                                         withExtraScopes:scopes];
     
     if (!silentlySigned) {
         [gpgManager signInWithClientID:clientId silently:NO withExtraScopes:scopes];
@@ -67,23 +64,34 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 #pragma mark - GPGStatusDelegate
 
 - (void)didFinishGamesSignInWithError:(NSError *)error {
-    //Check error
-    if (error != nil) {
+    [self setCurrentlySigningIn:NO];
+    
+    // Check error
+    if (error) {
         NSLog(@"ERROR signing in: %@", [error localizedDescription]);
+    } else {
+        //If its a declination error
+        if ([error code] == kErrorCodeFromUserDecliningSignIn) {
+            //Remember decline
+            [ProgressManager setAuthDeclinedGooglePreviously:@YES];
+        }
     }
     
-    //Notify delegate
-    [self.delegate onGamesSignInDoneWithError:error];
+    // Get user
+    GIDGoogleUser * user = [GIDSignIn sharedInstance].currentUser;
+    
+    // Notify delegate
+    [self.delegate onSignInDoneWithError:error user:user];
 }
 
 - (void)didFinishGamesSignOutWithError:(NSError *)error {
     //Check error
-    if (error != nil) {
+    if (error) {
         NSLog(@"ERROR signing out: %@", [error localizedDescription]);
     }
     
     //Notify delegate
-    [self.delegate onGamesSignOutDoneWithError:error];
+    [self.delegate onSignOutDoneWithError:error];
 }
 
 #pragma mark - Progress
@@ -110,7 +118,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     //    return YES;
     
     //Sign test
-    if ([GPGManager sharedInstance].isSignedIn) {
+    if (self.isConnected) {
         [self setCurrentlySyncing:YES];
         
 #warning TO PORT
@@ -143,7 +151,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getRemoteProgressionData {
     NSData * progressData = nil;
     
-    if ([GPGManager sharedInstance].isSignedIn) {
+    if (self.isConnected) {
 #warning TO PORT
 //        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //        progressData = [model stateDataForKey:self.progressionKey];
@@ -155,11 +163,11 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getPrefsProgressionData {
     NSData * progressData = nil;
 
-#warning TO FIX
-//    if (self.userId != nil) {
-//        NSDictionary * prefsProgression = [ProgressManager getProgressData];
-//        progressData = [prefsProgression objectForKey:self.userId];
-//    }
+    GIDGoogleUser * user = [GIDSignIn sharedInstance].currentUser;
+    if (user) {
+        NSDictionary * prefsProgression = [ProgressManager getProgressData];
+        progressData = [prefsProgression objectForKey:user.userID];
+    }
     
     return progressData;
 }
@@ -304,7 +312,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 - (Boolean)saveProgressionWithProgressionKey:(NSNumber *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
     //Check if the user is connected and if we have a progression key
-    if ((progressionKey != nil) && [GPGManager sharedInstance].isSignedIn) {
+    if ((progressionKey != nil) && self.isConnected) {
         //Notify we are syncing
         [self setCurrentlySyncing:YES];
         

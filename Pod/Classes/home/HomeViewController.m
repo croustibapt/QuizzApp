@@ -237,7 +237,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (IBAction)onScoresButtonPush:(id)sender {
     //Check if we have a game authorizer
-    if ([GPGManager sharedInstance].isSignedIn) {
+    if ([QuizzApp sharedInstance].progressManager.isConnected) {
         //Get score
         float score = [ProgressManager getScore];
         

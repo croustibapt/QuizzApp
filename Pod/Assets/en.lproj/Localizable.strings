@@ -43,7 +43,6 @@
 "STR_PROGRESS_INFORMATION" = "We will use Google+ in order to save your game progress online.";
 
 "STR_SIGNING_IN" = "Authentication...";
-"STR_SIGNING_IN_GAMES" = "Authorization...";
 "STR_SYNCING" = "Syncing...";
 
 "STR_SIGN_IN" = "Sign in";

@@ -8,8 +8,6 @@
 
 #import "ProgressViewController.h"
 
-#import <GoogleSignIn/GoogleSignIn.h>
-
 typedef enum {
     EProgressSectionHeader = 0,
     EProgressSectionProfile,
@@ -50,48 +48,9 @@ typedef enum {
         [self setClientId:aClientId];
         [self setProgressionKey:aProgressionKey];
         [self setAutoSignIn:aAutoSignIn];
-        
-        //Add observer for internal web view
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationOpenGoogleAuthNotification:) name:ApplicationOpenGoogleAuthNotification object:nil];
     }
     return self;
 }
-
-- (void)onApplicationOpenGoogleAuthNotification:(id)sender {
-    NSNotification * notification = (NSNotification *)sender;
-    
-    UIViewController * viewController = [[UIViewController alloc] init];
-    [viewController setTitle:NSLocalizedStringFromTableInBundle(@"STR_GOOGLE_PLUS", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    
-    UIWebView * webView = [[UIWebView alloc] initWithFrame:self.view.frame];
-    [webView setDelegate:self];
-    
-    NSURLRequest * request = [NSURLRequest requestWithURL:notification.object];
-    [webView loadRequest:request];
-    
-    [viewController setView:webView];
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-#pragma mark - UIWebView
-
-#warning TO CHECK
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-//    //Application prefix to check
-//    NSString * appPrefix = [NSString stringWithFormat:@"%@:/oauth2callback", [MAIN_BUNDLE bundleIdentifier]];
-//    
-//    if ([[[request URL] absoluteString] hasPrefix:appPrefix]) {
-////        [GPPURLHandler handleURL:request.URL sourceApplication:@"com.google.chrome.ios" annotation:nil];
-//        
-//        //Looks like we did log in (onhand of the url), we are logged in, the Google APi handles the rest
-//        [self.navigationController popViewControllerAnimated:YES];
-//        
-//        return NO;
-//    }
-//    
-//    return YES;
-//}
 
 #pragma mark - Progress
 
@@ -154,43 +113,34 @@ typedef enum {
     [self.statusLabel setText:@""];
     
     //Check signing in
-#warning TO PORT
-    Boolean isSigningIn = NO;//[ProgressManager instance].currentlySigningIn;
+    Boolean isSigningIn = [QuizzApp sharedInstance].progressManager.currentlySigningIn;
     if (isSigningIn) {
         [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
-    //Check signing in games
-#warning TO PORT
-    Boolean isGamesSigningIn = NO;//[ProgressManager instance].currentlyGamesSigningIn;
-    if (isGamesSigningIn) {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN_GAMES", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    }
-    
     //Check syncing
-#warning TO PORT
-    Boolean isSyncing = NO;//[ProgressManager instance].currentlySyncing;
+    Boolean isSyncing = [QuizzApp sharedInstance].progressManager.currentlySyncing;
     if (isSyncing) {
         [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     }
     
     //Is connected ?
-    Boolean canInteract = (!isSigningIn && !isGamesSigningIn && !isSyncing);
+    Boolean canInteract = (!isSigningIn && !isSyncing);
     
     //Enabled only if not signing in (auth or games)
     [self.signInButton setEnabled:canInteract];
     
     //Button title
-    Boolean isSignedIn = [GPGManager sharedInstance].isSignedIn;
-    NSString * buttonTitle = (isSignedIn ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
+    Boolean isConnected = [QuizzApp sharedInstance].progressManager.isConnected;
+    NSString * buttonTitle = (isConnected ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
     
     [self.signInButton setTitle:buttonTitle forState:UIControlStateNormal];
     [self.signInButton setTitle:buttonTitle forState:UIControlStateDisabled];
     
     //Sync button
-    [self.syncButton setEnabled:(isSignedIn && canInteract)];
+    [self.syncButton setEnabled:(isConnected && canInteract)];
     
-    if (isSignedIn) {
+    if (isConnected) {
         [self.signInButton setFrontColor:QUIZZ_APP_RED_MAIN_COLOR];
         [self.signInButton setBackColor:QUIZZ_APP_RED_SECOND_COLOR];
     } else {
@@ -199,24 +149,20 @@ typedef enum {
     }
 }
 
-- (void)onSignInDoneWithError:(NSError *)error {
+- (void)onSignInDoneWithError:(NSError *)error user:(GIDGoogleUser *)user {
     //Stop loading
     [self showHideIndicator:NO];
     
     //Check error
-    if (error != nil) {
+    if (error) {
         //Show alert
         [self showSignInErrorAlertView];
     } else {
         //Auth is now wanted
-        [HomeViewController setAuthWanted:[NSNumber numberWithBool:YES]];
+        [HomeViewController setAuthWanted:@YES];
         
-        //Show loading
-        [self showHideIndicator:YES];
-        
-        //Sign in scores
-#warning TO PORT
-//        [[QuizzApp sharedInstance].progressManager signInGamesWithDelegate:self];
+        //Synchronize progress
+        [self synchronizeProgress];
     }
     
     //Refresh sign in button state
@@ -233,7 +179,7 @@ typedef enum {
         [self showSignOutErrorAlertView];
     } else {
         //No more auto sign in
-        [HomeViewController setAuthWanted:[NSNumber numberWithBool:NO]];
+        [HomeViewController setAuthWanted:@NO];
     }
     
     //Refresh sign in button state
@@ -252,48 +198,6 @@ typedef enum {
         //Show alert
         [self showGamesSyncErrorAlertView];
     }
-}
-
-- (void)onGamesSignInDoneWithError:(NSError *)error {
-    //Stop loading
-    [self showHideIndicator:NO];
-    
-    //Check error
-    if (error != nil) {
-        //Show alert
-        [self showSignInErrorAlertView];
-    } else {
-        //Synchronize progress
-        [self synchronizeProgress];
-    }
-    
-    //Refresh sign in button state
-    [self refreshUI];
-}
-
-- (void)onGamesSignOutDoneWithError:(NSError *)error {
-    //Stop loading
-    [self showHideIndicator:NO];
-    
-    //Check error
-    if (error != nil) {
-        //Show alert
-        [self showSignOutErrorAlertView];
-    } else {
-        //Show loading
-        [self showHideIndicator:YES];
-        
-        //Google+ sign out
-        [[QuizzApp sharedInstance].progressManager signOutWithDelegate:self];
-    }
-    
-    //Refresh sign in button state
-    [self refreshUI];
-}
-
-- (void)onAuthDeclined {
-    //Stop loading
-    [self showHideIndicator:NO];
 }
 
 #pragma mark - ProgressGameDelegate
@@ -344,9 +248,9 @@ typedef enum {
 #pragma mark - IBAction
 
 - (IBAction)onSignInButtonPush:(id)sender {
-    Boolean isSignedIn = [GPGManager sharedInstance].isSignedIn;
+    Boolean isConnected = [QuizzApp sharedInstance].progressManager.isConnected;
     
-    if (isSignedIn) {
+    if (isConnected) {
         [self signOut];
     } else {
         [GIDSignIn sharedInstance].uiDelegate = self;
@@ -366,11 +270,7 @@ typedef enum {
 #pragma mark - UI
 
 - (void)dismiss {
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"REMOVE OBSERVER");
-        NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
-        [center removeObserver:self name:ApplicationOpenGoogleAuthNotification object:nil];
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     //Cancel sign in
     [[QuizzApp sharedInstance].progressManager cancel];
