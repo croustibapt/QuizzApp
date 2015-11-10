@@ -32,7 +32,15 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 #pragma mark - SignIn
 
-- (void)signInWithClientId:(NSString *)clientId delegate:(id<ProgressAuthDelegate>)delegate {
+- (void)signInWithClientId:(NSString *)clientId
+                uiDelegate:(id<GIDSignInUIDelegate>)uiDelegate
+          launcherDelegate:(id<GPGSnapshotListLauncherDelegate>)launcherDelegate
+                  delegate:(id<ProgressAuthDelegate>)delegate {
+    // Initialize Google components
+    [GIDSignIn sharedInstance].uiDelegate = uiDelegate;
+    [GPGManager sharedInstance].snapshotsEnabled = YES;
+    [GPGLauncherController sharedInstance].snapshotListLauncherDelegate = launcherDelegate;
+    
     [self setCurrentlySigningIn:YES];
     
     //Set delegate
@@ -122,6 +130,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         [self setCurrentlySyncing:YES];
         
 #warning TO PORT
+        [[GPGLauncherController sharedInstance] presentSnapshotList];
+        
         //Get app model
 //        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //        
@@ -401,6 +411,22 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     }
     
     return score;
+}
+
+#pragma mark - Saved games
+
+/** Called when the user selects the Create New button from the picker. */
+- (void)snapshotListLauncherDidCreateNewSnapshot {
+    NSLog(@"New snapshot selected");
+}
+
+/** Called when the user picks a saved game. */
+- (void)snapshotListLauncherDidTapSnapshotMetadata:(GPGSnapshotMetadata *)snapshot {
+    NSLog(@"Selected snapshot metadata: %@", snapshot.snapshotDescription);
+    
+    /** Call example game code to load the given saved game. */
+#warning TODO
+//    [self.gameModel loadSnapshot: snapshot];
 }
 
 @end

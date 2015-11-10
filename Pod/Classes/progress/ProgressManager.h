@@ -30,7 +30,7 @@ static int const kErrorCodeFromUserDecliningSignIn = -1;
 
 @end
 
-@interface ProgressManager : NSObject <GPGStatusDelegate>
+@interface ProgressManager : NSObject <GPGStatusDelegate, GPGSnapshotListLauncherDelegate>
 
 USERPREF_DECL(NSNumber *, AuthDeclinedGooglePreviously);
 USERPREF_DECL(NSDictionary *, ProgressData);
@@ -47,7 +47,10 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 #pragma mark - SignIn
 
-- (void)signInWithClientId:(NSString *)clientId delegate:(id<ProgressAuthDelegate>)delegate;
+- (void)signInWithClientId:(NSString *)clientId
+                uiDelegate:(id<GIDSignInUIDelegate>)uiDelegate
+          launcherDelegate:(id<GPGSnapshotListLauncherDelegate>)launcherDelegate
+                  delegate:(id<ProgressAuthDelegate>)delegate;
 
 - (void)signOutWithDelegate:(id<ProgressAuthDelegate>)delegate;
 

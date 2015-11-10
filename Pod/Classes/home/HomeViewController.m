@@ -306,17 +306,17 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 //Labels
                 [self reinitLabels];
-                
-                if ([[HomeViewController getAuthWanted] boolValue]) {
-                    //Show progress view controller
-                    [self showProgressViewController];
-                } else {
-                    
-                    //Check if we can notify the user
-                    if (![[HomeViewController getAuthAlertShown] boolValue]) {
-                        [self showAuthAlertView];
-                    }
-                }
+
+#warning TO CLEAN
+//                if ([[HomeViewController getAuthWanted] boolValue]) {
+//                    //Show progress view controller
+//                    [self showProgressViewController];
+//                } else {
+//                    //Check if we can notify the user
+//                    if (![[HomeViewController getAuthAlertShown] boolValue]) {
+//                        [self showAuthAlertView];
+//                    }
+//                }
                 
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });

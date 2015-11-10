@@ -59,8 +59,10 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager signInWithClientId:self.clientId delegate:self];
-    
+    [[QuizzApp sharedInstance].progressManager signInWithClientId:self.clientId
+                                                       uiDelegate:(id<GIDSignInUIDelegate>)self
+                                                 launcherDelegate:(id<GPGSnapshotListLauncherDelegate>)self
+                                                         delegate:self];
 }
 
 - (void)signOut {
@@ -72,11 +74,8 @@ typedef enum {
 }
 
 - (void)initProgression {
-    //Show loading
-    [self showHideIndicator:YES];
-    
-    //Sign in user
-    [[QuizzApp sharedInstance].progressManager signInWithClientId:self.clientId delegate:self];
+    // Same as sign in
+    [self signIn];
 }
 
 #pragma mark - UIAlertView
@@ -162,7 +161,7 @@ typedef enum {
         [HomeViewController setAuthWanted:@YES];
         
         //Synchronize progress
-        [self synchronizeProgress];
+//        [self synchronizeProgress];
     }
     
     //Refresh sign in button state
@@ -252,8 +251,7 @@ typedef enum {
     
     if (isConnected) {
         [self signOut];
-    } else {
-        [GIDSignIn sharedInstance].uiDelegate = self;
+    } else {        
         [self signIn];
     }
     
@@ -308,17 +306,18 @@ typedef enum {
     //Done item
     UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     [self.navigationItem setRightBarButtonItem:doneItem];
-    
-    if (self.autoSignIn) {
-        //If auth wanted
-        if ([HomeViewController getAuthWanted]) {
-            //Init progression
-            [self initProgression];
-        }
-        
-        //Refresh UI
-        [self refreshUI];
-    }
+
+#warning TO CLEAN
+//    if (self.autoSignIn) {
+//        //If auth wanted
+//        if ([HomeViewController getAuthWanted]) {
+//            //Init progression
+//            [self initProgression];
+//        }
+//        
+//        //Refresh UI
+//        [self refreshUI];
+//    }
     
     //Sync button
     [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
@@ -353,5 +352,14 @@ typedef enum {
 //- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
 //    
 //}
+
+- (BOOL)shouldAllowCreateForSnapshotListLauncher {
+    // You can leave this as NO if you don't want to handle more than one saved game slot
+    return YES;
+}
+
+- (int)maxSaveSlotsForSnapshotListLauncher {
+    return 3;
+}
 
 @end

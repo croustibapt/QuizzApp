@@ -71,11 +71,16 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     //Create progress controller
     QuizzApp * quizzApp = [QuizzApp sharedInstance];
     
-    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:NO];
-    
-    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
+    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName
+                                                                                               bundle:QUIZZ_APP_XIB_BUNDLE
+                                                                                          andClientId:quizzApp.googlePlayClientId
+                                                                                    andProgressionKey:quizzApp.googlePlayProgressionKey
+                                                                                        andAutoSignIn:NO];
+
+    [self.navigationController pushViewController:progressViewController animated:YES];
+//    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
+//    
+//    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Help
