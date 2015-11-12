@@ -39,7 +39,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     // Initialize Google components
     [GIDSignIn sharedInstance].uiDelegate = uiDelegate;
     [GPGManager sharedInstance].snapshotsEnabled = YES;
-    [GPGLauncherController sharedInstance].snapshotListLauncherDelegate = launcherDelegate;
+    [GPGLauncherController sharedInstance].snapshotListLauncherDelegate = self;
     
     [self setCurrentlySigningIn:YES];
     
@@ -414,6 +414,15 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 #pragma mark - Saved games
+
+- (BOOL)shouldAllowCreateForSnapshotListLauncher {
+    // You can leave this as NO if you don't want to handle more than one saved game slot
+    return YES;
+}
+
+- (int)maxSaveSlotsForSnapshotListLauncher {
+    return 3;
+}
 
 /** Called when the user selects the Create New button from the picker. */
 - (void)snapshotListLauncherDidCreateNewSnapshot {

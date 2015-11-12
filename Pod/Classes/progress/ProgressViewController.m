@@ -353,13 +353,4 @@ typedef enum {
 //    
 //}
 
-- (BOOL)shouldAllowCreateForSnapshotListLauncher {
-    // You can leave this as NO if you don't want to handle more than one saved game slot
-    return YES;
-}
-
-- (int)maxSaveSlotsForSnapshotListLauncher {
-    return 3;
-}
-
 @end
