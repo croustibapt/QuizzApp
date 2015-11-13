@@ -11,23 +11,9 @@ PODS:
     - GoogleNetworkingUtilities (~> 1.0)
     - GoogleSymbolUtilities (~> 1.0)
     - GoogleUtilities (~> 1.0)
-  - GoogleAnalytics (3.13.0)
-  - GoogleAppUtilities (1.0.0):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleAuthUtilities (1.0.1):
-    - GoogleNetworkingUtilities (~> 1.0)
-    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleAnalytics (3.14.0)
   - GoogleNetworkingUtilities (1.0.0):
     - GoogleSymbolUtilities (~> 1.0)
-  - GooglePlayGames (5.0):
-    - GooglePlusOpenSource (>= 1.7.1)
-    - GoogleSignIn (>= 2.0)
-  - GooglePlusOpenSource (1.7.1)
-  - GoogleSignIn (2.4.0):
-    - GoogleAppUtilities (~> 1.0)
-    - GoogleAuthUtilities (~> 1.0)
-    - GoogleNetworkingUtilities (~> 1.0)
-    - GoogleUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.0.3)
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
@@ -35,7 +21,6 @@ PODS:
   - Onboard (2.1.7)
   - QuizzApp (0.1.1):
     - Google/Analytics (~> 1.0.0)
-    - GooglePlayGames
     - MBProgressHUD (~> 0.9.1)
     - Onboard
     - ZipArchive
@@ -57,18 +42,13 @@ SPEC CHECKSUMS:
   Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
   FBSnapshotTestCase: f53793e19b2782f2948e8597b03ec2bb5aedf5cd
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
-  GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
-  GoogleAppUtilities: c01c6a5671e9da8b9d690fdaec5959d6c2aac699
-  GoogleAuthUtilities: 049ffd3a297cdffd271451b82fd4e75304f15ef3
+  GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
-  GooglePlayGames: 35885db09543086c35ad7f84c15a71ef92bc36f4
-  GooglePlusOpenSource: 5d514063287e1e87060eb4f9fab9d23d1c8fa601
-  GoogleSignIn: 79929b51e6299c69f1197bbd9c7a1367d523ecd8
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Onboard: 87648089e1b76d13b4f5bf8f7a1cdb144092f0af
-  QuizzApp: c6a67ce454febdd6f2587de46a6d2a41fcfb482e
+  QuizzApp: c6dcad89344fd5ef82d335c687085468f6d74c2e
   Specta: 69bb134672aae190a1379ff91df07dad8dd1f869
   ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
 

@@ -11,7 +11,6 @@
 #import <QuizzApp/QuizzApp.h>
 #import <QuizzApp/UtilsImage.h>
 #import <QuizzApp/Constants.h>
-#import <GoogleSignIn/GoogleSignIn.h>
 
 #import "MQConstants.h"
 
@@ -67,17 +66,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    // Let QuizzApp do the job
-    return [[QuizzApp sharedInstance] application:application
-                                          openURL:url
-                                sourceApplication:sourceApplication
-                                       annotation:annotation];
 }
 
 @end

@@ -216,10 +216,6 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     [Utils setCurrentLanguage:[Utils otherLanguage]];
     [self.navigationController popViewControllerAnimated:YES];
     
-    //Change scores current language
-    GIDSignIn * signIn = [GIDSignIn sharedInstance];
-    [signIn setLanguage:[Utils currentLanguage]];
-    
 #warning TO MOVE?
 //    PFInstallation * currentInstallation = [PFInstallation currentInstallation];
 //    

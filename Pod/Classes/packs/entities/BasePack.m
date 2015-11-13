@@ -76,7 +76,8 @@
 
 - (Boolean)isCompleted {
     //Check if the user is connected
-    Boolean userIsConnected = [[QuizzApp sharedInstance].progressManager isConnected];
+#warning TO PORT
+    Boolean userIsConnected = NO;//[[QuizzApp sharedInstance].progressManager isConnected];
     
     return ((!userIsConnected && m_isCompleted) || self.isRemoteCompleted);
 }

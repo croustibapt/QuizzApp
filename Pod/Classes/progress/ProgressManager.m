@@ -8,6 +8,8 @@
 
 #import "ProgressManager.h"
 
+NSString * const kProgressManagerGameKitViewControllerNotification = @"kProgressManagerGameKitViewControllerNotification";
+
 #import "GameDBHelper.h"
 #import "Constants.h"
 #import "Utils.h"
@@ -16,90 +18,36 @@
 
 @implementation ProgressManager
 
-USERPREF_IMPL(NSNumber *, AuthDeclinedGooglePreviously, [NSNumber numberWithBool:NO]);
 USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 - (void)cancel {
-    [self setDelegate:nil];
     
-    [self setCurrentlySigningIn:NO];
-    [self setCurrentlySyncing:NO];
 }
 
 - (BOOL)isConnected {
-    return !self.currentlySigningIn && [GPGManager sharedInstance].isSignedIn;
+    return NO;
 }
 
 #pragma mark - SignIn
 
-- (void)signInWithClientId:(NSString *)clientId
-                uiDelegate:(id<GIDSignInUIDelegate>)uiDelegate
-          launcherDelegate:(id<GPGSnapshotListLauncherDelegate>)launcherDelegate
-                  delegate:(id<ProgressAuthDelegate>)delegate {
-    // Initialize Google components
-    [GIDSignIn sharedInstance].uiDelegate = uiDelegate;
-    [GPGManager sharedInstance].snapshotsEnabled = YES;
-    [GPGLauncherController sharedInstance].snapshotListLauncherDelegate = self;
-    
-    [self setCurrentlySigningIn:YES];
-    
-    //Set delegate
-    [self setDelegate:delegate];
-
-    GPGManager * gpgManager = [GPGManager sharedInstance];
-    [gpgManager setStatusDelegate:self];
-    
-    NSArray * scopes = @[@"https://www.googleapis.com/auth/games",
-                         @"https://www.googleapis.com/auth/appstate"];
-    
-    BOOL silentlySigned = [gpgManager signInWithClientID:clientId
-                                                silently:YES
-                                         withExtraScopes:scopes];
-    
-    if (!silentlySigned) {
-        [gpgManager signInWithClientID:clientId silently:NO withExtraScopes:scopes];
-    }
-}
-
-- (void)signOutWithDelegate:(id<ProgressAuthDelegate>)aDelegate {
-    //Set delegate
-    [self setDelegate:aDelegate];
-
-    //Sign out from Google Play Games
-    [[GPGManager sharedInstance] signOut];
-}
-
-#pragma mark - GPGStatusDelegate
-
-- (void)didFinishGamesSignInWithError:(NSError *)error {
-    [self setCurrentlySigningIn:NO];
-    
-    // Check error
-    if (error) {
-        NSLog(@"ERROR signing in: %@", [error localizedDescription]);
-    } else {
-        //If its a declination error
-        if ([error code] == kErrorCodeFromUserDecliningSignIn) {
-            //Remember decline
-            [ProgressManager setAuthDeclinedGooglePreviously:@YES];
+- (void)signIn {
+#warning TODO
+    [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController * viewController, NSError * error) {
+        if (error) {
+            
+        } else if (viewController) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kProgressManagerGameKitViewControllerNotification
+                                                                object:viewController];
+        } else if ([GKLocalPlayer localPlayer].isAuthenticated) {
+            
+        } else {
+            
         }
-    }
-    
-    // Get user
-    GIDGoogleUser * user = [GIDSignIn sharedInstance].currentUser;
-    
-    // Notify delegate
-    [self.delegate onSignInDoneWithError:error user:user];
+    }];
 }
 
-- (void)didFinishGamesSignOutWithError:(NSError *)error {
-    //Check error
-    if (error) {
-        NSLog(@"ERROR signing out: %@", [error localizedDescription]);
-    }
-    
-    //Notify delegate
-    [self.delegate onSignOutDoneWithError:error];
+- (void)signOut {
+#warning TODO
 }
 
 #pragma mark - Progress
@@ -126,12 +74,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     //    return YES;
     
     //Sign test
-    if (self.isConnected) {
-        [self setCurrentlySyncing:YES];
-        
 #warning TO PORT
-        [[GPGLauncherController sharedInstance] presentSnapshotList];
-        
         //Get app model
 //        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //        
@@ -151,9 +94,6 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //            //Always load remote state
 //            return remoteState;
 //        }];
-        
-        return YES;
-    }
     
     return NO;
 }
@@ -161,11 +101,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getRemoteProgressionData {
     NSData * progressData = nil;
     
-    if (self.isConnected) {
 #warning TO PORT
 //        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //        progressData = [model stateDataForKey:self.progressionKey];
-    }
     
     return progressData;
 }
@@ -173,11 +111,12 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getPrefsProgressionData {
     NSData * progressData = nil;
 
-    GIDGoogleUser * user = [GIDSignIn sharedInstance].currentUser;
-    if (user) {
-        NSDictionary * prefsProgression = [ProgressManager getProgressData];
-        progressData = [prefsProgression objectForKey:user.userID];
-    }
+#warning TO PORT
+//    GIDGoogleUser * user = [GIDSignIn sharedInstance].currentUser;
+//    if (user) {
+//        NSDictionary * prefsProgression = [ProgressManager getProgressData];
+//        progressData = [prefsProgression objectForKey:user.userID];
+//    }
     
     return progressData;
 }
@@ -321,26 +260,26 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 - (Boolean)saveProgressionWithProgressionKey:(NSNumber *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
-    //Check if the user is connected and if we have a progression key
-    if ((progressionKey != nil) && self.isConnected) {
-        //Notify we are syncing
-        [self setCurrentlySyncing:YES];
-        
-        //Get all completed medias (remote U local)
-        NSDictionary * progression = [ProgressManager getProgression];
-        progression = [ProgressManager mergeProgressionWithProgression1:progression andProgression2:instantProgression];
-        
-        NSData * data = nil;
-        NSError * error = nil;
-        
-        //Check nullity
-        if (progression != nil) {
-            //Format data to save
-            data = [NSJSONSerialization dataWithJSONObject:progression options:NSJSONWritingPrettyPrinted error:&error];
-//            data = [progression JSONDataWithOptions:JKSerializeOptionNone error:&error];
-        }
-
 #warning TO PORT
+//    //Check if the user is connected and if we have a progression key
+//    if ((progressionKey != nil) && self.isConnected) {
+//        //Notify we are syncing
+//        [self setCurrentlySyncing:YES];
+//        
+//        //Get all completed medias (remote U local)
+//        NSDictionary * progression = [ProgressManager getProgression];
+//        progression = [ProgressManager mergeProgressionWithProgression1:progression andProgression2:instantProgression];
+//        
+//        NSData * data = nil;
+//        NSError * error = nil;
+//        
+//        //Check nullity
+//        if (progression != nil) {
+//            //Format data to save
+//            data = [NSJSONSerialization dataWithJSONObject:progression options:NSJSONWritingPrettyPrinted error:&error];
+////            data = [progression JSONDataWithOptions:JKSerializeOptionNone error:&error];
+//        }
+//
 //        if ((data != nil) && (self.userId != nil)) {
 //            //First save it in UsersPref
 //            NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
@@ -369,9 +308,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //            //Notify end to delegate
 //            [gamesDelegate onGamesSaveDoneWithError:nil];
 //        }
-        
-        return YES;
-    }
+//        
+//        return YES;
+//    }
     
     return NO;
 }
@@ -411,31 +350,6 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     }
     
     return score;
-}
-
-#pragma mark - Saved games
-
-- (BOOL)shouldAllowCreateForSnapshotListLauncher {
-    // You can leave this as NO if you don't want to handle more than one saved game slot
-    return YES;
-}
-
-- (int)maxSaveSlotsForSnapshotListLauncher {
-    return 3;
-}
-
-/** Called when the user selects the Create New button from the picker. */
-- (void)snapshotListLauncherDidCreateNewSnapshot {
-    NSLog(@"New snapshot selected");
-}
-
-/** Called when the user picks a saved game. */
-- (void)snapshotListLauncherDidTapSnapshotMetadata:(GPGSnapshotMetadata *)snapshot {
-    NSLog(@"Selected snapshot metadata: %@", snapshot.snapshotDescription);
-    
-    /** Call example game code to load the given saved game. */
-#warning TODO
-//    [self.gameModel loadSnapshot: snapshot];
 }
 
 @end

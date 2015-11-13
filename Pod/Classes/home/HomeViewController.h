@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <gpg/GooglePlayGames.h>
 #import <Google/Analytics.h>
 
 typedef void (^HomeViewControllerLoadLevelsCompletionHandler)(void);

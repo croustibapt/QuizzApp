@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <gpg/GooglePlayGames.h>
-#import <GoogleSignIn/GoogleSignIn.h>
+#import <GameKit/GameKit.h>
 
-static int const kErrorCodeFromUserDecliningSignIn = -1;
+extern NSString * const kProgressManagerGameKitViewControllerNotification;
 
 #import "Constants.h"
 
@@ -22,24 +21,11 @@ static int const kErrorCodeFromUserDecliningSignIn = -1;
 
 @end
 
-@protocol ProgressAuthDelegate <NSObject>
+@interface ProgressManager : NSObject
 
-- (void)onSignInDoneWithError:(NSError *)error user:(GIDGoogleUser *)user;
-
-- (void)onSignOutDoneWithError:(NSError *)error;
-
-@end
-
-@interface ProgressManager : NSObject <GPGStatusDelegate, GPGSnapshotListLauncherDelegate>
-
-USERPREF_DECL(NSNumber *, AuthDeclinedGooglePreviously);
 USERPREF_DECL(NSDictionary *, ProgressData);
 
-@property (nonatomic) Boolean currentlySigningIn;
-
-@property (nonatomic) Boolean currentlySyncing;
-
-@property (nonatomic, weak) id<ProgressAuthDelegate> delegate;
+//@property (nonatomic, strong) UIViewController * gameKitViewController;
 
 - (void)cancel;
 
@@ -47,12 +33,9 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 #pragma mark - SignIn
 
-- (void)signInWithClientId:(NSString *)clientId
-                uiDelegate:(id<GIDSignInUIDelegate>)uiDelegate
-          launcherDelegate:(id<GPGSnapshotListLauncherDelegate>)launcherDelegate
-                  delegate:(id<ProgressAuthDelegate>)delegate;
+- (void)signIn;
 
-- (void)signOutWithDelegate:(id<ProgressAuthDelegate>)delegate;
+- (void)signOut;
 
 #pragma mark - Progress
 

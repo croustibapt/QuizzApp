@@ -12,7 +12,7 @@
 #import "BackViewController.h"
 #import "FlatButton.h"
 
-@interface ProgressViewController : BackViewController <ProgressAuthDelegate, ProgressGameDelegate, UIWebViewDelegate>
+@interface ProgressViewController : BackViewController <ProgressGameDelegate, UIWebViewDelegate>
 
 @property (nonatomic, strong) IBOutlet FlatButton * signInButton;
 

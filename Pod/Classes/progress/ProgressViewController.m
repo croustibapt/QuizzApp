@@ -33,11 +33,31 @@ typedef enum {
 
 @implementation ProgressViewController
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:kProgressManagerGameKitViewControllerNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+            [self presentViewController:note.object animated:YES completion:nil];
+        }];
+    }
+    return self;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         NSString * nibName = ExtensionName(@"ProgressViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:kProgressManagerGameKitViewControllerNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+                                                          [self presentViewController:note.object animated:YES completion:nil];
+                                                      }];
     }
     return self;
 }
@@ -48,8 +68,19 @@ typedef enum {
         [self setClientId:aClientId];
         [self setProgressionKey:aProgressionKey];
         [self setAutoSignIn:aAutoSignIn];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:kProgressManagerGameKitViewControllerNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification * _Nonnull note) {
+                                                          [self presentViewController:note.object animated:YES completion:nil];
+                                                      }];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Progress
@@ -59,10 +90,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager signInWithClientId:self.clientId
-                                                       uiDelegate:(id<GIDSignInUIDelegate>)self
-                                                 launcherDelegate:(id<GPGSnapshotListLauncherDelegate>)self
-                                                         delegate:self];
+    [[QuizzApp sharedInstance].progressManager signIn];
 }
 
 - (void)signOut {
@@ -70,7 +98,7 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign out user
-    [[QuizzApp sharedInstance].progressManager signOutWithDelegate:self];
+    [[QuizzApp sharedInstance].progressManager signOut];
 }
 
 - (void)initProgression {
@@ -112,25 +140,28 @@ typedef enum {
     [self.statusLabel setText:@""];
     
     //Check signing in
-    Boolean isSigningIn = [QuizzApp sharedInstance].progressManager.currentlySigningIn;
-    if (isSigningIn) {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    }
-    
-    //Check syncing
-    Boolean isSyncing = [QuizzApp sharedInstance].progressManager.currentlySyncing;
-    if (isSyncing) {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    }
+#warning TO PORT
+//    Boolean isSigningIn = [QuizzApp sharedInstance].progressManager.currentlySigningIn;
+//    if (isSigningIn) {
+//        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+//    }
+//    
+//    //Check syncing
+//    Boolean isSyncing = [QuizzApp sharedInstance].progressManager.currentlySyncing;
+//    if (isSyncing) {
+//        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+//    }
     
     //Is connected ?
-    Boolean canInteract = (!isSigningIn && !isSyncing);
+#warning TO PORT
+    Boolean canInteract = YES;//(!isSigningIn && !isSyncing);
     
     //Enabled only if not signing in (auth or games)
     [self.signInButton setEnabled:canInteract];
     
     //Button title
-    Boolean isConnected = [QuizzApp sharedInstance].progressManager.isConnected;
+#warning TO PORT
+    Boolean isConnected = NO;//[QuizzApp sharedInstance].progressManager.isConnected;
     NSString * buttonTitle = (isConnected ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
     
     [self.signInButton setTitle:buttonTitle forState:UIControlStateNormal];
@@ -145,57 +176,6 @@ typedef enum {
     } else {
         [self.signInButton setFrontColor:QUIZZ_APP_GREEN_MAIN_COLOR];
         [self.signInButton setBackColor:QUIZZ_APP_GREEN_SECOND_COLOR];
-    }
-}
-
-- (void)onSignInDoneWithError:(NSError *)error user:(GIDGoogleUser *)user {
-    //Stop loading
-    [self showHideIndicator:NO];
-    
-    //Check error
-    if (error) {
-        //Show alert
-        [self showSignInErrorAlertView];
-    } else {
-        //Auth is now wanted
-        [HomeViewController setAuthWanted:@YES];
-        
-        //Synchronize progress
-//        [self synchronizeProgress];
-    }
-    
-    //Refresh sign in button state
-    [self refreshUI];
-}
-
-- (void)onSignOutDoneWithError:(NSError *)error {
-    //Stop loading
-    [self showHideIndicator:NO];
-    
-    //Check error
-    if (error != nil) {
-        //Show alert
-        [self showSignOutErrorAlertView];
-    } else {
-        //No more auto sign in
-        [HomeViewController setAuthWanted:@NO];
-    }
-    
-    //Refresh sign in button state
-    [self refreshUI];
-}
-
-- (void)synchronizeProgress {
-    //Show loading
-    [self showHideIndicator:YES];
-    
-    //Load progression
-    if (![[QuizzApp sharedInstance].progressManager loadProgression:self]) {
-        //Stop loading
-        [self showHideIndicator:NO];
-        
-        //Show alert
-        [self showGamesSyncErrorAlertView];
     }
 }
 
@@ -247,7 +227,8 @@ typedef enum {
 #pragma mark - IBAction
 
 - (IBAction)onSignInButtonPush:(id)sender {
-    Boolean isConnected = [QuizzApp sharedInstance].progressManager.isConnected;
+#warning TO PORT
+    Boolean isConnected = NO;//[QuizzApp sharedInstance].progressManager.isConnected;
     
     if (isConnected) {
         [self signOut];
@@ -259,8 +240,9 @@ typedef enum {
 }
 
 - (IBAction)onSyncButtonPush:(id)sender {
-    //
-    [self synchronizeProgress];
+    //Synchronize progression
+#warning TO PORT
+//    [self synchronizeProgress];
     
     [self refreshUI];
 }
@@ -271,7 +253,8 @@ typedef enum {
     [self dismissViewControllerAnimated:YES completion:nil];
     
     //Cancel sign in
-    [[QuizzApp sharedInstance].progressManager cancel];
+#warning TO PORT
+//    [[QuizzApp sharedInstance].progressManager cancel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
