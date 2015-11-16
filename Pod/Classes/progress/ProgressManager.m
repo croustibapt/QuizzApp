@@ -8,8 +8,6 @@
 
 #import "ProgressManager.h"
 
-NSString * const kProgressManagerGameKitViewControllerNotification = @"kProgressManagerGameKitViewControllerNotification";
-
 #import "GameDBHelper.h"
 #import "Constants.h"
 #import "Utils.h"
@@ -30,16 +28,17 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 #pragma mark - SignIn
 
-- (void)signIn {
+- (void)signInWithViewController:(UIViewController *)viewController success:(ProgressManagerSignInSuccessHandler)success failure:(ProgressManagerSignInFailureHandler)failure {
 #warning TODO
     [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController * viewController, NSError * error) {
         if (error) {
             
         } else if (viewController) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kProgressManagerGameKitViewControllerNotification
-                                                                object:viewController];
+            [viewController presentViewController:viewController animated:YES completion:nil];
         } else if ([GKLocalPlayer localPlayer].isAuthenticated) {
-            
+            if (success) {
+                success([GKLocalPlayer localPlayer]);
+            }
         } else {
             
         }

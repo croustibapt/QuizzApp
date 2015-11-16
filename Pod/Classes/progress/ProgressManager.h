@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
-extern NSString * const kProgressManagerGameKitViewControllerNotification;
+typedef void (^ProgressManagerSignInSuccessHandler)(GKLocalPlayer * player);
+typedef void (^ProgressManagerSignInFailureHandler)(NSError * error);
 
 #import "Constants.h"
 
@@ -33,7 +34,7 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 #pragma mark - SignIn
 
-- (void)signIn;
+- (void)signInWithViewController:(UIViewController *)viewController success:(ProgressManagerSignInSuccessHandler)success failure:(ProgressManagerSignInFailureHandler)failure;
 
 - (void)signOut;
 

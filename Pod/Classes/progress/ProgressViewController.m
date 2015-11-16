@@ -33,31 +33,11 @@ typedef enum {
 
 @implementation ProgressViewController
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserverForName:kProgressManagerGameKitViewControllerNotification
-                                                          object:nil
-                                                           queue:nil
-                                                      usingBlock:^(NSNotification * _Nonnull note) {
-            [self presentViewController:note.object animated:YES completion:nil];
-        }];
-    }
-    return self;
-}
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         NSString * nibName = ExtensionName(@"ProgressViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:kProgressManagerGameKitViewControllerNotification
-                                                          object:nil
-                                                           queue:nil
-                                                      usingBlock:^(NSNotification * _Nonnull note) {
-                                                          [self presentViewController:note.object animated:YES completion:nil];
-                                                      }];
     }
     return self;
 }
@@ -68,13 +48,6 @@ typedef enum {
         [self setClientId:aClientId];
         [self setProgressionKey:aProgressionKey];
         [self setAutoSignIn:aAutoSignIn];
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:kProgressManagerGameKitViewControllerNotification
-                                                          object:nil
-                                                           queue:nil
-                                                      usingBlock:^(NSNotification * _Nonnull note) {
-                                                          [self presentViewController:note.object animated:YES completion:nil];
-                                                      }];
     }
     return self;
 }
@@ -90,7 +63,11 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager signIn];
+    [[QuizzApp sharedInstance].progressManager signInWithViewController:self success:^(GKLocalPlayer * player) {
+        //
+    } failure:^(NSError * error) {
+        //
+    }];
 }
 
 - (void)signOut {
