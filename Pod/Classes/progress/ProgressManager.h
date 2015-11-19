@@ -30,13 +30,11 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 - (void)cancel;
 
-- (BOOL)isConnected;
+- (BOOL)isAuthenticated;
 
 #pragma mark - SignIn
 
-- (void)signInWithViewController:(UIViewController *)viewController success:(ProgressManagerSignInSuccessHandler)success failure:(ProgressManagerSignInFailureHandler)failure;
-
-- (void)signOut;
+- (void)authenticateWithViewController:(UIViewController *)viewController success:(ProgressManagerSignInSuccessHandler)success failure:(ProgressManagerSignInFailureHandler)failure;
 
 #pragma mark - Progress
 

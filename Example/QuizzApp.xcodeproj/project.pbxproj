@@ -23,6 +23,7 @@
 		572440B01BE68F9F00EC09F1 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AA1BE68F9F00EC09F1 /* success.mp3 */; };
 		572440B11BE68F9F00EC09F1 /* undo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AB1BE68F9F00EC09F1 /* undo.mp3 */; };
 		572440B21BE68F9F00EC09F1 /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AC1BE68F9F00EC09F1 /* wrong.mp3 */; };
+		57C75EAD1BFDADED006DAA43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C75EAC1BFDADED006DAA43 /* GameKit.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -71,6 +72,7 @@
 		572440AA1BE68F9F00EC09F1 /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		572440AB1BE68F9F00EC09F1 /* undo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = undo.mp3; sourceTree = "<group>"; };
 		572440AC1BE68F9F00EC09F1 /* wrong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wrong.mp3; sourceTree = "<group>"; };
+		57C75EAC1BFDADED006DAA43 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		6003F58A195388D20070C39A /* QuizzApp_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizzApp_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,6 +104,7 @@
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
 				B349178803332E317447A9F3 /* libPods-QuizzApp_Example.a in Frameworks */,
+				57C75EAD1BFDADED006DAA43 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +220,7 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57C75EAC1BFDADED006DAA43 /* GameKit.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
@@ -343,6 +347,14 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Baptiste LE GUELVOUIT";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = K5Z9H7A6E4;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};

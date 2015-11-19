@@ -58,40 +58,27 @@ typedef enum {
 
 #pragma mark - Progress
 
-- (void)signIn {
+- (void)authenticate {
     //Show loading
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager signInWithViewController:self success:^(GKLocalPlayer * player) {
+    [[QuizzApp sharedInstance].progressManager authenticateWithViewController:self success:^(GKLocalPlayer * player) {
         //
     } failure:^(NSError * error) {
         //
     }];
 }
 
-- (void)signOut {
-    //Show loading
-    [self showHideIndicator:YES];
-    
-    //Sign out user
-    [[QuizzApp sharedInstance].progressManager signOut];
-}
-
 - (void)initProgression {
-    // Same as sign in
-    [self signIn];
+    // Same as authenticate
+    [self authenticate];
 }
 
 #pragma mark - UIAlertView
 
-- (void)showSignInErrorAlertView {
+- (void)showAuthenticateErrorAlertView {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)showSignOutErrorAlertView {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
     [alertView show];
 }
 
@@ -204,13 +191,8 @@ typedef enum {
 #pragma mark - IBAction
 
 - (IBAction)onSignInButtonPush:(id)sender {
-#warning TO PORT
-    Boolean isConnected = NO;//[QuizzApp sharedInstance].progressManager.isConnected;
-    
-    if (isConnected) {
-        [self signOut];
-    } else {        
-        [self signIn];
+    if (![[QuizzApp sharedInstance].progressManager isAuthenticated]) {
+        [self authenticate];
     }
     
     [self refreshUI];

@@ -22,31 +22,25 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     
 }
 
-- (BOOL)isConnected {
-    return NO;
+- (BOOL)isAuthenticated {
+    return [GKLocalPlayer localPlayer].isAuthenticated;
 }
 
 #pragma mark - SignIn
 
-- (void)signInWithViewController:(UIViewController *)viewController success:(ProgressManagerSignInSuccessHandler)success failure:(ProgressManagerSignInFailureHandler)failure {
-#warning TODO
-    [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController * viewController, NSError * error) {
-        if (error) {
-            
-        } else if (viewController) {
-            [viewController presentViewController:viewController animated:YES completion:nil];
-        } else if ([GKLocalPlayer localPlayer].isAuthenticated) {
-            if (success) {
-                success([GKLocalPlayer localPlayer]);
-            }
+- (void)authenticateWithViewController:(UIViewController *)viewController
+                                success:(ProgressManagerSignInSuccessHandler)success
+                                failure:(ProgressManagerSignInFailureHandler)failure {
+    [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController * gameKitViewController, NSError * error) {
+        if (gameKitViewController) {
+            // Present login view controller
+            [viewController presentViewController:gameKitViewController animated:YES completion:nil];
+        } else if ([self isAuthenticated]) {
+            QABlock(success, [GKLocalPlayer localPlayer]);
         } else {
-            
+            QABlock(failure, error);
         }
     }];
-}
-
-- (void)signOut {
-#warning TODO
 }
 
 #pragma mark - Progress

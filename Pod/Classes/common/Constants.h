@@ -29,6 +29,8 @@
 
 #define QUIZZ_APP_FOUND_COLOR UIColorFromRGB(0xff0000)
 
+#define QABlock(block, ...) block ? block(__VA_ARGS__) : nil
+
 #pragma mark - Net
 
 extern int const QUIZZ_APP_INIT_REQUEST_TIMEOUT;

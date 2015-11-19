@@ -174,7 +174,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
             //Login
             [cell.imageView setImage:[UtilsImage imageNamed:@"ic_google_plus" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             
-            if ([[QuizzApp sharedInstance].progressManager isConnected]) {
+            if ([[QuizzApp sharedInstance].progressManager isAuthenticated]) {
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GOOGLE_PLUS", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             } else {
