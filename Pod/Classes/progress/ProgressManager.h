@@ -38,9 +38,9 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 #pragma mark - Progress
 
-- (Boolean)loadProgression:(id<ProgressGameDelegate>)delegate;
+- (BOOL)loadProgression:(id<ProgressGameDelegate>)delegate;
 
-- (Boolean)saveProgressionWithProgressionKey:(NSNumber *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression;
+- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression;
 
 + (NSDictionary *)getRemoteProgression;
 

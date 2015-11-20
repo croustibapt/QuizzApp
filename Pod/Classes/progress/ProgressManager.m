@@ -14,6 +14,15 @@
 #import "GameProvider.h"
 #import "QuizzApp.h"
 
+@interface ProgressManager() {
+    GKLocalPlayer * _player;
+    GKSavedGame * _savedGame;
+    
+#warning STORE LAST DATA: CREATE WRAPPING CLASS
+}
+
+@end
+
 @implementation ProgressManager
 
 USERPREF_IMPL(NSDictionary *, ProgressData, nil);
@@ -23,7 +32,11 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 - (BOOL)isAuthenticated {
-    return [GKLocalPlayer localPlayer].isAuthenticated;
+    return _player.isAuthenticated;
+}
+
+- (BOOL)hasSavedGame {
+    return (_savedGame != nil);
 }
 
 #pragma mark - SignIn
@@ -36,8 +49,10 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
             // Present login view controller
             [viewController presentViewController:gameKitViewController animated:YES completion:nil];
         } else if ([self isAuthenticated]) {
-            QABlock(success, [GKLocalPlayer localPlayer]);
+            _player = [GKLocalPlayer localPlayer];
+            QABlock(success, _player);
         } else {
+            _player = nil;
             QABlock(failure, error);
         }
     }];
@@ -61,32 +76,37 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //    }];
 }
 
-- (Boolean)loadProgression:(id<ProgressGameDelegate>)gamesDelegate {
+- (BOOL)loadProgressionWithProgressionKey:(NSString *)progressionKey gamesDelegate:(id<ProgressGameDelegate>)gamesDelegate {
     //    //TEMP DEBUG
     //    [self clean];
     //    return YES;
     
-    //Sign test
-#warning TO PORT
-        //Get app model
-//        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
-//        
-//        [model loadForKey:self.progressionKey completionHandler:^(GPGAppStateLoadStatus status, NSError * error) {
-//            //Not found
-//            if (status == GPGAppStateLoadStatusNotFound) {
-//                //Save the progression for the first time
-//                error = nil;
-//            } else if (status == GPGAppStateLoadStatusSuccess) {
-//                NSLog(@"load ok");
-//            }
-//            
-//            [self setCurrentlySyncing:NO];
-//            
-//            [gamesDelegate onGamesLoadDoneWithError:error];
-//        } conflictHandler:^NSData * (NSNumber * key, NSData * localState, NSData * remoteState) {
-//            //Always load remote state
-//            return remoteState;
-//        }];
+    if ([self isAuthenticated]) {
+        //Sign test
+        [[GKLocalPlayer localPlayer] fetchSavedGamesWithCompletionHandler:^(NSArray * savedGames, NSError * error) {
+            if (error) {
+                [gamesDelegate onGamesLoadDoneWithError:error];
+            } else {
+                for (GKSavedGame * savedGame in savedGames) {
+                    if ([savedGame.name isEqualToString:progressionKey]) {
+                        // Saved game found
+                        _savedGame = savedGame;
+                        break;
+                    }
+                }
+                
+                if (_savedGame) {
+#warning LOAD DATA
+                    [gamesDelegate onGamesLoadDoneWithError:nil];
+                } else {
+#warning CREATE SPECIFIC ERROR
+                    [gamesDelegate onGamesLoadDoneWithError:nil];
+                }
+            }
+        }];
+        
+        return YES;
+    }
     
     return NO;
 }
@@ -95,6 +115,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     NSData * progressData = nil;
     
 #warning TO PORT
+    if ([self isAuthenticated] && [self hasSavedGame]) {
+//        progressData = _savedGame.
+    }
 //        GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
 //        progressData = [model stateDataForKey:self.progressionKey];
     
@@ -104,12 +127,10 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 - (NSData *)getPrefsProgressionData {
     NSData * progressData = nil;
 
-#warning TO PORT
-//    GIDGoogleUser * user = [GIDSignIn sharedInstance].currentUser;
-//    if (user) {
-//        NSDictionary * prefsProgression = [ProgressManager getProgressData];
-//        progressData = [prefsProgression objectForKey:user.userID];
-//    }
+    if ([self isAuthenticated]) {
+        NSDictionary * prefsProgression = [ProgressManager getProgressData];
+        progressData = [prefsProgression objectForKey:_player.playerID];
+    }
     
     return progressData;
 }
@@ -252,58 +273,48 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     return mergedProgression;
 }
 
-- (Boolean)saveProgressionWithProgressionKey:(NSNumber *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
-#warning TO PORT
-//    //Check if the user is connected and if we have a progression key
-//    if ((progressionKey != nil) && self.isConnected) {
-//        //Notify we are syncing
-//        [self setCurrentlySyncing:YES];
-//        
-//        //Get all completed medias (remote U local)
-//        NSDictionary * progression = [ProgressManager getProgression];
-//        progression = [ProgressManager mergeProgressionWithProgression1:progression andProgression2:instantProgression];
-//        
-//        NSData * data = nil;
-//        NSError * error = nil;
-//        
-//        //Check nullity
-//        if (progression != nil) {
-//            //Format data to save
-//            data = [NSJSONSerialization dataWithJSONObject:progression options:NSJSONWritingPrettyPrinted error:&error];
-////            data = [progression JSONDataWithOptions:JKSerializeOptionNone error:&error];
-//        }
-//
-//        if ((data != nil) && (self.userId != nil)) {
-//            //First save it in UsersPref
-//            NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
-//            [prefsProgression setObject:data forKey:self.userId];
-//            [ProgressManager setProgressData:prefsProgression];
-//
-//            //Get app model
-//            GPGAppStateModel * model = [GPGManager sharedInstance].applicationModel.appState;
-//            
-//            //Set progression data
-//            [model setStateData:data forKey:self.progressionKey];
-//            
-//            //And try to save online
-//            [model updateForKey:self.progressionKey completionHandler:^(GPGAppStateWriteStatus status, NSError * error) {
-//                [self setCurrentlySyncing:NO];
-//                
-//                //Notify end to delegate
-//                [gamesDelegate onGamesSaveDoneWithError:error];
-//            } conflictHandler:^NSData * (NSNumber * key, NSData * localState, NSData * remoteState) {
-//                //Conflict handling
-//                return [self resolveState:localState andSecondState:remoteState];
-//            }];
-//        } else {
-//            [self setCurrentlySyncing:NO];
-//            
-//            //Notify end to delegate
-//            [gamesDelegate onGamesSaveDoneWithError:nil];
-//        }
-//        
-//        return YES;
-//    }
+#warning EXPLAIN WHY BOOL!
+- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
+    
+    if ([self isAuthenticated] && [self hasSavedGame]) {
+        // Get all completed medias (remote U local)
+        NSDictionary * progression = [ProgressManager getProgression];
+        progression = [ProgressManager mergeProgressionWithProgression1:progression andProgression2:instantProgression];
+        
+        NSData * data = nil;
+        NSError * error = nil;
+
+        // Check nullity
+        if (progression) {
+            // Format data to save
+            data = [NSJSONSerialization dataWithJSONObject:progression options:NSJSONWritingPrettyPrinted error:&error];
+            
+            if (data) {
+                //First save it in UsersPref
+                NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
+                [prefsProgression setObject:data forKey:_player.playerID];
+                [ProgressManager setProgressData:prefsProgression];
+                
+                // Save in GameKit
+                [_player saveGameData:data
+                             withName:progressionKey
+                    completionHandler:^(GKSavedGame * _Nullable savedGame, NSError * _Nullable error) {
+                    // Does an error occured?
+                    if (error) {
+#warning USE BLOCKS
+                        //Notify end to delegate
+                        [gamesDelegate onGamesSaveDoneWithError:error];
+                    }
+                }];
+            } else {
+#warning WHY NO ERROR?
+                //Notify end to delegate
+                [gamesDelegate onGamesSaveDoneWithError:nil];
+            }
+            
+            return YES;
+        }
+    }
     
     return NO;
 }
