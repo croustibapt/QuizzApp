@@ -269,7 +269,11 @@
     NSDictionary * instantProgression = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:mediaId]] forKey:packKey];
     
     //And save progression online
-    [[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:nil delegate:self andInstantProgression:instantProgression];
+    [[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:nil instantProgression:instantProgression success:^(GKSavedGame * savedGame) {
+        // ???
+    } failure:^(NSError * error) {
+        // ???
+    }];
     
     [self.delegate onMediaFound:media];
 }
@@ -320,16 +324,6 @@
     [m_chosenLetterButtonsKeys removeLastObject];
     
     return key;
-}
-
-#pragma mark - ProgressGameDelegate
-
-- (void)onGamesSaveDoneWithError:(NSError *)error {
-    
-}
-
-- (void)onGamesLoadDoneWithError:(NSError *)error {
-    
 }
 
 @end

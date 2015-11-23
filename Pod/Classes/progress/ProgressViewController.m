@@ -42,12 +42,12 @@ typedef enum {
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)aClientId andProgressionKey:(NSNumber *)aProgressionKey andAutoSignIn:(Boolean)aAutoSignIn {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(Boolean)autoSignIn {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setClientId:aClientId];
-        [self setProgressionKey:aProgressionKey];
-        [self setAutoSignIn:aAutoSignIn];
+        [self setClientId:clientId];
+        [self setProgressionKey:progressionKey];
+        [self setAutoSignIn:autoSignIn];
     }
     return self;
 }
@@ -146,16 +146,13 @@ typedef enum {
 #pragma mark - ProgressGameDelegate
 
 - (void)onGamesSaveDoneWithError:(NSError *)error {
-    //Stop loading
-    [self showHideIndicator:NO];
+    
     
     //Check error
-    if (error != nil) {
-        //Show alert
-        [self showGamesSyncErrorAlertView];
+    if (error) {
+        
     } else {
-        //Save succeeded: dismiss
-        [self dismiss];
+        
     }
     
     //Refresh sign in button state
@@ -167,7 +164,7 @@ typedef enum {
     [self showHideIndicator:NO];
     
     //Check error
-    if (error != nil) {
+    if (error) {
         //Show alert
         [self showGamesSyncErrorAlertView];
     } else {
@@ -175,7 +172,13 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Try to save progression
-        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:self.progressionKey delegate:self andInstantProgression:nil]) {
+        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:self.progressionKey instantProgression:nil success:^(GKSavedGame *savedGame) {
+            //Save succeeded: dismiss
+            [self dismiss];
+        } failure:^(NSError *error) {
+            //Show alert
+            [self showGamesSyncErrorAlertView];
+        }]) {
             //Show loading
             [self showHideIndicator:NO];
             

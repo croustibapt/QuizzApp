@@ -12,7 +12,7 @@
 #import "BackViewController.h"
 #import "FlatButton.h"
 
-@interface ProgressViewController : BackViewController <ProgressGameDelegate, UIWebViewDelegate>
+@interface ProgressViewController : BackViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) IBOutlet FlatButton * signInButton;
 
@@ -28,13 +28,13 @@
 
 @property (nonatomic, strong) NSString * clientId;
 
-@property (nonatomic, strong) NSNumber * progressionKey;
+@property (nonatomic, strong) NSString * progressionKey;
 
 @property (nonatomic, strong) NSString * leaderBoardId;
 
 @property (nonatomic) Boolean autoSignIn;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSNumber *)progressionKey andAutoSignIn:(Boolean)autoSignIn;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(Boolean)autoSignIn;
 
 - (void)initProgression;
 

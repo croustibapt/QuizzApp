@@ -17,6 +17,7 @@
 @interface ProgressManager() {
     GKLocalPlayer * _player;
     GKSavedGame * _savedGame;
+    NSData * _savedData;
     
 #warning STORE LAST DATA: CREATE WRAPPING CLASS
 }
@@ -41,7 +42,43 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
 #pragma mark - SignIn
 
+- (void)loadProgressionWithProgressionKey:(NSString *)progressionKey
+                                  success:(ProgressManagerSignInSuccessHandler)success
+                                  failure:(ProgressManagerSignInFailureHandler)failure {
+    if ([self isAuthenticated]) {
+        [_player fetchSavedGamesWithCompletionHandler:^(NSArray * savedGames, NSError * fetchError) {
+            if (fetchError) {
+                QABlock(failure, fetchError);
+            } else {
+                for (GKSavedGame * savedGame in savedGames) {
+                    if ([savedGame.name isEqualToString:progressionKey]) {
+                        // Saved game found
+                        _savedGame = savedGame;
+                        break;
+                    }
+                }
+                
+                if (_savedGame) {
+                    // Load data
+                    [_savedGame loadDataWithCompletionHandler:^(NSData * _Nullable data, NSError * _Nullable loadError) {
+                        if (loadError) {
+                            QABlock(failure, loadError);
+                        } else {
+                            _savedData = data;
+                            QABlock(success, _player);
+                        }
+                    }];
+                } else {
+                    // No saved game found
+                    QABlock(failure, nil);
+                }
+            }
+        }];
+    }
+}
+
 - (void)authenticateWithViewController:(UIViewController *)viewController
+                        progressionKey:(NSString *)progressionKey
                                 success:(ProgressManagerSignInSuccessHandler)success
                                 failure:(ProgressManagerSignInFailureHandler)failure {
     [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController * gameKitViewController, NSError * error) {
@@ -49,8 +86,11 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
             // Present login view controller
             [viewController presentViewController:gameKitViewController animated:YES completion:nil];
         } else if ([self isAuthenticated]) {
+            // Store player
             _player = [GKLocalPlayer localPlayer];
-            QABlock(success, _player);
+            
+            // Load progression
+            [self loadProgressionWithProgressionKey:progressionKey success:success failure:failure];
         } else {
             _player = nil;
             QABlock(failure, error);
@@ -74,41 +114,6 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 //        //
 //        NSLog(@"OK");
 //    }];
-}
-
-- (BOOL)loadProgressionWithProgressionKey:(NSString *)progressionKey gamesDelegate:(id<ProgressGameDelegate>)gamesDelegate {
-    //    //TEMP DEBUG
-    //    [self clean];
-    //    return YES;
-    
-    if ([self isAuthenticated]) {
-        //Sign test
-        [[GKLocalPlayer localPlayer] fetchSavedGamesWithCompletionHandler:^(NSArray * savedGames, NSError * error) {
-            if (error) {
-                [gamesDelegate onGamesLoadDoneWithError:error];
-            } else {
-                for (GKSavedGame * savedGame in savedGames) {
-                    if ([savedGame.name isEqualToString:progressionKey]) {
-                        // Saved game found
-                        _savedGame = savedGame;
-                        break;
-                    }
-                }
-                
-                if (_savedGame) {
-#warning LOAD DATA
-                    [gamesDelegate onGamesLoadDoneWithError:nil];
-                } else {
-#warning CREATE SPECIFIC ERROR
-                    [gamesDelegate onGamesLoadDoneWithError:nil];
-                }
-            }
-        }];
-        
-        return YES;
-    }
-    
-    return NO;
 }
 
 - (NSData *)getRemoteProgressionData {
@@ -274,8 +279,10 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 #warning EXPLAIN WHY BOOL!
-- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression {
-    
+- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey
+                       instantProgression:(NSDictionary *)instantProgression
+                                  success:(ProgressManagerLoadProgressionSuccessHandler)success
+                                  failure:(ProgressManagerLoadProgressionFailureHandler)failure {
     if ([self isAuthenticated] && [self hasSavedGame]) {
         // Get all completed medias (remote U local)
         NSDictionary * progression = [ProgressManager getProgression];
@@ -303,13 +310,15 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                     if (error) {
 #warning USE BLOCKS
                         //Notify end to delegate
-                        [gamesDelegate onGamesSaveDoneWithError:error];
+                        failure(error);
+                    } else {
+                        success(savedGame);
                     }
                 }];
             } else {
 #warning WHY NO ERROR?
                 //Notify end to delegate
-                [gamesDelegate onGamesSaveDoneWithError:nil];
+                failure(nil);
             }
             
             return YES;

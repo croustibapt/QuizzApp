@@ -29,7 +29,7 @@ typedef enum {
 
 @end
 
-@interface GameManager : NSObject <ProgressGameDelegate>
+@interface GameManager : NSObject
 
 @property (nonatomic, weak) id<GameDelegate> delegate;
 

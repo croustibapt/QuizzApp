@@ -12,15 +12,13 @@
 typedef void (^ProgressManagerSignInSuccessHandler)(GKLocalPlayer * player);
 typedef void (^ProgressManagerSignInFailureHandler)(NSError * error);
 
+typedef void (^ProgressManagerSaveProgressionSuccessHandler)(NSData * data);
+typedef void (^ProgressManagerSaveProgressionFailureHandler)(NSError * error);
+
+typedef void (^ProgressManagerLoadProgressionSuccessHandler)(GKSavedGame * savedGame);
+typedef void (^ProgressManagerLoadProgressionFailureHandler)(NSError * error);
+
 #import "Constants.h"
-
-@protocol ProgressGameDelegate <NSObject>
-
-- (void)onGamesSaveDoneWithError:(NSError *)error;
-
-- (void)onGamesLoadDoneWithError:(NSError *)error;
-
-@end
 
 @interface ProgressManager : NSObject
 
@@ -38,9 +36,10 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 #pragma mark - Progress
 
-- (BOOL)loadProgression:(id<ProgressGameDelegate>)delegate;
-
-- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey delegate:(id<ProgressGameDelegate>)gamesDelegate andInstantProgression:(NSDictionary *)instantProgression;
+- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey
+                       instantProgression:(NSDictionary *)instantProgression
+                                  success:(ProgressManagerLoadProgressionSuccessHandler)success
+                                  failure:(ProgressManagerLoadProgressionFailureHandler)failure;
 
 + (NSDictionary *)getRemoteProgression;
 
