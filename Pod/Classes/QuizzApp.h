@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) NSString * googlePlayClientId;
 
-@property (nonatomic, strong) NSNumber * googlePlayProgressionKey;
+@property (nonatomic, strong) NSString * googlePlayProgressionKey;
 
 @property (nonatomic, strong) NSString * googlePlayLeaderBoardId;
 
@@ -51,7 +51,7 @@
 - (void)initializeWithGameServiceName:(NSString *)gameServiceName
                                 appId:(NSString *)appId
                    googlePlayClientId:(NSString *)googlePlayClientId
-             googlePlayProgressionKey:(NSNumber *)googlePlayProgressionKey
+             googlePlayProgressionKey:(NSString *)googlePlayProgressionKey
               googlePlayLeaderBoardId:(NSString *)googlePlayLeaderBoardId
                     googleAnalyticsId:(NSString *)googleAnalyticsId
                             mainColor:(UIColor *)mainColor

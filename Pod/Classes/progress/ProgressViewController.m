@@ -63,10 +63,17 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Sign in user
-    [[QuizzApp sharedInstance].progressManager authenticateWithViewController:self success:^(GKLocalPlayer * player) {
-        //
-    } failure:^(NSError * error) {
-        //
+    [[QuizzApp sharedInstance].progressManager authenticateWithViewController:self
+                                                               progressionKey:self.progressionKey
+                                                                      success:
+     ^(GKLocalPlayer * player)
+    {
+        // TODO
+    }
+                                                                      failure:
+     ^(NSError * error)
+    {
+        // TODO
     }];
 }
 
@@ -172,7 +179,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Try to save progression
-        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:self.progressionKey instantProgression:nil success:^(GKSavedGame *savedGame) {
+        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:self.progressionKey instantProgression:nil success:^(GKSavedGame * savedGame) {
             //Save succeeded: dismiss
             [self dismiss];
         } failure:^(NSError *error) {
