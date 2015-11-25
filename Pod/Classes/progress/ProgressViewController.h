@@ -36,8 +36,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(Boolean)autoSignIn;
 
-- (void)initProgression;
-
 - (void)refreshUI;
 
 @end

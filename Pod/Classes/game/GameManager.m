@@ -269,13 +269,15 @@
     NSDictionary * instantProgression = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:mediaId]] forKey:packKey];
     
     //And save progression online
-    if ([[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:nil instantProgression:instantProgression success:^(GKSavedGame * savedGame) {
+#warning HANDLE RETURN VALUE?
+    [[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:instantProgression
+                                                                             success:
+     ^(GKSavedGame * savedGame)
+    {
         // ???
     } failure:^(NSError * error) {
         // ???
-    }]) {
-        // ???
-    }
+    }];
     
     [self.delegate onMediaFound:media];
 }

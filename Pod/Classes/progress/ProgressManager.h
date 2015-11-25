@@ -41,15 +41,13 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 - (BOOL)hasSavedGame;
 
 - (void)authenticateWithViewController:(UIViewController *)viewController
-                        progressionKey:(NSString *)progressionKey
                                success:(ProgressManagerSignInSuccessHandler)success
                                failure:(ProgressManagerSignInFailureHandler)failure;
 #pragma mark - Progress
 
-- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey
-                       instantProgression:(NSDictionary *)instantProgression
-                                  success:(ProgressManagerLoadProgressionSuccessHandler)success
-                                  failure:(ProgressManagerLoadProgressionFailureHandler)failure;
+- (BOOL)saveProgressionWithInstantProgression:(NSDictionary *)instantProgression
+                                      success:(ProgressManagerLoadProgressionSuccessHandler)success
+                                      failure:(ProgressManagerLoadProgressionFailureHandler)failure;
 
 #pragma mark - Static
 

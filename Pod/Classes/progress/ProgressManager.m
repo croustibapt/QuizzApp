@@ -44,44 +44,45 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 - (void)authenticateWithViewController:(UIViewController *)viewController
-                        progressionKey:(NSString *)progressionKey
-                                success:(ProgressManagerSignInSuccessHandler)success
-                                failure:(ProgressManagerSignInFailureHandler)failure
+                               success:(ProgressManagerSignInSuccessHandler)success
+                               failure:(ProgressManagerSignInFailureHandler)failure
 {
-    _isAuthenticating = YES;
-    
-    [[GKLocalPlayer localPlayer] setAuthenticateHandler:
-     ^(UIViewController * gameKitViewController, NSError * error)
+    if (![self isAuthenticated])
     {
-        if (gameKitViewController)
+        _isAuthenticating = YES;
+        
+        [[GKLocalPlayer localPlayer] setAuthenticateHandler:
+         ^(UIViewController * gameKitViewController, NSError * error)
         {
-            // Present login view controller
-            [viewController presentViewController:gameKitViewController animated:YES completion:nil];
-        }
-        else if ([GKLocalPlayer localPlayer])
-        {
-            // Store player
-            _player = [GKLocalPlayer localPlayer];
-            _isAuthenticating = NO;
-            
-            // Load progression
-            [self loadProgressionWithProgressionKey:progressionKey success:success failure:failure];
-        }
-        else
-        {
-            _player = nil;
-            _isAuthenticating = NO;
-            
-            QABlock(failure, error);
-        }
-    }];
+            if (gameKitViewController)
+            {
+                // Present login view controller
+                [viewController presentViewController:gameKitViewController animated:YES completion:nil];
+            }
+            else if ([GKLocalPlayer localPlayer])
+            {
+                // Store player
+                _player = [GKLocalPlayer localPlayer];
+                _isAuthenticating = NO;
+                
+                // Load progression
+                [self loadProgressionWithSuccess:success failure:failure];
+            }
+            else
+            {
+                _player = nil;
+                _isAuthenticating = NO;
+                
+                QABlock(failure, error);
+            }
+        }];
+    }
 }
 
 #pragma mark - Progress
 
-- (void)loadProgressionWithProgressionKey:(NSString *)progressionKey
-                                  success:(ProgressManagerSignInSuccessHandler)success
-                                  failure:(ProgressManagerSignInFailureHandler)failure
+- (void)loadProgressionWithSuccess:(ProgressManagerSignInSuccessHandler)success
+                           failure:(ProgressManagerSignInFailureHandler)failure
 {
     if ([self isAuthenticated])
     {
@@ -100,7 +101,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
              {
                  for (GKSavedGame * savedGame in savedGames)
                  {
-                     if ([savedGame.name isEqualToString:progressionKey])
+                     if ([savedGame.name isEqualToString:[QuizzApp sharedInstance].googlePlayProgressionKey])
                      {
                          // Saved game found
                          _savedGame = savedGame;
@@ -142,10 +143,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 }
 
 // Return YES is a progression (with data) is found, otherwise NO
-- (BOOL)saveProgressionWithProgressionKey:(NSString *)progressionKey
-                       instantProgression:(NSDictionary *)instantProgression
-                                  success:(ProgressManagerLoadProgressionSuccessHandler)success
-                                  failure:(ProgressManagerLoadProgressionFailureHandler)failure
+- (BOOL)saveProgressionWithInstantProgression:(NSDictionary *)instantProgression
+                                      success:(ProgressManagerLoadProgressionSuccessHandler)success
+                                      failure:(ProgressManagerLoadProgressionFailureHandler)failure
 {
     if ([self isAuthenticated] && [self hasSavedGame])
     {
@@ -171,7 +171,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                 
                 // Save in GameKit
                 [_player saveGameData:data
-                             withName:progressionKey
+                             withName:[QuizzApp sharedInstance].googlePlayProgressionKey
                     completionHandler:
                  ^(GKSavedGame * _Nullable savedGame, NSError * _Nullable error)
                 {

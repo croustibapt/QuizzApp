@@ -64,33 +64,73 @@ typedef enum {
     
     //Sign in user
     [[QuizzApp sharedInstance].progressManager authenticateWithViewController:self
-                                                               progressionKey:self.progressionKey
                                                                       success:
      ^(GKLocalPlayer * player)
     {
+        [self refreshUI];
+        
+        [self showHideIndicator:NO];
+        
         // TODO
     }
                                                                       failure:
      ^(NSError * error)
     {
+        [self refreshUI];
+        
+        [self showHideIndicator:NO];
+        
         // TODO
     }];
+    
+    [self refreshUI];
 }
 
-- (void)initProgression {
-    // Same as authenticate
-    [self authenticate];
+- (void)sync
+{
+    [self showHideIndicator:YES];
+    
+    //Synchronize progression
+    [[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:nil
+                                                                             success:
+     ^(GKSavedGame * savedGame)
+    {
+        // ???
+        [self showHideIndicator:NO];
+        
+        [self refreshUI];
+    }
+                                                                             failure:
+     ^(NSError * error)
+    {
+        // ???
+        [self showHideIndicator:NO];
+        
+        [self refreshUI];
+    }];
+    
+    [self refreshUI];
 }
 
 #pragma mark - UIAlertView
 
-- (void)showAuthenticateErrorAlertView {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+- (void)showAuthenticateErrorAlertView
+{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                         message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                        delegate:nil
+                                               cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                               otherButtonTitles:nil];
     [alertView show];
 }
 
-- (void)showGamesSyncErrorAlertView {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+- (void)showGamesSyncErrorAlertView
+{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                         message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                        delegate:nil
+                                               cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                               otherButtonTitles:nil];
     [alertView show];
 }
 
@@ -178,7 +218,7 @@ typedef enum {
         [self showHideIndicator:YES];
         
         //Try to save progression
-        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithProgressionKey:self.progressionKey instantProgression:nil success:^(GKSavedGame * savedGame) {
+        if (![[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:nil success:^(GKSavedGame * savedGame) {
             //Save succeeded: dismiss
             [self dismiss];
         } failure:^(NSError *error) {
@@ -201,20 +241,12 @@ typedef enum {
 
 - (IBAction)onSignInButtonPush:(id)sender
 {
-    if (![[QuizzApp sharedInstance].progressManager isAuthenticated]) {
-        [self authenticate];
-    }
-    
-    [self refreshUI];
+    [self authenticate];
 }
 
 - (IBAction)onSyncButtonPush:(id)sender
 {
-    //Synchronize progression
-#warning TO PORT
-//    [self synchronizeProgress];
-    
-    [self refreshUI];
+    [self sync];
 }
 
 #pragma mark - UI
@@ -263,16 +295,15 @@ typedef enum {
     [self.navigationItem setRightBarButtonItem:doneItem];
 
 #warning TO CLEAN
-//    if (self.autoSignIn) {
-//        //If auth wanted
-//        if ([HomeViewController getAuthWanted]) {
-//            //Init progression
-//            [self initProgression];
-//        }
-//        
-//        //Refresh UI
-//        [self refreshUI];
-//    }
+    if (self.autoSignIn)
+    {
+        // If auth wanted
+        if ([HomeViewController getAuthWanted])
+        {
+            // Init progression
+            [self authenticate];
+        }
+    }
     
     //Sync button
     [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
@@ -294,19 +325,5 @@ typedef enum {
 {
     [super didReceiveMemoryWarning];
 }
-
-#pragma mark - Google
-
-//- (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
-//    NSLog(@"%@", error);
-//}
-//
-//- (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController {
-//    
-//}
-//
-//- (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController {
-//    
-//}
 
 @end
