@@ -111,28 +111,27 @@ typedef enum {
     [self.statusLabel setText:@""];
     
     //Check signing in
-#warning TO PORT
-//    Boolean isSigningIn = [QuizzApp sharedInstance].progressManager.currentlySigningIn;
-//    if (isSigningIn) {
-//        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-//    }
-//    
-//    //Check syncing
-//    Boolean isSyncing = [QuizzApp sharedInstance].progressManager.currentlySyncing;
-//    if (isSyncing) {
-//        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-//    }
+    Boolean isSigningIn = [QuizzApp sharedInstance].progressManager.isAuthenticating;
+    if (isSigningIn)
+    {
+        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    }
+    
+    //Check syncing
+    Boolean isSyncing = [QuizzApp sharedInstance].progressManager.isSyncing;
+    if (isSyncing)
+    {
+        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    }
     
     //Is connected ?
-#warning TO PORT
-    Boolean canInteract = YES;//(!isSigningIn && !isSyncing);
+    Boolean canInteract = (!isSigningIn && !isSyncing);
     
     //Enabled only if not signing in (auth or games)
     [self.signInButton setEnabled:canInteract];
     
     //Button title
-#warning TO PORT
-    Boolean isConnected = NO;//[QuizzApp sharedInstance].progressManager.isConnected;
+    Boolean isConnected = [[QuizzApp sharedInstance].progressManager isAuthenticated];
     NSString * buttonTitle = (isConnected ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
     
     [self.signInButton setTitle:buttonTitle forState:UIControlStateNormal];
@@ -200,7 +199,8 @@ typedef enum {
 
 #pragma mark - IBAction
 
-- (IBAction)onSignInButtonPush:(id)sender {
+- (IBAction)onSignInButtonPush:(id)sender
+{
     if (![[QuizzApp sharedInstance].progressManager isAuthenticated]) {
         [self authenticate];
     }
@@ -208,7 +208,8 @@ typedef enum {
     [self refreshUI];
 }
 
-- (IBAction)onSyncButtonPush:(id)sender {
+- (IBAction)onSyncButtonPush:(id)sender
+{
     //Synchronize progression
 #warning TO PORT
 //    [self synchronizeProgress];
@@ -218,22 +219,24 @@ typedef enum {
 
 #pragma mark - UI
 
-- (void)dismiss {
+- (void)dismiss
+{
     [self dismissViewControllerAnimated:YES completion:nil];
     
     //Cancel sign in
-#warning TO PORT
-//    [[QuizzApp sharedInstance].progressManager cancel];
+    [[QuizzApp sharedInstance].progressManager cancel];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     //Refresh UI if needed
     [self refreshUI];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
@@ -287,7 +290,8 @@ typedef enum {
     [self.syncButton setBackColor:QUIZZ_APP_BLUE_SECOND_COLOR];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 

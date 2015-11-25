@@ -281,7 +281,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 #pragma mark - UI
 
-- (void)reinitLabels {
+- (void)reinitLabels
+{
     //Title
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
         
@@ -291,33 +292,38 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self.settingsButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_SETTINGS_BUTTON", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
-    if ((m_lastLanguage == nil) || ![m_lastLanguage isEqualToString:[Utils currentLanguage]]) {
-        //Init game
+    if ((m_lastLanguage == nil) || ![m_lastLanguage isEqualToString:[Utils currentLanguage]])
+    {
+        // Init game
         MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [hud setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
         
-        //Background job
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            //Super initialization
+        // Background job
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+            // Super initialization
             [self initApplication];
             
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                //Labels
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                // Labels
                 [self reinitLabels];
 
-#warning TO CLEAN
-//                if ([[HomeViewController getAuthWanted] boolValue]) {
-//                    //Show progress view controller
-//                    [self showProgressViewController];
-//                } else {
-//                    //Check if we can notify the user
-//                    if (![[HomeViewController getAuthAlertShown] boolValue]) {
-//                        [self showAuthAlertView];
-//                    }
-//                }
+                if ([[HomeViewController getAuthWanted] boolValue])
+                {
+                    // Show progress view controller
+                    [self showProgressViewController];
+                }
+                else
+                {
+                    // Check if we can notify the user
+                    if (![[HomeViewController getAuthAlertShown] boolValue])
+                    {
+                        [self showAuthAlertView];
+                    }
+                }
                 
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });

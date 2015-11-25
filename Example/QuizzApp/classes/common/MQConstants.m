@@ -14,6 +14,8 @@ NSString * const MOVIE_QUIZZ_APP_ID = @"592104494";
 
 NSString * const MOVIE_QUIZZ_GOOGLE_PLAY_CLIENT_ID = @"800363063549-lshmnnnt2mnaiasjnp9p8gid9njkduar.apps.googleusercontent.com";
 
+NSString * const MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY = @"MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY";
+
 NSString * const MOVIE_QUIZZ_GOOGLE_PLAY_LEADER_BOARD_ID = @"CgkIyZ2jsvYEEAIQAQ";
 
 NSString * const MOVIE_QUIZZ_SERVICE_NAME = @"movieios";

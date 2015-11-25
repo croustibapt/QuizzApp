@@ -28,6 +28,10 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 
 @property (nonatomic, strong) NSData * savedData;
 
+@property (nonatomic, readonly) BOOL isAuthenticating;
+
+@property (nonatomic, readonly) BOOL isSyncing;
+
 #pragma mark - Authenticate
 
 - (void)cancel;

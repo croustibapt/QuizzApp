@@ -48,6 +48,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                                 success:(ProgressManagerSignInSuccessHandler)success
                                 failure:(ProgressManagerSignInFailureHandler)failure
 {
+    _isAuthenticating = YES;
+    
     [[GKLocalPlayer localPlayer] setAuthenticateHandler:
      ^(UIViewController * gameKitViewController, NSError * error)
     {
@@ -60,6 +62,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         {
             // Store player
             _player = [GKLocalPlayer localPlayer];
+            _isAuthenticating = NO;
             
             // Load progression
             [self loadProgressionWithProgressionKey:progressionKey success:success failure:failure];
@@ -67,6 +70,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         else
         {
             _player = nil;
+            _isAuthenticating = NO;
+            
             QABlock(failure, error);
         }
     }];
@@ -80,11 +85,15 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 {
     if ([self isAuthenticated])
     {
+        _isSyncing = YES;
+
         [_player fetchSavedGamesWithCompletionHandler:
          ^(NSArray * savedGames, NSError * fetchError)
          {
              if (fetchError)
              {
+                 _isSyncing = NO;
+                 
                  QABlock(failure, fetchError);
              }
              else
@@ -107,17 +116,23 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                       {
                           if (loadError)
                           {
+                              _isSyncing = NO;
+                              
                               QABlock(failure, loadError);
                           }
                           else
                           {
                               _savedData = data;
+                              _isSyncing = NO;
+                              
                               QABlock(success, _player);
                           }
                       }];
                  }
                  else
                  {
+                     _isSyncing = NO;
+                     
                      // No saved game found
                      QABlock(failure, nil);
                  }
@@ -147,7 +162,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
             // Format data to save
             data = [NSJSONSerialization dataWithJSONObject:progression options:NSJSONWritingPrettyPrinted error:&error];
             
-            if (data) {
+            if (data)
+            {
                 //First save it in UsersPref
                 NSMutableDictionary * prefsProgression = [NSMutableDictionary dictionaryWithDictionary:[ProgressManager getProgressData]];
                 [prefsProgression setObject:data forKey:_player.playerID];
@@ -158,19 +174,22 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                              withName:progressionKey
                     completionHandler:
                  ^(GKSavedGame * _Nullable savedGame, NSError * _Nullable error)
-                 {
-                     // Does an error occured?
-                     if (error) {
-                         //Notify end to delegate
-                         failure(error);
-                     } else {
-                         // Store new data
-                         _savedData = data;
-                         
-                         // And notify listener
-                         success(savedGame);
-                     }
-                 }];
+                {
+                    // Does an error occured?
+                    if (error)
+                    {
+                        // Notify end to delegate
+                        failure(error);
+                    }
+                    else
+                    {
+                        // Store new data
+                        _savedData = data;
+
+                        // And notify listener
+                        success(savedGame);
+                    }
+                }];
                 
                 return YES;
             }

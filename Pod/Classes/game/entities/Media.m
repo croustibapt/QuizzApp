@@ -23,8 +23,7 @@
 }
 
 - (Boolean)isCompleted {
-#warning TO PORT
-    Boolean userIsConnected = NO;//[[QuizzApp sharedInstance].progressManager isConnected];
+    Boolean userIsConnected = [[QuizzApp sharedInstance].progressManager isAuthenticated];
     self.isRemoteCompleted = [ProgressManager isMediaRemoteCompleted:self.identifier];
     
     return ((!userIsConnected && m_isCompleted) || self.isRemoteCompleted);

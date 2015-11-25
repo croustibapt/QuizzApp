@@ -17,7 +17,7 @@ extern NSString * const MOVIE_QUIZZ_APP_ID;
 
 extern NSString * const MOVIE_QUIZZ_GOOGLE_PLAY_CLIENT_ID;
 
-#define MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY [NSNumber numberWithInt:0]
+extern NSString * const MOVIE_QUIZZ_GOOGLE_PLAY_PROGRESSION_KEY;
 
 extern NSString * const MOVIE_QUIZZ_GOOGLE_PLAY_LEADER_BOARD_ID;
 

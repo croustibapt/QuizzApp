@@ -20,11 +20,11 @@ Pod::Spec.new do |s|
 QuizzApp description
                        DESC
 
-    s.homepage         = "https://github.com/<GITHUB_USERNAME>/QuizzApp"
+    s.homepage         = "https://github.com/croustibapt/QuizzApp"
     # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
     s.license          = 'MIT'
     s.author           = { "Baptiste LE GUELVOUIT" => "baptiste.leguelvouit@gmail.com" }
-    s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/QuizzApp.git", :tag => s.version.to_s }
+    s.source           = { :git => "https://github.com/croustibapt/QuizzApp.git" }
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
     s.platform     = :ios, '7.0'
