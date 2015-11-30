@@ -32,9 +32,9 @@
 
 @property (nonatomic, strong) NSString * leaderBoardId;
 
-@property (nonatomic) Boolean autoSignIn;
+@property (nonatomic) BOOL autoSignIn;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(Boolean)autoSignIn;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(BOOL)autoSignIn;
 
 - (void)refreshUI;
 

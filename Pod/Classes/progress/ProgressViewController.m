@@ -42,7 +42,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(Boolean)autoSignIn {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(BOOL)autoSignIn {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self setClientId:clientId];
@@ -72,6 +72,11 @@ typedef enum {
         [self showHideIndicator:NO];
         
         // TODO
+        
+        if (self.autoSignIn)
+        {
+            [self dismiss];
+        }
     }
                                                                       failure:
      ^(NSError * error)
@@ -81,6 +86,11 @@ typedef enum {
         [self showHideIndicator:NO];
         
         // TODO
+        
+        if (self.autoSignIn)
+        {
+            [self dismiss];
+        }
     }];
     
     [self refreshUI];
@@ -91,8 +101,8 @@ typedef enum {
     [self showHideIndicator:YES];
     
     //Synchronize progression
-    [[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:nil
-                                                                             success:
+    BOOL syncing = [[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:nil
+                                                                                            success:
      ^(GKSavedGame * savedGame)
     {
         // ???
@@ -100,7 +110,7 @@ typedef enum {
         
         [self refreshUI];
     }
-                                                                             failure:
+                                                                                            failure:
      ^(NSError * error)
     {
         // ???
@@ -108,6 +118,11 @@ typedef enum {
         
         [self refreshUI];
     }];
+    
+    if (!syncing)
+    {
+        [self showHideIndicator:NO];
+    }
     
     [self refreshUI];
 }
@@ -279,7 +294,8 @@ typedef enum {
     //Game image
     NSString * gameImageName = ExtensionName(@"game_header");
     
-    [self.gameImageView setImage:[UtilsImage imageNamed:gameImageName bundle:QUIZZ_APP_IMAGE_BUNDLE]];
+    [self.gameImageView setImage:[UtilsImage imageNamed:gameImageName
+                                                 bundle:QUIZZ_APP_IMAGE_BUNDLE]];
     
     float labelFont = PixelsSize(15.0);
     
@@ -291,10 +307,11 @@ typedef enum {
     [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
     //Done item
-    UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+    UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                               target:self
+                                                                               action:@selector(dismiss)];
     [self.navigationItem setRightBarButtonItem:doneItem];
 
-#warning TO CLEAN
     if (self.autoSignIn)
     {
         // If auth wanted
@@ -306,7 +323,8 @@ typedef enum {
     }
     
     //Sync button
-    [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
+    [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                     forState:UIControlStateNormal];
     
     //Sign in button
     [self.signInButton.titleLabel setTextAlignment:NSTextAlignmentCenter];

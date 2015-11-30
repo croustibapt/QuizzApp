@@ -147,7 +147,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                                       success:(ProgressManagerLoadProgressionSuccessHandler)success
                                       failure:(ProgressManagerLoadProgressionFailureHandler)failure
 {
-    if ([self isAuthenticated] && [self hasSavedGame])
+    if ([self isAuthenticated])
     {
         // Get all completed medias (remote U local)
         NSDictionary * progression = [ProgressManager getProgression];
@@ -179,7 +179,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                     if (error)
                     {
                         // Notify end to delegate
-                        failure(error);
+                        QABlock(failure, error);
                     }
                     else
                     {
@@ -187,7 +187,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                         _savedData = data;
 
                         // And notify listener
-                        success(savedGame);
+                        QABlock(success, savedGame);
                     }
                 }];
                 
@@ -303,8 +303,11 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     NSDictionary * remoteCompletedPacks = nil;
     NSData * progressData = [QuizzApp sharedInstance].progressManager.savedData;
     
-    if (progressData != nil) {
-        remoteCompletedPacks = [NSJSONSerialization JSONObjectWithData:progressData options:NSJSONReadingMutableContainers error:nil];
+    if (progressData != nil)
+    {
+        remoteCompletedPacks = [NSJSONSerialization JSONObjectWithData:progressData
+                                                               options:NSJSONReadingMutableContainers
+                                                                 error:nil];
     }
     
     return remoteCompletedPacks;
@@ -317,7 +320,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     
     if (progressData != nil)
     {
-        remoteCompletedPacks = [NSJSONSerialization JSONObjectWithData:progressData options:NSJSONReadingMutableContainers error:nil];
+        remoteCompletedPacks = [NSJSONSerialization JSONObjectWithData:progressData
+                                                               options:NSJSONReadingMutableContainers
+                                                                 error:nil];
     }
     
     return remoteCompletedPacks;
@@ -398,7 +403,8 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     NSDictionary * localProgression = nil;
     
     //Only the first time
-    if ([ProgressManager getProgressData] == nil) {
+    if ([ProgressManager getProgressData] == nil)
+    {
         localProgression = [GameDBHelper getLocalProgression];
     }
     

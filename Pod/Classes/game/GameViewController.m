@@ -544,10 +544,12 @@
 //    [pool release];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
 
-    if (!m_ready) {
+    if (!m_ready)
+    {
         //Init view
         [self threadInitView];
     
@@ -557,8 +559,9 @@
         m_ready = YES;
     }
     
-    if (!self.pack.isCompleted && [HelpViewController doesNeedHelp]) {
-        [self showHelp];
+    if (!self.pack.isCompleted && [HelpViewController doesNeedHelp])
+    {
+//        [self showHelp];
     }
 }
 
