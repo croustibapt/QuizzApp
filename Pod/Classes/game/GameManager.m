@@ -269,15 +269,27 @@
     NSDictionary * instantProgression = [NSDictionary dictionaryWithObject:[NSArray arrayWithObject:[NSNumber numberWithInt:mediaId]] forKey:packKey];
     
     //And save progression online
-#warning HANDLE RETURN VALUE?
-    [[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:instantProgression
-                                                                             success:
+    BOOL syncing = [[QuizzApp sharedInstance].progressManager saveProgressionWithInstantProgression:instantProgression
+                                                                                            success:
      ^(GKSavedGame * savedGame)
     {
-        // ???
-    } failure:^(NSError * error) {
-        // ???
+        NSLog(@"Progression saved");
+    }
+                                                                                            failure:
+     ^(NSError * error)
+    {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SAVING_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                             message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SAVING_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                            delegate:nil
+                                                   cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                   otherButtonTitles:nil];
+        [alertView show];
     }];
+    
+    if (!syncing)
+    {
+        NSLog(@"Not saving progression");
+    }
     
     [self.delegate onMediaFound:media];
 }

@@ -43,6 +43,9 @@ USERPREF_DECL(NSDictionary *, ProgressData);
 - (void)authenticateWithViewController:(UIViewController *)viewController
                                success:(ProgressManagerSignInSuccessHandler)success
                                failure:(ProgressManagerSignInFailureHandler)failure;
+
+- (void)logout;
+
 #pragma mark - Progress
 
 - (BOOL)saveProgressionWithInstantProgression:(NSDictionary *)instantProgression

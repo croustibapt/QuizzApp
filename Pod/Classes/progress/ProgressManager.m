@@ -79,6 +79,18 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     }
 }
 
+- (void)logout
+{
+    if ([self isAuthenticated])
+    {
+        _player = nil;
+        _savedData = nil;
+        _savedGame = nil;
+        
+        [[GKLocalPlayer localPlayer] setAuthenticateHandler:nil];
+    }
+}
+
 #pragma mark - Progress
 
 - (void)loadProgressionWithSuccess:(ProgressManagerSignInSuccessHandler)success

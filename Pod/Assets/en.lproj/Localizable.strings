@@ -102,8 +102,8 @@
 "STR_DISABLE_SOUND" = "Disable sounds";
 
 "STR_SETTINGS_GAME" = "Game";
-"STR_SETTINGS_LOGIN_GOOGLE_PLUS" = "Login to Google+";
-"STR_SETTINGS_GOOGLE_PLUS" = "Google+ account";
+"STR_SETTINGS_LOGIN_GAME_CENTER" = "Login to Game Center";
+"STR_SETTINGS_GAME_CENTER" = "Game Center";
 "STR_SETTINGS_HOW_TO_PLAY" = "How to play";
 
 "STR_SETTINGS_OTHER_GAMES" = "More games";

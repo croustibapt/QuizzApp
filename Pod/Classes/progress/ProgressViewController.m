@@ -96,6 +96,13 @@ typedef enum {
     [self refreshUI];
 }
 
+- (void)logout
+{
+    [[QuizzApp sharedInstance].progressManager logout];
+    
+    [self dismiss];
+}
+
 - (void)sync
 {
     [self showHideIndicator:YES];
@@ -256,7 +263,14 @@ typedef enum {
 
 - (IBAction)onSignInButtonPush:(id)sender
 {
-    [self authenticate];
+    if ([[QuizzApp sharedInstance].progressManager isAuthenticated])
+    {
+        [self logout];
+    }
+    else
+    {
+        [self authenticate];
+    }
 }
 
 - (IBAction)onSyncButtonPush:(id)sender

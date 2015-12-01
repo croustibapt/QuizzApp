@@ -176,9 +176,9 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
             
             if ([[QuizzApp sharedInstance].progressManager isAuthenticated]) {
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GOOGLE_PLUS", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GAME_CENTER", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             } else {
-                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_LOGIN_GOOGLE_PLUS", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_LOGIN_GAME_CENTER", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             }
         } else if (indexPath.row == ESettingsGameRowHelp) {
             //Website

@@ -65,6 +65,9 @@
 
 "STR_SYNC_PROGRESS" = "Synchroniser";
 
+"STR_PROGRESS_SYNC_ERROR_TITLE" = "Attention";
+"STR_PROGRESS_SYNC_ERROR_MESSAGE" = "Nous n'avons pas réussi à sauvegarder votre progression. Veuillez vous rendre dans la section \"Options > Game Center\" pour essayer de synchroniser manuellement.";
+
 //Level
 "STR_LEVELS_TITLE" = "NIVEAUX";
 "STR_NO_LEVELS" = "Aucun niveau disponible pour le moment";
@@ -102,8 +105,8 @@
 "STR_DISABLE_SOUND" = "Désactiver les sons";
 
 "STR_SETTINGS_GAME" = "Jeu";
-"STR_SETTINGS_LOGIN_GOOGLE_PLUS" = "Se connecter à Google+";
-"STR_SETTINGS_GOOGLE_PLUS" = "Compte Google+";
+"STR_SETTINGS_LOGIN_GAME_CENTER" = "Se connecter au Game Center";
+"STR_SETTINGS_GAME_CENTER" = "Game Center";
 "STR_SETTINGS_HOW_TO_PLAY" = "Comment jouer";
 
 "STR_SETTINGS_OTHER_GAMES" = "Plus de jeux";
