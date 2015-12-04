@@ -87,7 +87,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
         _savedData = nil;
         _savedGame = nil;
         
-        [[GKLocalPlayer localPlayer] setAuthenticateHandler:nil];
+//        [[GKLocalPlayer localPlayer] setAuthenticateHandler:nil];
     }
 }
 

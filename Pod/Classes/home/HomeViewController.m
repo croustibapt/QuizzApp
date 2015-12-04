@@ -220,7 +220,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 #pragma mark - IBAction
 
-- (IBAction)onMainButtonPush:(id)sender {
+- (IBAction)onMainButtonPush:(id)sender
+{
     //TEMP DEBUG
     //    NSArray * array = [NSArray arrayWithObject:nil];
     
@@ -228,7 +229,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     hud.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
 
     //Load levels
-    [self loadLevels:^{
+    [self loadLevels:
+     ^(void)
+    {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });

@@ -71,8 +71,7 @@ typedef enum {
         
         [self showHideIndicator:NO];
         
-        // TODO
-        
+        // Automatically dismiss
         if (self.autoSignIn)
         {
             [self dismiss];
@@ -85,8 +84,10 @@ typedef enum {
         
         [self showHideIndicator:NO];
         
-        // TODO
+        // Show alert error
+        [self showAuthenticateErrorAlertView];
         
+        // Automatically dismiss
         if (self.autoSignIn)
         {
             [self dismiss];
@@ -99,6 +100,9 @@ typedef enum {
 - (void)logout
 {
     [[QuizzApp sharedInstance].progressManager logout];
+    
+    // No more auto login
+    [HomeViewController setAuthWanted:@NO];
     
     [self dismiss];
 }
