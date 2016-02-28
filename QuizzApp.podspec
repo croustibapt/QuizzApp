@@ -46,7 +46,7 @@ QuizzApp description
     s.libraries = 'z', 'sqlite3'
 
     s.dependency 'MBProgressHUD', '~> 0.9.1'
-    s.dependency 'Google/Analytics', '~> 1.0.0'
+    s.dependency 'Google/Analytics'
     s.dependency 'ZipArchive'
     s.dependency 'Onboard'
 
