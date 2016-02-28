@@ -17,7 +17,7 @@ PODS:
   - GoogleSymbolUtilities (1.0.3)
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
-  - MBProgressHUD (0.9.1)
+  - MBProgressHUD (0.9.2)
   - Onboard (2.1.7)
   - QuizzApp (0.1.1):
     - Google/Analytics (~> 1.0.0)
@@ -46,9 +46,9 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   Onboard: 87648089e1b76d13b4f5bf8f7a1cdb144092f0af
-  QuizzApp: a3ac99881fc77dafc16924d5690b7effd93e41c9
+  QuizzApp: 38d4ab9111966f2c036e414278ea84a9e83007d5
   Specta: 69bb134672aae190a1379ff91df07dad8dd1f869
   ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
 

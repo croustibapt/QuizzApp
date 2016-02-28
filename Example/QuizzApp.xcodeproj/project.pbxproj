@@ -23,7 +23,6 @@
 		572440B01BE68F9F00EC09F1 /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AA1BE68F9F00EC09F1 /* success.mp3 */; };
 		572440B11BE68F9F00EC09F1 /* undo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AB1BE68F9F00EC09F1 /* undo.mp3 */; };
 		572440B21BE68F9F00EC09F1 /* wrong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 572440AC1BE68F9F00EC09F1 /* wrong.mp3 */; };
-		57C75EAD1BFDADED006DAA43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C75EAC1BFDADED006DAA43 /* GameKit.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -91,7 +90,7 @@
 		696789BF5357357A15008C99 /* Pods-QuizzApp_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Tests/Pods-QuizzApp_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7F72CD8929EFE0FC674AF5C /* Pods-QuizzApp_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Tests/Pods-QuizzApp_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C8DCEA6B9F9CD3CF2BC4361F /* libPods-QuizzApp_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QuizzApp_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECD3AEDA300D39A325BCD385 /* QuizzApp.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QuizzApp.podspec; path = ../QuizzApp.podspec; sourceTree = "<group>"; };
+		ECD3AEDA300D39A325BCD385 /* QuizzApp.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QuizzApp.podspec; path = ../QuizzApp.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FCCD76BD72B58546FF76C935 /* Pods-QuizzApp_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizzApp_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-QuizzApp_Example/Pods-QuizzApp_Example.release.xcconfig"; sourceTree = "<group>"; };
 		FEC0AA13589F907456CC9C5A /* libPods-QuizzApp_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QuizzApp_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,7 +104,6 @@
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
 				B349178803332E317447A9F3 /* libPods-QuizzApp_Example.a in Frameworks */,
-				57C75EAD1BFDADED006DAA43 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

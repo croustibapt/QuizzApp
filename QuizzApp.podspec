@@ -42,7 +42,7 @@ QuizzApp description
     }
 
     # s.public_header_files = 'Pod/Classes/**/*.h'
-    # s.frameworks = 'UIKit', 'MapKit'
+    s.frameworks = 'UIKit', 'GameKit'
     s.libraries = 'z', 'sqlite3'
 
     s.dependency 'MBProgressHUD', '~> 0.9.1'
