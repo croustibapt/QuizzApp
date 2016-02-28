@@ -102,55 +102,54 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
         [_player fetchSavedGamesWithCompletionHandler:
          ^(NSArray * savedGames, NSError * fetchError)
-         {
-             if (fetchError)
-             {
-                 _isSyncing = NO;
-                 
-                 QABlock(failure, fetchError);
-             }
-             else
-             {
-                 for (GKSavedGame * savedGame in savedGames)
-                 {
-                     if ([savedGame.name isEqualToString:[QuizzApp sharedInstance].googlePlayProgressionKey])
-                     {
-                         // Saved game found
-                         _savedGame = savedGame;
-                         break;
-                     }
-                 }
-                 
-                 if (_savedGame)
-                 {
-                     // Load data
-                     [_savedGame loadDataWithCompletionHandler:
-                      ^(NSData * _Nullable data, NSError * _Nullable loadError)
-                      {
-                          if (loadError)
-                          {
-                              _isSyncing = NO;
-                              
-                              QABlock(failure, loadError);
-                          }
-                          else
-                          {
-                              _savedData = data;
-                              _isSyncing = NO;
-                              
-                              QABlock(success, _player);
-                          }
-                      }];
-                 }
-                 else
-                 {
-                     _isSyncing = NO;
-                     
-                     // No saved game found
-                     QABlock(failure, nil);
-                 }
-             }
-         }];
+        {
+            if (fetchError)
+            {
+                _isSyncing = NO;
+                
+                QABlock(failure, fetchError);
+            }
+            else
+            {
+                for (GKSavedGame * savedGame in savedGames)
+                {
+                    if ([savedGame.name isEqualToString:[QuizzApp sharedInstance].googlePlayProgressionKey])
+                    {
+                        // Saved game found
+                        _savedGame = savedGame;
+                        break;
+                    }
+                }
+                
+                if (_savedGame)
+                {
+                    // Load data
+                    [_savedGame loadDataWithCompletionHandler:
+                     ^(NSData * data, NSError * loadError)
+                    {
+                        if (loadError)
+                        {
+                            _isSyncing = NO;
+                            QABlock(failure, loadError);
+                        }
+                        else
+                        {
+                            _savedData = data;
+                            _isSyncing = NO;
+                            
+                            QABlock(success, _player);
+                        }
+                    }];
+                }
+                else
+                {
+                    _isSyncing = NO;
+                    
+                    // No saved game found
+                    QABlock(failure, nil);
+                }
+            }
+        }];
     }
 }
 
@@ -185,7 +184,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                 [_player saveGameData:data
                              withName:[QuizzApp sharedInstance].googlePlayProgressionKey
                     completionHandler:
-                 ^(GKSavedGame * _Nullable savedGame, NSError * _Nullable error)
+                 ^(GKSavedGame * savedGame, NSError * error)
                 {
                     // Does an error occured?
                     if (error)
@@ -216,7 +215,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     if ([self isAuthenticated] && [self hasSavedGame])
     {
         [_player deleteSavedGamesWithName:_savedGame.name completionHandler:
-         ^(NSError * _Nullable error)
+         ^(NSError * error)
         {
             if (!error)
             {
