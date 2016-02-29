@@ -1,0 +1,36 @@
+PODS:
+  - Expecta (1.0.3)
+  - Expecta+Snapshots (2.0.0):
+    - Expecta (~> 1.0)
+    - FBSnapshotTestCase/Core (~> 2.0.3)
+  - FBSnapshotTestCase/Core (2.0.6)
+  - MBProgressHUD (0.9.2)
+  - Onboard (2.1.7)
+  - QuizzApp (0.1.1):
+    - MBProgressHUD (~> 0.9.1)
+    - Onboard
+    - ZipArchive
+  - Specta (1.0.4)
+  - ZipArchive (1.4.0)
+
+DEPENDENCIES:
+  - Expecta
+  - Expecta+Snapshots
+  - QuizzApp (from `../`)
+  - Specta
+
+EXTERNAL SOURCES:
+  QuizzApp:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Expecta: 9d1bff6c8b0eeee73a166a2ee898892478927a15
+  Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
+  FBSnapshotTestCase: f53793e19b2782f2948e8597b03ec2bb5aedf5cd
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  Onboard: 87648089e1b76d13b4f5bf8f7a1cdb144092f0af
+  QuizzApp: 248002f37245c55b2056f6f93195a5b8ace12eae
+  Specta: 69bb134672aae190a1379ff91df07dad8dd1f869
+  ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
+
+COCOAPODS: 0.39.0
