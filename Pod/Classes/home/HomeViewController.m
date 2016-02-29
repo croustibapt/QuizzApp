@@ -166,10 +166,10 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     m_lastLanguage = [Utils currentLanguage];
     
     //Analytics
-#if !(TARGET_IPHONE_SIMULATOR)
-    QuizzApp * quizzApp = [QuizzApp instance];
-    [self initAnalytics:quizzApp.googleAnalyticsId];
-#endif
+//#if !(TARGET_IPHONE_SIMULATOR)
+//    QuizzApp * quizzApp = [QuizzApp instance];
+//    [self initAnalytics:quizzApp.googleAnalyticsId];
+//#endif
 }
 
 #pragma mark - UIAlertView
