@@ -30,15 +30,17 @@
     return self;
 }
 
-- (void)initializeWithGameServiceName:(NSString *)gameServiceName appId:(NSString *)appId googlePlayClientId:(NSString *)googlePlayClientId googlePlayProgressionKey:(NSString *)googlePlayProgressionKey googlePlayLeaderBoardId:(NSString *)googlePlayLeaderBoardId googleAnalyticsId:(NSString *)googleAnalyticsId mainColor:(UIColor *)mainColor secondColor:(UIColor *)secondColor thirdColor:(UIColor *)thirdColor oppositeMainColor:(UIColor *)oppositeMainColor oppositeSecondColor:(UIColor *)oppositeSecondColor oppositeThirdColor:(UIColor *)oppositeThirdColor {
+- (void)initializeWithAppId:(NSString *)appId
+            gameServiceName:(NSString *)gameServiceName
+                  mainColor:(UIColor *)mainColor
+                secondColor:(UIColor *)secondColor
+                 thirdColor:(UIColor *)thirdColor
+          oppositeMainColor:(UIColor *)oppositeMainColor
+        oppositeSecondColor:(UIColor *)oppositeSecondColor
+         oppositeThirdColor:(UIColor *)oppositeThirdColor
+{
+    _appId = appId;
     [self setGameServiceName:gameServiceName];
-    
-    [self setAppId:appId];
-    [self setGooglePlayClientId:googlePlayClientId];
-    [self setGooglePlayProgressionKey:googlePlayProgressionKey];
-    [self setGooglePlayLeaderBoardId:googlePlayLeaderBoardId];
-    
-    [self setGoogleAnalyticsId:googleAnalyticsId];
     
     [self setMainColor:mainColor];
     [self setSecondColor:secondColor];

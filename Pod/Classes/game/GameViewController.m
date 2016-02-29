@@ -568,11 +568,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //Analytics
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Game Screen"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
     [self updateTitle];
     [m_gameAnswerView setHidden:YES];
 }

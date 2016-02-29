@@ -42,11 +42,11 @@ typedef enum {
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(BOOL)autoSignIn {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andAutoSignIn:(BOOL)autoSignIn
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self setClientId:clientId];
-        [self setProgressionKey:progressionKey];
+    if (self)
+    {
         [self setAutoSignIn:autoSignIn];
     }
     return self;
@@ -303,11 +303,7 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Progress Screen"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)]; 
     
     //Game image
     NSString * gameImageName = ExtensionName(@"game_header");

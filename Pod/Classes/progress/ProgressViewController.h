@@ -26,15 +26,9 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView * gameImageView;
 
-@property (nonatomic, strong) NSString * clientId;
-
-@property (nonatomic, strong) NSString * progressionKey;
-
-@property (nonatomic, strong) NSString * leaderBoardId;
-
 @property (nonatomic) BOOL autoSignIn;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andClientId:(NSString *)clientId andProgressionKey:(NSString *)progressionKey andAutoSignIn:(BOOL)autoSignIn;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andAutoSignIn:(BOOL)autoSignIn;
 
 - (void)refreshUI;
 

@@ -8,7 +8,6 @@
 
 #import "HelpViewController.h"
 
-#import <Google/Analytics.h>
 
 #import "Constants.h"
 #import "QuizzApp.h"
@@ -94,11 +93,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-
-    //Analytics
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Help Screen"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 }
 
 @end

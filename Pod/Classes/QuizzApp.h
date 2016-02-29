@@ -18,14 +18,6 @@
 
 @property (nonatomic, strong) NSString * appId;
 
-@property (nonatomic, strong) NSString * googlePlayClientId;
-
-@property (nonatomic, strong) NSString * googlePlayProgressionKey;
-
-@property (nonatomic, strong) NSString * googlePlayLeaderBoardId;
-
-@property (nonatomic, strong) NSString * googleAnalyticsId;
-
 @property (nonatomic, strong) UIColor * mainColor;
 
 @property (nonatomic, strong) UIColor * secondColor;
@@ -48,17 +40,13 @@
 
 + (QuizzApp *)sharedInstance;
 
-- (void)initializeWithGameServiceName:(NSString *)gameServiceName
-                                appId:(NSString *)appId
-                   googlePlayClientId:(NSString *)googlePlayClientId
-             googlePlayProgressionKey:(NSString *)googlePlayProgressionKey
-              googlePlayLeaderBoardId:(NSString *)googlePlayLeaderBoardId
-                    googleAnalyticsId:(NSString *)googleAnalyticsId
-                            mainColor:(UIColor *)mainColor
-                          secondColor:(UIColor *)secondColor
-                           thirdColor:(UIColor *)thirdColor
-                    oppositeMainColor:(UIColor *)oppositeMainColor
-                  oppositeSecondColor:(UIColor *)oppositeSecondColor
-                   oppositeThirdColor:(UIColor *)oppositeThirdColor;
+- (void)initializeWithAppId:(NSString *)appId
+            gameServiceName:(NSString *)gameServiceName
+                  mainColor:(UIColor *)mainColor
+                secondColor:(UIColor *)secondColor
+                 thirdColor:(UIColor *)thirdColor
+          oppositeMainColor:(UIColor *)oppositeMainColor
+        oppositeSecondColor:(UIColor *)oppositeSecondColor
+         oppositeThirdColor:(UIColor *)oppositeThirdColor;
 
 @end

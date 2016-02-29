@@ -61,10 +61,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 - (void)showProgressViewController {
     NSString * nibName = ExtensionName(@"ProgressViewController");
     
-    //Create progress controller
-    QuizzApp * quizzApp = [QuizzApp sharedInstance];
-    
-    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andClientId:quizzApp.googlePlayClientId andProgressionKey:quizzApp.googlePlayProgressionKey andAutoSignIn:YES];
+    //Create progress controller    
+    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andAutoSignIn:YES];
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
     
@@ -149,19 +147,6 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
-- (void)initAnalytics:(NSString *)analyticsId {
-    //Optional: automatically send uncaught exceptions to Google Analytics.
-    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    
-    //Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
-    [GAI sharedInstance].dispatchInterval = 20;
-    
-    //Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
-    
-    //Initialize tracker.
-    /*id<GAITracker> tracker = */[[GAI sharedInstance] trackerWithTrackingId:analyticsId];
-}
 
 - (void)initApplication {
     //Prefs
@@ -171,7 +156,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self checkLocalLevels];
     
     //Init game information
-    if (![GameProvider start]) {
+    if (![GameProvider start])
+    {
         dispatch_async(dispatch_get_main_queue(), ^(void){
             [self showInitErrorAlertView];
         });
@@ -338,11 +324,6 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //Analytics
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Home Screen"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     //Start button
     NSString * btnOffImageName = ExtensionName(@"btn_icon_off");

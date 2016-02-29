@@ -383,7 +383,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    //Set icon badge number to zero
+    // Set icon badge number to zero
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 
 #warning TO MOVE?
@@ -395,11 +395,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //Analytics
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Levels Screen"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
     
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVELS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     

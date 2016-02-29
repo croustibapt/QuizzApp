@@ -14,6 +14,8 @@
 #import "GameProvider.h"
 #import "QuizzApp.h"
 
+NSString * const ProgressManager_SavedGameName = @"ProgressManager_SavedGameName";
+
 @interface ProgressManager()
 {
     GKLocalPlayer * _player;
@@ -113,7 +115,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
             {
                 for (GKSavedGame * savedGame in savedGames)
                 {
-                    if ([savedGame.name isEqualToString:[QuizzApp sharedInstance].googlePlayProgressionKey])
+                    if ([savedGame.name isEqualToString:ProgressManager_SavedGameName])
                     {
                         // Saved game found
                         _savedGame = savedGame;
@@ -182,7 +184,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                 
                 // Save in GameKit
                 [_player saveGameData:data
-                             withName:[QuizzApp sharedInstance].googlePlayProgressionKey
+                             withName:ProgressManager_SavedGameName
                     completionHandler:
                  ^(GKSavedGame * savedGame, NSError * error)
                 {

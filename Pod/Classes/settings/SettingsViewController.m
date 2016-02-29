@@ -8,7 +8,6 @@
 
 #import "SettingsViewController.h"
 
-#import <Google/Analytics.h>
 
 #import "ProgressManager.h"
 #import "HelpViewController.h"
@@ -68,13 +67,9 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 - (void)showProgress {
     NSString * nibName = ExtensionName(@"ProgressViewController");
 
-    //Create progress controller
-    QuizzApp * quizzApp = [QuizzApp sharedInstance];
-    
+    //Create progress controller    
     ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName
                                                                                                bundle:QUIZZ_APP_XIB_BUNDLE
-                                                                                          andClientId:quizzApp.googlePlayClientId
-                                                                                    andProgressionKey:quizzApp.googlePlayProgressionKey
                                                                                         andAutoSignIn:NO];
 
     [self.navigationController pushViewController:progressViewController animated:YES];
@@ -318,13 +313,9 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     [super viewDidLoad];
     [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
-    //Analytics
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Settings Screen"];
-    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
-    
     //Table view tint color
-    if ([self.tableView respondsToSelector:@selector(setTintColor:)]) {
+    if ([self.tableView respondsToSelector:@selector(setTintColor:)])
+    {
         [self.tableView setTintColor:QUIZZ_APP_BLUE_SECOND_COLOR];
     }
 }
