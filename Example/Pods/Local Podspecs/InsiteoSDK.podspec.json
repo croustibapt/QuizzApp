@@ -1,0 +1,39 @@
+{
+  "name": "Parse",
+  "version": "1.9.1",
+  "summary": "dsfdsf",
+  "homepage": "http://www.parse.com",
+  "license": {
+    "type": "BSD",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Parse": "cocoapods@parse.com"
+  },
+  "platforms": {
+    "ios": "6.0"
+  },
+  "source": {
+    "http": "https://parse.com/downloads/ios/parse-library/latest",
+    "flatten": true
+  },
+  "vendored_frameworks": "Parse.framework",
+  "frameworks": [
+    "AudioToolbox",
+    "CFNetwork",
+    "CoreGraphics",
+    "CoreLocation",
+    "QuartzCore",
+    "Security",
+    "StoreKit",
+    "SystemConfiguration"
+  ],
+  "libraries": [
+    "z",
+    "sqlite3"
+  ],
+  "requires_arc": true,
+  "xcconfig": {
+    "OTHER_LDFLAGS": "-ObjC"
+  }
+}
