@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		570EC4531CACF55A00DE4FC0 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C75EAC1BFDADED006DAA43 /* GameKit.framework */; };
 		5724409A1BE67CE900EC09F1 /* MQConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 572440841BE67CE900EC09F1 /* MQConstants.m */; };
 		5724409B1BE67CE900EC09F1 /* MQHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572440871BE67CE900EC09F1 /* MQHomeViewController.m */; };
 		5724409D1BE67CE900EC09F1 /* QAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5724408C1BE67CE900EC09F1 /* QAAppDelegate.m */; };
@@ -104,6 +105,7 @@
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
 				B349178803332E317447A9F3 /* libPods-QuizzApp_Example.a in Frameworks */,
+				570EC4531CACF55A00DE4FC0 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
