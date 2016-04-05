@@ -62,13 +62,10 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
 - (void)showProgressViewController
 {
-    NSString * nibName = ExtensionName(@"ProgressViewController");
-    
-    //Create progress controller    
-    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName
-                                                                                               bundle:QUIZZ_APP_XIB_BUNDLE
-                                                                                         authenticate:YES
-                                                                                              dismiss:YES];
+    // Create progress controller
+    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithBundle:QUIZZ_APP_XIB_BUNDLE
+                                                                                        authenticate:YES
+                                                                                             dismiss:YES];
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
     
@@ -312,7 +309,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
                 // Labels
                 [self reinitLabels];
 
-                if ([[HomeViewController getAuthWanted] boolValue])
+                // Show only if not authenticated
+                if ([[HomeViewController getAuthWanted] boolValue] &&
+                    ![[QuizzApp sharedInstance].progressManager isAuthenticated])
                 {
                     // Show progress view controller
                     [self showProgressViewController];

@@ -59,12 +59,12 @@ EProgressProfileRow;
 }
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
-         authenticate:(BOOL)authenticate
-              dismiss:(BOOL)dismiss
+- (id)initWithBundle:(NSBundle *)bundle
+        authenticate:(BOOL)authenticate
+             dismiss:(BOOL)dismiss
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSString * nibName = ExtensionName(NSStringFromClass([self class]));
+    self = [super initWithNibName:nibName bundle:bundle];
     if (self)
     {
         _authenticate = authenticate;

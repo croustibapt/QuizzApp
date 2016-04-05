@@ -86,21 +86,17 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 #pragma mark - Progress
 
 
-- (void)showProgress
+- (void)showProgressViewController
 {
     NSString * nibName = ExtensionName(@"ProgressViewController");
 
     //Create progress controller
     BOOL isAuthenticated = [[QuizzApp sharedInstance].progressManager isAuthenticated];
-    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName
-                                                                                               bundle:QUIZZ_APP_XIB_BUNDLE
-                                                                                         authenticate:!isAuthenticated
-                                                                                              dismiss:NO];
+    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithBundle:QUIZZ_APP_XIB_BUNDLE
+                                                                                        authenticate:!isAuthenticated
+                                                                                             dismiss:NO];
 
     [self.navigationController pushViewController:progressViewController animated:YES];
-//    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
-//    
-//    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 
@@ -310,50 +306,74 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     [alertView show];
 }
 
-+ (void)showOtherGame:(NSString *)appId {
+
++ (void)showOtherGame:(NSString *)appId
+{
     NSString * url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@", appId];
     NSURL * appURL = [NSURL URLWithString:url];
     [[UIApplication sharedApplication] openURL:appURL];
 }
 
-- (void)showWebsite {
+
+- (void)showWebsite
+{
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_WEBSITE_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
     [alertView setTag:QUIZZ_APP_WEBSITE_ALERT];
     [alertView show];
 }
 
-- (void)showLanguage {
+
+- (void)showLanguage
+{
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_CHANGE_LANGUAGE_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:nil delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle([Utils currentLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle([Utils otherLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
     [alertView setTag:QUIZZ_APP_LANGUAGE_ALERT];
     [alertView show];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == ESettingsSectionActions) {
-        if (indexPath.row == ESettingsParametersRowLanguage) {
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == ESettingsSectionActions)
+    {
+        if (indexPath.row == ESettingsParametersRowLanguage)
+        {
             //Language
             [self showLanguage];
-        } else if (indexPath.row == ESettingsParametersRowSound) {
+        }
+        else if (indexPath.row == ESettingsParametersRowSound)
+        {
             //Sound
             [Constants toggleSoundPref];
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:ESettingsParametersRowSound inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
         }
-    } else if (indexPath.section == ESettingsSectionGame) {
-        if (indexPath.row == ESettingsGameRowLogin) {
+    }
+    else if (indexPath.section == ESettingsSectionGame)
+    {
+        if (indexPath.row == ESettingsGameRowLogin)
+        {
             //Login
-            [self showProgress];
-        } else if (indexPath.row == ESettingsGameRowHelp) {
+            [self showProgressViewController];
+        }
+        else if (indexPath.row == ESettingsGameRowHelp)
+        {
             //Website
             [self showHelp];
         }
-    } else if (indexPath.section == ESettingsSectionOtherGames) {
+    }
+    else if (indexPath.section == ESettingsSectionOtherGames)
+    {
         [SettingsViewController showOtherGame:[self appIdForOtherGame:indexPath.row]];
-    } else if (indexPath.section == ESettingsSectionMore) {
-        if (indexPath.row == ESettingsMoreRowSuggest) {
-            //Propose
+    }
+    else if (indexPath.section == ESettingsSectionMore)
+    {
+        if (indexPath.row == ESettingsMoreRowSuggest)
+        {
+            // Propose
             [self showSuggestPack];
-        } else if (indexPath.row == ESettingsMoreRowWebsite) {
-            //Website
+        }
+        else if (indexPath.row == ESettingsMoreRowWebsite)
+        {
+            // Website
             [self showWebsite];
         }
     }
