@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "SettingsViewController.h"
 
 
@@ -14,63 +15,87 @@
 #import "ProgressViewController.h"
 #import "QuizzApp.h"
 
-typedef enum {
+
+typedef enum
+{
     ESettingsSectionActions = 0,
     ESettingsSectionGame,
     ESettingsSectionOtherGames,
     ESettingsSectionMore,
     ESettingsSectionLast
-} ESettingsSection;
+}
+ESettingsSection;
 
-typedef enum {
+
+typedef enum
+{
     ESettingsParametersRowLanguage = 0,
     ESettingsParametersRowSound,
     ESettingsParametersRowLast
-} ESettingsParametersRow;
+}
+ESettingsParametersRow;
+
 
 typedef enum {
     ESettingsGameRowLogin = 0,
     ESettingsGameRowHelp,
     ESettingsGameRowLast
-} ESettingsGameRow;
+}
+ESettingsGameRow;
 
-typedef enum {
+
+typedef enum
+{
     ESettingsMoreRowSuggest = 0,
     ESettingsMoreRowWebsite,
     ESettingsMoreRowLast
-} ESettingsMoreRow;
+}
+ESettingsMoreRow;
+
 
 int const QUIZZ_APP_SUGGEST_ALERT = 1;
 int const QUIZZ_APP_WEBSITE_ALERT = 2;
 int const QUIZZ_APP_LANGUAGE_ALERT = 3;
 int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
+
 #import "Constants.h"
 #import "UtilsImage.h"
 
+
 @interface SettingsViewController ()
+
 
 @end
 
+
 @implementation SettingsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         
     }
     return self;
 }
 
+
 #pragma mark - Progress
 
-- (void)showProgress {
+
+- (void)showProgress
+{
     NSString * nibName = ExtensionName(@"ProgressViewController");
 
-    //Create progress controller    
+    //Create progress controller
+    BOOL isAuthenticated = [[QuizzApp sharedInstance].progressManager isAuthenticated];
     ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName
                                                                                                bundle:QUIZZ_APP_XIB_BUNDLE
-                                                                                        andAutoSignIn:NO];
+                                                                                         authenticate:!isAuthenticated
+                                                                                              dismiss:NO];
 
     [self.navigationController pushViewController:progressViewController animated:YES];
 //    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
@@ -78,28 +103,40 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 //    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+
 #pragma mark - Help
 
-- (void)showHelp {
+
+- (void)showHelp
+{
     HelpViewController * helpViewController = [[HelpViewController alloc] initWithContentFrame:self.view.frame];
     [self presentViewController:helpViewController animated:YES completion:nil];
 }
 
-- (int)nbOtherGames {
+
+- (int)nbOtherGames
+{
     return 0;
 }
 
-- (NSString *)titleForOtherGame:(NSInteger)index {
+
+- (NSString *)titleForOtherGame:(NSInteger)index
+{
     return nil;
 }
 
-- (NSString *)appIdForOtherGame:(NSInteger)index {
+
+- (NSString *)appIdForOtherGame:(NSInteger)index
+{
     return nil;
 }
 
-- (UIImage *)imageForOtherGame:(NSInteger)index {
+
+- (UIImage *)imageForOtherGame:(NSInteger)index
+{
     return nil;
 }
+
 
 #pragma mark - UITableView
 
@@ -121,58 +158,90 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == ESettingsSectionActions) {
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == ESettingsSectionActions)
+    {
         return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_PARAMETERS", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-    } else if (section == ESettingsSectionGame) {
+    }
+    else if (section == ESettingsSectionGame)
+    {
         return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GAME", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-    } else if (section == ESettingsSectionOtherGames) {
+    }
+    else if (section == ESettingsSectionOtherGames)
+    {
         return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_OTHER_GAMES", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-    } else if (section == ESettingsSectionMore) {
+    }
+    else if (section == ESettingsSectionMore)
+    {
         return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_MORE", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-    } else {
+    }
+    else
+    {
         return nil;
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString * CellIdentifier = @"Cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     [cell.detailTextLabel setText:nil];
     [cell setAccessoryType:UITableViewCellAccessoryNone];
 
-    if (indexPath.section == ESettingsSectionActions) {
-        if (indexPath.row == ESettingsParametersRowLanguage) {
+    if (indexPath.section == ESettingsSectionActions)
+    {
+        if (indexPath.row == ESettingsParametersRowLanguage)
+        {
             //Language
-            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_flag" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
+            [cell.imageView setImage:[UtilsImage imageNamed:@"ic_flag"
+                                                     bundle:QUIZZ_APP_IMAGE_BUNDLE
+                                                   andColor:[QuizzApp sharedInstance].secondColor]];
+            
             [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_CHANGE_LANGUAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             [cell.detailTextLabel setText:NSLocalizedStringFromTableInBundle([Utils currentLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        } else if (indexPath.row == ESettingsParametersRowSound) {
+        }
+        else if (indexPath.row == ESettingsParametersRowSound)
+        {
             //Sound
-            if ([Constants isSoundActivated]) {
-                [cell.imageView setImage:[UtilsImage imageNamed:@"ic_sound" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
+            if ([Constants isSoundActivated])
+            {
+                [cell.imageView setImage:[UtilsImage imageNamed:@"ic_sound"
+                                                         bundle:QUIZZ_APP_IMAGE_BUNDLE
+                                                       andColor:[QuizzApp sharedInstance].secondColor]];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_DISABLE_SOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-            } else {
+            }
+            else
+            {
                 [cell.imageView setImage:[UtilsImage imageNamed:@"ic_mute" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_ENABLE_SOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             }
         }
-    } else if (indexPath.section == ESettingsSectionGame) {
-        if (indexPath.row == ESettingsGameRowLogin) {
+    }
+    else if (indexPath.section == ESettingsSectionGame)
+    {
+        if (indexPath.row == ESettingsGameRowLogin)
+        {
             //Login
             [cell.imageView setImage:[UtilsImage imageNamed:@"ic_google_plus" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
             
-            if ([[QuizzApp sharedInstance].progressManager isAuthenticated]) {
+            if ([[QuizzApp sharedInstance].progressManager isAuthenticated])
+            {
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GAME_CENTER", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-            } else {
+            }
+            else
+            {
                 [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_LOGIN_GAME_CENTER", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
             }
         } else if (indexPath.row == ESettingsGameRowHelp) {

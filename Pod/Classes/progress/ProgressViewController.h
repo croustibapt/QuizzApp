@@ -8,28 +8,43 @@
 
 #import <UIKit/UIKit.h>
 
+
 #import "QuizzApp.h"
 #import "BackViewController.h"
 #import "FlatButton.h"
 
+
 @interface ProgressViewController : BackViewController <UIWebViewDelegate>
 
-@property (nonatomic, strong) IBOutlet FlatButton * signInButton;
 
 @property (nonatomic, strong) IBOutlet UILabel * statusLabel;
 
+
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView * activityIndicatorView;
+
 
 @property (nonatomic, strong) IBOutlet UILabel * informationLabel;
 
+
 @property (nonatomic, strong) IBOutlet FlatButton * syncButton;
+
 
 @property (nonatomic, strong) IBOutlet UIImageView * gameImageView;
 
-@property (nonatomic) BOOL autoSignIn;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andAutoSignIn:(BOOL)autoSignIn;
+@property (nonatomic) BOOL authenticate;
+
+
+@property (nonatomic) BOOL dismiss;
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+         authenticate:(BOOL)authenticate
+              dismiss:(BOOL)dismiss;
+
 
 - (void)refreshUI;
+
 
 @end

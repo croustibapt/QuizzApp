@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "ProgressManager.h"
+
 
 #import "GameDBHelper.h"
 #import "Constants.h"
@@ -14,7 +16,9 @@
 #import "GameProvider.h"
 #import "QuizzApp.h"
 
+
 NSString * const ProgressManager_SavedGameName = @"ProgressManager_SavedGameName";
+
 
 @interface ProgressManager()
 {
@@ -22,28 +26,36 @@ NSString * const ProgressManager_SavedGameName = @"ProgressManager_SavedGameName
     GKSavedGame * _savedGame;
 }
 
+
 @end
+
 
 @implementation ProgressManager
 
+
 USERPREF_IMPL(NSDictionary *, ProgressData, nil);
 
+
 #pragma mark - Authenticate
+
 
 - (void)cancel
 {
     
 }
 
+
 - (BOOL)isAuthenticated
 {
     return _player.isAuthenticated;
 }
 
+
 - (BOOL)hasSavedGame
 {
     return (_savedGame != nil);
 }
+
 
 - (void)authenticateWithViewController:(UIViewController *)viewController
                                success:(ProgressManagerSignInSuccessHandler)success
@@ -81,6 +93,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     }
 }
 
+
 - (void)logout
 {
     if ([self isAuthenticated])
@@ -93,7 +106,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     }
 }
 
+
 #pragma mark - Progress
+
 
 - (void)loadProgressionWithSuccess:(ProgressManagerSignInSuccessHandler)success
                            failure:(ProgressManagerSignInFailureHandler)failure
@@ -148,12 +163,13 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
                     _isSyncing = NO;
                     
                     // No saved game found
-                    QABlock(failure, nil);
+                    QABlock(success, _player);
                 }
             }
         }];
     }
 }
+
 
 // Return YES is a progression (with data) is found, otherwise NO
 - (BOOL)saveProgressionWithInstantProgression:(NSDictionary *)instantProgression
@@ -211,6 +227,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     
     return NO;
 }
+
 
 - (BOOL)cleanWithCompletionHandler:(ProgressManagerCleanProgressionCompletionHandler)completionHandler
 {

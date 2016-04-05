@@ -56,13 +56,19 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     return self;
 }
 
+
 #pragma mark - Progress
 
-- (void)showProgressViewController {
+
+- (void)showProgressViewController
+{
     NSString * nibName = ExtensionName(@"ProgressViewController");
     
     //Create progress controller    
-    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName bundle:QUIZZ_APP_XIB_BUNDLE andAutoSignIn:YES];
+    ProgressViewController * progressViewController = [[ProgressViewController alloc] initWithNibName:nibName
+                                                                                               bundle:QUIZZ_APP_XIB_BUNDLE
+                                                                                         authenticate:YES
+                                                                                              dismiss:YES];
     
     UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:progressViewController];
     
@@ -172,22 +178,27 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 //#endif
 }
 
+
 #pragma mark - UIAlertView
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.tag == AUTH_ALERT_VIEW) {
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == AUTH_ALERT_VIEW)
+    {
         Boolean authWanted = (buttonIndex != alertView.cancelButtonIndex);
         
-        if (authWanted) {
+        if (authWanted)
+        {
             //Show progress view controller
             [self showProgressViewController];
         }
         
         //Save prefs
-        [HomeViewController setAuthWanted:[NSNumber numberWithBool:authWanted]];
+        [HomeViewController setAuthWanted:@( authWanted )];
         
         //No more alert
-        [HomeViewController setAuthAlertShown:[NSNumber numberWithBool:YES]];
+        [HomeViewController setAuthAlertShown:@YES];
     }
 }
 
@@ -281,6 +292,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self.settingsButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_HOME_SETTINGS_BUTTON", nil, QUIZZ_APP_STRING_BUNDLE, nil) forState:UIControlStateNormal];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -322,7 +334,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self reinitLabels];
 }
 
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     //Start button

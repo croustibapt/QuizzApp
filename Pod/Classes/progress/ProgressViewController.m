@@ -6,57 +6,140 @@
 //  Copyright (c) 2014 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "ProgressViewController.h"
 
-typedef enum {
+
+typedef enum
+{
     EProgressSectionHeader = 0,
     EProgressSectionProfile,
     EProgressSectionLast
-} EProgressSection;
+}
+EProgressSection;
 
-typedef enum {
+
+typedef enum
+{
     EProgressProfileRowLogin = 0,
     EProgressProfileRowLast
-} EProgressProfileRow;
+}
+EProgressProfileRow;
 
 //typedef enum {
 //    EProgressScoresRowRank = 0,
 //    EProgressScoresRowLast
 //} EProgressScoresRow;
 
+
 #import "UtilsImage.h"
 #import "HomeViewController.h"
 
+
 @interface ProgressViewController ()
+
 
 @end
 
+
 @implementation ProgressViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+
+#pragma mark - Cocoa
+
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        NSString * nibName = ExtensionName(@"ProgressViewController");
+        NSString * nibName = ExtensionName(NSStringFromClass([self class]));
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
     }
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andAutoSignIn:(BOOL)autoSignIn
+
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+         authenticate:(BOOL)authenticate
+              dismiss:(BOOL)dismiss
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        [self setAutoSignIn:autoSignIn];
+        _authenticate = authenticate;
+        _dismiss = dismiss;
     }
     return self;
 }
 
-- (void)dealloc {
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //Refresh UI if needed
+    [self refreshUI];
+}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    
+    // Game image
+    NSString * gameImageName = ExtensionName(@"game_header");
+    
+    [self.gameImageView setImage:[UtilsImage imageNamed:gameImageName
+                                                 bundle:QUIZZ_APP_IMAGE_BUNDLE]];
+    
+    float labelFont = PixelsSize(15.0);
+    
+    // Status label
+    [self.statusLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
+    
+    // Information label
+    [self.informationLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
+    [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    
+    // Done item
+    UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                               target:self
+                                                                               action:@selector(dismiss)];
+    [self.navigationItem setRightBarButtonItem:doneItem];
+    
+    // Sync button
+    [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                     forState:UIControlStateNormal];
+    
+    // Sync button
+    [self.syncButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [self.syncButton setFrontColor:QUIZZ_APP_BLUE_MAIN_COLOR];
+    [self.syncButton setBackColor:QUIZZ_APP_BLUE_SECOND_COLOR];
+    
+    // Authenticate user if needed
+    if (_authenticate)
+    {
+        // Save auth wanted state
+        [HomeViewController setAuthWanted:@YES];
+        
+        // And start authentication
+        [self authenticate];
+    }
+}
+
+
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
 #pragma mark - Progress
+
 
 - (void)authenticate {
     //Show loading
@@ -72,7 +155,7 @@ typedef enum {
         [self showHideIndicator:NO];
         
         // Automatically dismiss
-        if (self.autoSignIn)
+        if (_dismiss)
         {
             [self dismiss];
         }
@@ -88,7 +171,7 @@ typedef enum {
         [self showAuthenticateErrorAlertView];
         
         // Automatically dismiss
-        if (self.autoSignIn)
+        if (_dismiss)
         {
             [self dismiss];
         }
@@ -96,6 +179,7 @@ typedef enum {
     
     [self refreshUI];
 }
+
 
 - (void)logout
 {
@@ -106,6 +190,7 @@ typedef enum {
     
     [self dismiss];
 }
+
 
 - (void)sync
 {
@@ -193,26 +278,11 @@ typedef enum {
     //Is connected ?
     Boolean canInteract = (!isSigningIn && !isSyncing);
     
-    //Enabled only if not signing in (auth or games)
-    [self.signInButton setEnabled:canInteract];
-    
     //Button title
     Boolean isConnected = [[QuizzApp sharedInstance].progressManager isAuthenticated];
-    NSString * buttonTitle = (isConnected ? NSLocalizedStringFromTableInBundle(@"STR_SIGN_OUT", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil));
-    
-    [self.signInButton setTitle:buttonTitle forState:UIControlStateNormal];
-    [self.signInButton setTitle:buttonTitle forState:UIControlStateDisabled];
     
     //Sync button
     [self.syncButton setEnabled:(isConnected && canInteract)];
-    
-    if (isConnected) {
-        [self.signInButton setFrontColor:QUIZZ_APP_RED_MAIN_COLOR];
-        [self.signInButton setBackColor:QUIZZ_APP_RED_SECOND_COLOR];
-    } else {
-        [self.signInButton setFrontColor:QUIZZ_APP_GREEN_MAIN_COLOR];
-        [self.signInButton setBackColor:QUIZZ_APP_GREEN_SECOND_COLOR];
-    }
 }
 
 #pragma mark - ProgressGameDelegate
@@ -263,26 +333,30 @@ typedef enum {
     [self refreshUI];
 }
 
+
 #pragma mark - IBAction
 
-- (IBAction)onSignInButtonPush:(id)sender
-{
-    if ([[QuizzApp sharedInstance].progressManager isAuthenticated])
-    {
-        [self logout];
-    }
-    else
-    {
-        [self authenticate];
-    }
-}
+
+//- (IBAction)onSignInButtonPush:(id)sender
+//{
+//    if ([[QuizzApp sharedInstance].progressManager isAuthenticated])
+//    {
+//        [self logout];
+//    }
+//    else
+//    {
+//        [self authenticate];
+//    }
+//}
 
 - (IBAction)onSyncButtonPush:(id)sender
 {
     [self sync];
 }
 
+
 #pragma mark - UI
+
 
 - (void)dismiss
 {
@@ -292,70 +366,5 @@ typedef enum {
     [[QuizzApp sharedInstance].progressManager cancel];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    //Refresh UI if needed
-    [self refreshUI];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)]; 
-    
-    //Game image
-    NSString * gameImageName = ExtensionName(@"game_header");
-    
-    [self.gameImageView setImage:[UtilsImage imageNamed:gameImageName
-                                                 bundle:QUIZZ_APP_IMAGE_BUNDLE]];
-    
-    float labelFont = PixelsSize(15.0);
-    
-    //Status label
-    [self.statusLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
-    
-    //Information label
-    [self.informationLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
-    [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-    
-    //Done item
-    UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                               target:self
-                                                                               action:@selector(dismiss)];
-    [self.navigationItem setRightBarButtonItem:doneItem];
-
-    if (self.autoSignIn)
-    {
-        // If auth wanted
-        if ([HomeViewController getAuthWanted])
-        {
-            // Init progression
-            [self authenticate];
-        }
-    }
-    
-    //Sync button
-    [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil)
-                     forState:UIControlStateNormal];
-    
-    //Sign in button
-    [self.signInButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    
-    [self.signInButton setFrontColor:QUIZZ_APP_GREEN_MAIN_COLOR];
-    [self.signInButton setBackColor:QUIZZ_APP_GREEN_SECOND_COLOR];
-    
-    //Sync button
-    [self.syncButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    
-    [self.syncButton setFrontColor:QUIZZ_APP_BLUE_MAIN_COLOR];
-    [self.syncButton setBackColor:QUIZZ_APP_BLUE_SECOND_COLOR];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
 
 @end
