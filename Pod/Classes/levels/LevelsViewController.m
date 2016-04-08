@@ -207,7 +207,7 @@
             if (difficulty != nil) {
                 name = difficulty.name;
             } else {
-                name = [NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_DIFFICULTY", nil, QUIZZ_APP_STRING_BUNDLE, nil), [difficultyId intValue]];
+                name = [NSString stringWithFormat:@"%@ %d", QALocalizedString(@"STR_DIFFICULTY"), [difficultyId intValue]];
             }
             
             //Progress
@@ -216,7 +216,7 @@
         
             title = [NSString stringWithFormat:@"%@ (%d/%lu)", name, nbFinishedLevels, (unsigned long)[levels count]];
         } else {
-            title = NSLocalizedStringFromTableInBundle(@"NO_LEVELS", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+            title = QALocalizedString(@"NO_LEVELS");
         }
         
         [((HeaderCell *)supplementaryView).title setText:title];
@@ -250,7 +250,7 @@
         //Download
         MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
         hud.mode = MBProgressHUDModeDeterminateHorizontalBar;
-        hud.labelText = NSLocalizedStringFromTableInBundle(@"STR_DOWNLOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+        hud.labelText = QALocalizedString(@"STR_DOWNLOADING");
         
         [LevelDownloader downloadLevelWithLevel:level andDelegate:self];
     }
@@ -338,7 +338,11 @@
         });
 
         //Popup connectivity
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_INFORMATION")
+                                                             message:QALocalizedString(@"STR_DOWNLOAD_LEVEL_ERROR_MESSAGE")
+                                                            delegate:nil
+                                                   cancelButtonTitle:QALocalizedString(@"STR_OK")
+                                                   otherButtonTitles:nil];
         [alertView show];
     }
 }
@@ -351,7 +355,7 @@
 
 - (IBAction)onRefreshButtonPush:(id)sender {
     MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
-    hud.labelText = NSLocalizedStringFromTableInBundle(@"STR_LOADING", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+    hud.labelText = QALocalizedString(@"STR_LOADING");
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         //Update levels from servers
@@ -361,7 +365,11 @@
         } else {
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 //Popup connectivity
-                UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+                UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_INFORMATION")
+                                                                     message:QALocalizedString(@"STR_NO_CONNECTIVITY_MESSAGE")
+                                                                    delegate:nil
+                                                           cancelButtonTitle:QALocalizedString(@"STR_OK")
+                                                           otherButtonTitles:nil];
                 [alertView show];
             });
         }
@@ -396,7 +404,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVELS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    [self setTitle:QALocalizedString(@"STR_LEVELS_TITLE")];
     
     //Refresh button
     if (m_refreshButtonEnabled) {

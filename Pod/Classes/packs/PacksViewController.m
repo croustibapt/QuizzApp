@@ -158,7 +158,7 @@
         [title setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:font]];
         
         int nbFinishedPacks = [self getNbFinishedPacks];
-        [title setText:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISH_STATUS", nil, QUIZZ_APP_STRING_BUNDLE, nil), nbFinishedPacks, ((nbFinishedPacks > 1) ? NSLocalizedStringFromTableInBundle(@"STR_PACKS", nil, QUIZZ_APP_STRING_BUNDLE, nil) : NSLocalizedStringFromTableInBundle(@"STR_PACK", nil, QUIZZ_APP_STRING_BUNDLE, nil)), [self.packs count]]];
+        [title setText:[NSString stringWithFormat:QALocalizedString(@"STR_PACK_FINISH_STATUS"), nbFinishedPacks, ((nbFinishedPacks > 1) ? QALocalizedString(@"STR_PACKS") : QALocalizedString(@"STR_PACK")), [self.packs count]]];
         [title setTextColor:[UIColor whiteColor]];
         [title setBackgroundColor:[UIColor clearColor]];
         
@@ -192,26 +192,41 @@
     }
 }
 
-- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_CONTINUE", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
+
+- (void)tableView:(UITableView *)aTableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_INFORMATION")
+                                                         message:QALocalizedString(@"STR_REPLAY_PACK_MESSAGE")
+                                                        delegate:self
+                                               cancelButtonTitle:QALocalizedString(@"STR_CANCEL")
+                                               otherButtonTitles:QALocalizedString(@"STR_CONTINUE"), nil];
     [alertView setTag:indexPath.section];
     [alertView show];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NSLocalizedStringFromTableInBundle(@"STR_REPLAY", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return QALocalizedString(@"STR_REPLAY");
 }
+
 
 #pragma mark - UI
 
-- (void)viewWillAppear:(BOOL)animated {
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [self setTitle:[NSString stringWithFormat:@"%@ %d", NSLocalizedStringFromTableInBundle(@"STR_LEVEL", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.level.value]];
+    [self setTitle:[NSString stringWithFormat:@"%@ %d", QALocalizedString(@"STR_LEVEL"), self.level.value]];
     
     if ([Utils isIPad])
     {
@@ -222,8 +237,5 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 @end

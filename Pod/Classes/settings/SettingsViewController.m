@@ -159,19 +159,19 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 {
     if (section == ESettingsSectionActions)
     {
-        return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_PARAMETERS", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+        return QALocalizedString(@"STR_SETTINGS_PARAMETERS");
     }
     else if (section == ESettingsSectionGame)
     {
-        return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GAME", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+        return QALocalizedString(@"STR_SETTINGS_GAME");
     }
     else if (section == ESettingsSectionOtherGames)
     {
-        return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_OTHER_GAMES", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+        return QALocalizedString(@"STR_SETTINGS_OTHER_GAMES");
     }
     else if (section == ESettingsSectionMore)
     {
-        return NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_MORE", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+        return QALocalizedString(@"STR_SETTINGS_MORE");
     }
     else
     {
@@ -202,8 +202,8 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
                                                      bundle:QUIZZ_APP_IMAGE_BUNDLE
                                                    andColor:[QuizzApp sharedInstance].secondColor]];
             
-            [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_CHANGE_LANGUAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
-            [cell.detailTextLabel setText:NSLocalizedStringFromTableInBundle([Utils currentLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+            [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_CHANGE_LANGUAGE")];
+            [cell.detailTextLabel setText:QALocalizedString([Utils currentLanguage])];
             
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         }
@@ -215,12 +215,12 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
                 [cell.imageView setImage:[UtilsImage imageNamed:@"ic_sound"
                                                          bundle:QUIZZ_APP_IMAGE_BUNDLE
                                                        andColor:[QuizzApp sharedInstance].secondColor]];
-                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_DISABLE_SOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+                [cell.textLabel setText:QALocalizedString(@"STR_DISABLE_SOUND")];
             }
             else
             {
                 [cell.imageView setImage:[UtilsImage imageNamed:@"ic_mute" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
-                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_ENABLE_SOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+                [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_ENABLE_SOUND")];
             }
         }
     }
@@ -234,16 +234,16 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
             if ([[QuizzApp sharedInstance].progressManager isAuthenticated])
             {
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_GAME_CENTER", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+                [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_GAME_CENTER")];
             }
             else
             {
-                [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_LOGIN_GAME_CENTER", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+                [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_LOGIN_GAME_CENTER")];
             }
         } else if (indexPath.row == ESettingsGameRowHelp) {
             //Website
             [cell.imageView setImage:[UtilsImage imageNamed:@"ic_how_to" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
-            [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_HOW_TO_PLAY", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+            [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_HOW_TO_PLAY")];
             
             [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
@@ -257,13 +257,13 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
         if (indexPath.row == ESettingsMoreRowSuggest) {
             //Propose
             [cell.imageView setImage:[UtilsImage imageNamed:@"ic_suggest_pack" bundle:QUIZZ_APP_IMAGE_BUNDLE andColor:[QuizzApp sharedInstance].secondColor]];
-            [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_SUGGEST_PACK", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+            [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_SUGGEST_PACK")];
             
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         } else if (indexPath.row == ESettingsMoreRowWebsite) {
             //Website
             [cell.imageView setImage:[UtilsImage imageNamed:@"ic_levelapp" bundle:QUIZZ_APP_IMAGE_BUNDLE]];
-            [cell.textLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_OUR_WEBSITE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+            [cell.textLabel setText:QALocalizedString(@"STR_SETTINGS_OUR_WEBSITE")];
             
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         }
@@ -300,8 +300,14 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
     }
 }
 
-- (void)showSuggestPack {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_SUGGEST_PACK_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_SUGGEST_PACK_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
+
+- (void)showSuggestPack
+{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_SETTINGS_SUGGEST_PACK_TITLE")
+                                                         message:QALocalizedString(@"STR_SETTINGS_SUGGEST_PACK_MESSAGE")
+                                                        delegate:self
+                                               cancelButtonTitle:QALocalizedString(@"STR_CANCEL")
+                                               otherButtonTitles:QALocalizedString(@"STR_OK"), nil];
     [alertView setTag:QUIZZ_APP_SUGGEST_ALERT];
     [alertView show];
 }
@@ -317,7 +323,11 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
 - (void)showWebsite
 {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_WEBSITE_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_CANCEL", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_INFORMATION")
+                                                         message:QALocalizedString(@"STR_SETTINGS_WEBSITE_MESSAGE")
+                                                        delegate:self
+                                               cancelButtonTitle:QALocalizedString(@"STR_CANCEL")
+                                               otherButtonTitles:QALocalizedString(@"STR_OK"), nil];
     [alertView setTag:QUIZZ_APP_WEBSITE_ALERT];
     [alertView show];
 }
@@ -325,7 +335,11 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
 - (void)showLanguage
 {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_CHANGE_LANGUAGE_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:nil delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle([Utils currentLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle([Utils otherLanguage], nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_SETTINGS_CHANGE_LANGUAGE_TITLE")
+                                                         message:nil
+                                                        delegate:self
+                                               cancelButtonTitle:QALocalizedString([Utils currentLanguage])
+                                               otherButtonTitles:QALocalizedString([Utils otherLanguage]), nil];
     [alertView setTag:QUIZZ_APP_LANGUAGE_ALERT];
     [alertView show];
 }
@@ -400,7 +414,7 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_SETTINGS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    [self setTitle:QALocalizedString(@"STR_SETTINGS_TITLE")];
     
     //Table view tint color
     if ([self.tableView respondsToSelector:@selector(setTintColor:)])

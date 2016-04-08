@@ -87,7 +87,7 @@ EProgressProfileRow;
 {
     [super viewDidLoad];
     
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    [self setTitle:QALocalizedString(@"STR_PROGRESS_TITLE")];
     
     // Game image
     NSString * gameImageName = ExtensionName(@"game_header");
@@ -102,10 +102,10 @@ EProgressProfileRow;
     
     // Information label
     [self.informationLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
-    [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    [self.informationLabel setText:QALocalizedString(@"STR_PROGRESS_INFORMATION")];
     
     // Sync button
-    [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+    [self.syncButton setTitle:QALocalizedString(@"STR_SYNC_PROGRESS")
                      forState:UIControlStateNormal];
     
     // Sync button
@@ -227,20 +227,20 @@ EProgressProfileRow;
 
 - (void)showAuthenticateErrorAlertView
 {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
-                                                         message:NSLocalizedStringFromTableInBundle(@"STR_SIGN_IN_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_SIGN_IN_ERROR_TITLE")
+                                                         message:QALocalizedString(@"STR_SIGN_IN_ERROR_MESSAGE")
                                                         delegate:nil
-                                               cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                               cancelButtonTitle:QALocalizedString(@"STR_OK")
                                                otherButtonTitles:nil];
     [alertView show];
 }
 
 - (void)showGamesSyncErrorAlertView
 {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
-                                                         message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SYNC_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_PROGRESS_SYNC_ERROR_TITLE")
+                                                         message:QALocalizedString(@"STR_PROGRESS_SYNC_ERROR_MESSAGE")
                                                         delegate:nil
-                                               cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                               cancelButtonTitle:QALocalizedString(@"STR_OK")
                                                otherButtonTitles:nil];
     [alertView show];
 }
@@ -265,14 +265,14 @@ EProgressProfileRow;
     Boolean isSigningIn = [QuizzApp sharedInstance].progressManager.isAuthenticating;
     if (isSigningIn)
     {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SIGNING_IN", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+        [self.statusLabel setText:QALocalizedString(@"STR_SIGNING_IN")];
     }
     
     //Check syncing
     Boolean isSyncing = [QuizzApp sharedInstance].progressManager.isSyncing;
     if (isSyncing)
     {
-        [self.statusLabel setText:NSLocalizedStringFromTableInBundle(@"STR_SYNCING", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+        [self.statusLabel setText:QALocalizedString(@"STR_SYNCING")];
     }
     
     //Is connected ?

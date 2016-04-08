@@ -6,9 +6,12 @@
 //  Copyright (c) 2013 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "HomeViewController.h"
 
+
 int const AUTH_ALERT_VIEW = 0;
+
 
 #import "LevelsViewController.h"
 #import "Difficulty.h"
@@ -28,18 +31,25 @@ int const AUTH_ALERT_VIEW = 0;
 #import "UtilsImage.h"
 #import "MBProgressHUD.h"
 
-@interface HomeViewController () {
+
+@interface HomeViewController ()
+{
     NSString * m_lastLanguage;
 }
 
+
 @end
 
+
 @implementation HomeViewController
+
 
 USERPREF_IMPL(NSNumber *, AuthWanted, [NSNumber numberWithBool:NO]);
 USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
     if (self) {
         NSString * nibName = ExtensionName(@"HomeViewController");
@@ -48,7 +58,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         m_lastLanguage = nil;
@@ -73,47 +85,59 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+
 #pragma mark - Game
 
-- (void)loadLevels:(HomeViewControllerLoadLevelsCompletionHandler)completionHandler {
+
+- (void)loadLevels:(HomeViewControllerLoadLevelsCompletionHandler)completionHandler
+{
     //Background thread
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         NSMutableDictionary * levels = [LevelsViewController getLevels];
         
         //Main thread
-        dispatch_async(dispatch_get_main_queue(), ^(void){
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
             LevelsViewController * levelsViewController = [[LevelsViewController alloc] initWithLevels:levels];
             [self.navigationController pushViewController:levelsViewController animated:YES];
             
-            if (completionHandler) {
+            if (completionHandler)
+            {
                 completionHandler();
             }
         });
     });
 }
 
+
 #pragma mark - Init
 
-- (Boolean)levelExists:(NSString *)levelPath {
+
+- (Boolean)levelExists:(NSString *)levelPath
+{
     NSFileManager * fileManager = [NSFileManager defaultManager];
     Boolean levelExists = [fileManager fileExistsAtPath:levelPath];
     return levelExists;
 }
 
-- (void)unzipLevels {
+
+- (void)unzipLevels
+{
     NSString * language = [Utils currentLanguage];
     NSString * directory = [NSString stringWithFormat:@"%@.lproj", language];
     
     NSArray * paths = [MAIN_BUNDLE pathsForResourcesOfType:@"zip" inDirectory:directory];
     
-    for (NSString * levelZipPath in paths) {
+    for (NSString * levelZipPath in paths)
+    {
         NSString * fileName = [[levelZipPath lastPathComponent] stringByDeletingPathExtension];
         NSString * levelPath = [NSString stringWithFormat:@"%@/%@", [Level levelsPath], fileName];
         
-        if (![self levelExists:levelPath]) {
+        if (![self levelExists:levelPath])
+        {
             ZipArchive * za = [[ZipArchive alloc] init];
             //Open file
-            if ([za UnzipOpenFile:levelZipPath]) {
+            if ([za UnzipOpenFile:levelZipPath])
+            {
                 //Unzip
                 BOOL ret = [za UnzipFileTo:levelPath overWrite: YES];
                 if (NO == ret){} [za UnzipCloseFile];
@@ -125,17 +149,23 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
             
             Level * level = [LevelDBHelper getLevel:databasePath];
             [GameDBHelper addLevel:level];
-        } else {
+        }
+        else
+        {
             NSLog(@"Level already unzipped");
         }
     }
 }
 
-- (void)checkLocalLevels {
+
+- (void)checkLocalLevels
+{
     [self unzipLevels];
 }
 
-- (void)initPrefs {
+
+- (void)initPrefs
+{
     NSMutableDictionary * defaults = [NSMutableDictionary dictionary];
     
     //Sound
@@ -151,7 +181,8 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 }
 
 
-- (void)initApplication {
+- (void)initApplication
+{
     //Prefs
     [self initPrefs];
     
@@ -224,7 +255,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [alertView show];
 }
 
+
 #pragma mark - IBAction
+
 
 - (IBAction)onMainButtonPush:(id)sender
 {
@@ -244,7 +277,9 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     }];
 }
 
-- (IBAction)onScoresButtonPush:(id)sender {
+
+- (IBAction)onScoresButtonPush:(id)sender
+{
     //Check if we have a game authorizer
 #warning TO PORT
 //    if ([QuizzApp sharedInstance].progressManager.isConnected) {
@@ -268,12 +303,14 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
 //        }];
 //    } else {
 //        //Show alert
-//        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:NSLocalizedStringFromTableInBundle(@"STR_SCORES_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil) delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+//        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_SCORES_ERROR_TITLE") message:QALocalizedString(@"STR_SCORES_ERROR_MESSAGE") delegate:nil cancelButtonTitle:QALocalizedString(@"STR_OK") otherButtonTitles:nil];
 //        [alertView show];
 //    }
 }
 
-- (IBAction)onRateButtonPush:(id)sender {
+
+- (IBAction)onRateButtonPush:(id)sender
+{
     //Rate URL
     NSString * appId = [QuizzApp sharedInstance].appId;
     
@@ -282,13 +319,18 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [[UIApplication sharedApplication] openURL:appURL];
 }
 
-- (IBAction)onSettingsButtonPush:(id)sender {
+
+- (IBAction)onSettingsButtonPush:(id)sender
+{
     //Show settings    
-    SettingsViewController * settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:QUIZZ_APP_XIB_BUNDLE];
+    SettingsViewController * settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController"
+                                                                                               bundle:QUIZZ_APP_XIB_BUNDLE];
     [self.navigationController pushViewController:settingsViewController animated:YES];
 }
 
+
 #pragma mark - UI
+
 
 - (void)reinitLabels
 {
@@ -310,7 +352,7 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     {
         // Init game
         MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [hud setLabelText:NSLocalizedStringFromTableInBundle(@"STR_INITIALIZATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+        [hud setLabelText:QALocalizedString(@"STR_INITIALIZATION")];
         
         // Background job
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
@@ -373,8 +415,5 @@ USERPREF_IMPL(NSNumber *, AuthAlertShown, [NSNumber numberWithBool:NO]);
     [self.settingsButton setBackColor:QUIZZ_APP_GRAY_SECOND_COLOR];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 @end

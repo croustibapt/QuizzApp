@@ -157,11 +157,11 @@
     
     //Text
     if ([pack respondsToSelector:@selector(possiblePoints)]) {
-        [self.pointsLabel setText:[NSString stringWithFormat:@"%d %@", pack.possiblePoints, NSLocalizedStringFromTableInBundle(@"STR_POINTS", nil, QUIZZ_APP_STRING_BUNDLE, nil)]];
+        [self.pointsLabel setText:[NSString stringWithFormat:@"%d %@", pack.possiblePoints, QALocalizedString(@"STR_POINTS")]];
     }
     
     //Finished image    
-    [self.finishedLabel setText:NSLocalizedStringFromTableInBundle(@"STR_FINISHED", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    [self.finishedLabel setText:QALocalizedString(@"STR_FINISHED")];
     [self.finishedLabel setHidden:!pack.isCompleted];
     [self.finishedLabel setBackgroundColor:QUIZZ_APP_FOUND_COLOR];
     

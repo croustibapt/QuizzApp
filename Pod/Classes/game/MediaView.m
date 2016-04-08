@@ -50,7 +50,7 @@
 
         [self addSubview:self.posterImageView];
         
-        NSString * text = NSLocalizedStringFromTableInBundle(@"STR_FOUND", nil, QUIZZ_APP_STRING_BUNDLE, nil);
+        NSString * text = QALocalizedString(@"STR_FOUND");
         
         //Status
         CGRect statusFrame = CGRectMake(self.frame.size.width - PixelsSize(60) - QUIZZ_APP_MEDIA_FOUND_IMAGE_PADDING, QUIZZ_APP_MEDIA_FOUND_IMAGE_PADDING, PixelsSize(60), PixelsSize(25));
