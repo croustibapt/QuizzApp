@@ -427,6 +427,7 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     return progression;
 }
 
+
 + (NSDictionary *)getProgression
 {
     //Get local progression
@@ -455,7 +456,9 @@ USERPREF_IMPL(NSDictionary *, ProgressData, nil);
     return mergedProgression;
 }
 
+
 #pragma mark - Score
+
 
 + (float)getScore
 {

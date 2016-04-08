@@ -278,10 +278,10 @@
                                                                                             failure:
      ^(NSError * error)
     {
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SAVING_ERROR_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
-                                                             message:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_SAVING_ERROR_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_PROGRESS_SAVING_ERROR_TITLE")
+                                                             message:QALocalizedString(@"STR_PROGRESS_SAVING_ERROR_MESSAGE")
                                                             delegate:nil
-                                                   cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil)
+                                                   cancelButtonTitle:QALocalizedString(@"STR_OK")
                                                    otherButtonTitles:nil];
         [alertView show];
     }];

@@ -259,9 +259,9 @@
         
         NSString * appName = [MAIN_BUNDLE objectForInfoDictionaryKey:@"CFBundleDisplayName"];
         
-        NSString * subject = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil), appName];
+        NSString * subject = [NSString stringWithFormat:QALocalizedString(@"STR_HELP_MAIL_TITLE"), appName];
         
-        NSString * messageBody = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_MAIL_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), NSLocalizedStringFromTableInBundle(@"STR_MOVIE", nil, MAIN_BUNDLE, nil), self.pack.title, appName];
+        NSString * messageBody = [NSString stringWithFormat:QALocalizedString(@"STR_HELP_MAIL_MESSAGE"), QALocalizedString(@"STR_MOVIE"), self.pack.title, appName];
         
         [controller setSubject:subject];
         [controller setMessageBody:messageBody isHTML:NO];
@@ -292,7 +292,9 @@
     return [self loadCurrentMedia];
 }
 
-- (void)onMediaFound:(Media *)media {
+
+- (void)onMediaFound:(Media *)media
+{
     //Unblur
     MediaView * mediaView = [m_posterViews objectAtIndex:m_currentMediaIndex];
     [mediaView complete];
@@ -311,43 +313,61 @@
     Boolean packCompleted = self.replay ? [self.pack isReplayCompleted] : self.pack.isCompleted;
 
     //If pack is completed
-    if (packCompleted) {
+    if (packCompleted)
+    {
         //Check level completed
         [self.level refreshCompleted];
         
         //If no replay and level just finished
-        if (!self.replay && self.level.isCompleted) {
+        if (!self.replay && self.level.isCompleted)
+        {
             //Play sound
             [self playSoundWithFileName:@"finish"];
             
             //Popup
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_LEVEL_FINISHED_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.pack.possiblePoints] delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_LEVELS", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_LEVEL_FINISHED_TITLE")
+                                                                 message:[NSString stringWithFormat:QALocalizedString(@"STR_LEVEL_FINISHED_MESSAGE"), self.pack.possiblePoints]
+                                                                delegate:self
+                                                       cancelButtonTitle:QALocalizedString(@"STR_OK")
+                                                       otherButtonTitles:QALocalizedString(@"STR_BACK_TO_LEVELS"), nil];
             [alertView setTag:QUIZZ_APP_END_LEVEL_ALERT_VIEW];
             [alertView show];
-        } else {
+        }
+        else
+        {
             //Play sound
             [self playSoundWithFileName:@"success"];
             
             //Popup
             NSString * message = nil;
-            if (self.replay) {
-                message = NSLocalizedStringFromTableInBundle(@"STR_REPLAY_PACK_FINISHED_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil);
-            } else {
-                message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_MESSAGE", nil, QUIZZ_APP_STRING_BUNDLE, nil), self.pack.possiblePoints];
+            if (self.replay)
+            {
+                message = QALocalizedString(@"STR_REPLAY_PACK_FINISHED_MESSAGE");
+            }
+            else
+            {
+                message = [NSString stringWithFormat:QALocalizedString(@"STR_PACK_FINISHED_MESSAGE"), self.pack.possiblePoints];
             }
             
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_PACK_FINISHED_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:message delegate:self cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:NSLocalizedStringFromTableInBundle(@"STR_BACK_TO_PACKS", nil, QUIZZ_APP_STRING_BUNDLE, nil), nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_PACK_FINISHED_TITLE")
+                                                                 message:message
+                                                                delegate:self
+                                                       cancelButtonTitle:QALocalizedString(@"STR_OK")
+                                                       otherButtonTitles:QALocalizedString(@"STR_BACK_TO_PACKS"), nil];
             [alertView setTag:QUIZZ_APP_END_PACK_ALERT_VIEW];
             [alertView show];
         }
-    } else {
+    }
+    else
+    {
         //Play sound
         [self playSoundWithFileName:@"success"];
 
         //Show message
         MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeCustomView;
-        hud.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success" bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
+        hud.customView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:@"media_success"
+                                                                            bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
         
         //Disable user interaction
         [self.view setUserInteractionEnabled:NO];
@@ -355,7 +375,8 @@
         //Else go to next uncompleted media
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, QUIZZ_APP_MEDIA_FOUND_DURATION * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             //Update index
-            m_currentMediaIndex = [self.pack getNextPosterIndexWithCurrentIndex:m_currentMediaIndex andReplay:self.replay];
+            m_currentMediaIndex = [self.pack getNextPosterIndexWithCurrentIndex:m_currentMediaIndex
+                                                                      andReplay:self.replay];
             
             //Load poster
             [self loadIndex:m_currentMediaIndex animated:YES];
@@ -369,45 +390,68 @@
     }
 }
 
-- (void)onGoodWord:(NSString *)word {
+
+- (void)onGoodWord:(NSString *)word
+{
     //Play sound
 //    [self playSoundWithFileName:@"good"];
 }
 
-- (void)onBadWord {
+
+- (void)onBadWord
+{
     //Play sound
     [self playSoundWithFileName:@"wrong"];
 }
 
-- (void)onLetterPressed:(Boolean)back {
-    if (back) {
+
+- (void)onLetterPressed:(Boolean)back
+{
+    if (back)
+    {
         [self playSoundWithFileName:@"undo"];
-    } else {
+    }
+    else
+    {
         [self playSoundWithFileName:@"pop"];
     }
 }
 
+
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+       shouldReceiveTouch:(UITouch *)touch
+{
     CGPoint point = [touch locationInView:m_gameAnswerView.keyboardView];
-    if ([m_gameAnswerView.keyboardView pointInside:point withEvent:nil]) {
+    if ([m_gameAnswerView.keyboardView pointInside:point withEvent:nil])
+    {
         return NO;
     }
     
     return YES;
 }
 
+
 #pragma mark - UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        if (alertView.tag == QUIZZ_APP_END_PACK_ALERT_VIEW) {
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex)
+    {
+        if (alertView.tag == QUIZZ_APP_END_PACK_ALERT_VIEW)
+        {
             [self.navigationController popViewControllerAnimated:YES];
-        } else if (alertView.tag == QUIZZ_APP_END_LEVEL_ALERT_VIEW) {
+        }
+        else if (alertView.tag == QUIZZ_APP_END_LEVEL_ALERT_VIEW)
+        {
             //Back to levels
-            for (UIViewController * viewController in self.navigationController.viewControllers) {
-                if ([viewController isKindOfClass:[LevelsViewController class]]) {
+            for (UIViewController * viewController in self.navigationController.viewControllers)
+            {
+                if ([viewController isKindOfClass:[LevelsViewController class]])
+                {
                     [self.navigationController popToViewController:viewController animated:YES];
                     return;
                 }
@@ -418,28 +462,36 @@
     }
 }
 
+
 #pragma mark - iAd
 
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
     
 }
 
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
     
 }
 
-- (void)bannerViewWillLoadAd:(ADBannerView *)banner {
+- (void)bannerViewWillLoadAd:(ADBannerView *)banner
+{
     
 }
 
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
     
 }
 
-- (void)initAd {
+- (void)initAd
+{
     NSString * imageName = ExtensionName(@"ad_background");
     
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UtilsImage imageNamed:imageName
+                                                                                 bundle:QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE]];
     [imageView setFrame:self.adView.frame];
     [self.view addSubview:imageView];
     
@@ -456,16 +508,22 @@
 #endif
 }
 
+
 #pragma mark - Help
 
-- (void)showHelp {
+
+- (void)showHelp
+{
     HelpViewController * helpViewController = [[HelpViewController alloc] init];
     [self presentViewController:helpViewController animated:YES completion:nil];
 }
 
+
 #pragma mark - UI
 
-- (void)initializeScrollView {
+
+- (void)initializeScrollView
+{
     NSInteger nbMedias = [self.pack.medias count];
     int baseWidth = self.gameView.frame.size.width;
     int baseHeight = self.gameView.frame.size.height;
@@ -477,7 +535,8 @@
     [self.scrollView setContentSize:CGSizeMake(baseWidth * nbMedias, baseHeight)];
     [self.scrollView setDelegate:self];
     
-    for (int i = 0; i < nbMedias; i++) {
+    for (int i = 0; i < nbMedias; i++)
+    {
         Media * media = [self.pack.medias objectAtIndex:i];
 
         int width = baseWidth;
@@ -492,7 +551,9 @@
     }
 }
 
-- (void)threadInitView {
+
+- (void)threadInitView
+{
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     //Game delegate
@@ -544,6 +605,7 @@
 //    [pool release];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -565,15 +627,14 @@
     }
 }
 
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     [self updateTitle];
     [m_gameAnswerView setHidden:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 @end

@@ -44,7 +44,9 @@ GameProvider * s_gameProviderInstance;
     data = [NSURLConnection sendSynchronousRequest:dataRequest returningResponse:&response error:error];
     
     if (data == nil) {
-        *error = [NSError errorWithDomain:NSLocalizedStringFromTableInBundle(@"STR_NO_CONNECTIVITY_ERROR", nil, QUIZZ_APP_STRING_BUNDLE, nil) code:-1 userInfo:nil];
+        *error = [NSError errorWithDomain:QALocalizedString(@"STR_NO_CONNECTIVITY_ERROR")
+                                     code:-1
+                                 userInfo:nil];
     }
     
     return data;

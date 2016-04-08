@@ -153,6 +153,8 @@ extern NSString * const QUIZZ_APP_NEED_HELP_KEY;
 #define QUIZZ_APP_STRING_BUNDLE_NAME            [NSString stringWithFormat:@"QuizzApp%@String", [[Utils currentLanguage] uppercaseString]]
 #define QUIZZ_APP_STRING_BUNDLE                 QUIZZ_APP_NAMED_BUNDLE(QUIZZ_APP_STRING_BUNDLE_NAME)
 
+#define QALocalizedString(key)                  NSLocalizedStringFromTableInBundle(key, nil, QUIZZ_APP_STRING_BUNDLE, nil)
+
 @interface Constants : NSObject
 
 + (void)toggleSoundPref;

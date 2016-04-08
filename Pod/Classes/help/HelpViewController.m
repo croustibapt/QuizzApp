@@ -24,7 +24,7 @@
     NSString * labelName = [NSString stringWithFormat:@"STR_HELP_LABEL%d", index];
     
     UIImage * image = [UIImage imageNamed:imageName];
-    NSString * body = [NSLocalizedStringFromTableInBundle(labelName, nil, QUIZZ_APP_STRING_BUNDLE, nil) uppercaseString];
+    NSString * body = [QALocalizedString(labelName) uppercaseString];
     
     OnboardingContentViewController * page = [OnboardingContentViewController contentWithTitle:nil body:body image:image buttonText:nil action:nil];
     page.iconHeight = 200;
@@ -90,9 +90,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)viewDidLoad {
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [self setTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
+    
+    [self setTitle:QALocalizedString(@"STR_HELP_TITLE")];
 }
 
 @end

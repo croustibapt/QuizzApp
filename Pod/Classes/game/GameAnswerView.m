@@ -476,11 +476,18 @@
     }
 }
 
-- (IBAction)onShuffle:(id)sender {
-    [self onMediaChangedWithMedia:self.gameManager.currentMedia andPackId:self.gameManager.currentPackId andReset:NO andReplay:NO];
+
+- (IBAction)onShuffle:(id)sender
+{
+    [self onMediaChangedWithMedia:self.gameManager.currentMedia
+                        andPackId:self.gameManager.currentPackId
+                         andReset:NO
+                        andReplay:NO];
 }
 
-- (IBAction)onHelp:(id)sender {
+
+- (IBAction)onHelp:(id)sender
+{
     int timeInterval = INT_MAX;
     
     NSDate * lastHelpDate = self.gameManager.lastHelpDate;
@@ -493,10 +500,13 @@
         [self highlightGoodLetters];
     } else {
         //Popup
-        NSBundle * bundle = QUIZZ_APP_STRING_BUNDLE;
-        NSString * message = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"STR_HELP_LIMIT_MESSAGE", nil, bundle, nil), (QUIZZ_APP_HELP_LIMIT - timeInterval)];
+        NSString * message = [NSString stringWithFormat:QALocalizedString(@"STR_HELP_LIMIT_MESSAGE"), (QUIZZ_APP_HELP_LIMIT - timeInterval)];
         
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTableInBundle(@"STR_HELP_LIMIT_TITLE", nil, QUIZZ_APP_STRING_BUNDLE, nil) message:message delegate:nil cancelButtonTitle:NSLocalizedStringFromTableInBundle(@"STR_OK", nil, QUIZZ_APP_STRING_BUNDLE, nil) otherButtonTitles:nil];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:QALocalizedString(@"STR_HELP_LIMIT_TITLE")
+                                                             message:message
+                                                            delegate:nil
+                                                   cancelButtonTitle:QALocalizedString(@"STR_OK")
+                                                   otherButtonTitles:nil];
         [alertView show];
     }
 }

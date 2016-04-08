@@ -104,12 +104,6 @@ EProgressProfileRow;
     [self.informationLabel setFont:[UIFont fontWithName:@"RobotoCondensed-Regular" size:labelFont]];
     [self.informationLabel setText:NSLocalizedStringFromTableInBundle(@"STR_PROGRESS_INFORMATION", nil, QUIZZ_APP_STRING_BUNDLE, nil)];
     
-    // Done item
-    UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                               target:self
-                                                                               action:@selector(dismiss)];
-    [self.navigationItem setRightBarButtonItem:doneItem];
-    
     // Sync button
     [self.syncButton setTitle:NSLocalizedStringFromTableInBundle(@"STR_SYNC_PROGRESS", nil, QUIZZ_APP_STRING_BUNDLE, nil)
                      forState:UIControlStateNormal];
@@ -125,6 +119,12 @@ EProgressProfileRow;
     {
         // Save auth wanted state
         [HomeViewController setAuthWanted:@YES];
+        
+        // Done item
+        UIBarButtonItem * doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                   target:self
+                                                                                   action:@selector(dismiss)];
+        [self.navigationItem setRightBarButtonItem:doneItem];
         
         // And start authentication
         [self authenticate];
