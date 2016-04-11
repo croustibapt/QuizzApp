@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "GameViewController.h"
+
 
 #import "Media.h"
 #import "GameManager.h"
@@ -19,7 +21,9 @@
 #import "QuizzApp.h"
 #import "MBProgressHUD.h"
 
-@interface GameViewController () {
+
+@interface GameViewController ()
+{
     GameAnswerView * m_gameAnswerView;
     NSInteger m_currentMediaIndex;
     NSMutableArray * m_posterViews;
@@ -39,25 +43,37 @@
     Boolean m_ready;
 }
 
+
 @end
+
 
 @implementation GameViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self)
+    {
         NSString * nibName = ExtensionName(@"GameViewController");
         [QUIZZ_APP_XIB_BUNDLE loadNibNamed:nibName owner:self options:nil];
     }
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andPack:(Pack *)aPack andLevel:(Level *)aLevel andReplay:(Boolean)aReplay {
+
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+              andPack:(Pack *)pack
+             andLevel:(Level *)level
+            andReplay:(Boolean)replay
+{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self setPack:aPack];
-        [self setLevel:aLevel];
-        [self setReplay:aReplay];
+    if (self)
+    {
+        _pack = pack;
+        _level = level;
+        _replay = replay;
         
         m_posterViews = [[NSMutableArray alloc] init];
         
@@ -66,12 +82,16 @@
     return self;
 }
 
-- (Media *)currentMedia {
+
+- (Media *)currentMedia
+{
     Media * media = [self.pack.medias objectAtIndex:m_currentMediaIndex];
     return media;
 }
 
-- (void)zoomPoster:(Boolean)animated {
+
+- (void)zoomPoster:(Boolean)animated
+{
     //Poster view
     MediaView * mediaView = [m_posterViews objectAtIndex:m_currentMediaIndex];
     
@@ -83,7 +103,8 @@
 //    CGRect posterDestinationView = CGRectMake(mediaView.frame.origin.x, mediaView.frame.origin.y, answerViewFrame.size.width, self.gameView.frame.size.height - lettersHeight);
     CGRect posterDestinationView = CGRectMake(mediaView.frame.origin.x, 0, mediaView.frame.size.width, self.gameView.frame.size.height - lettersHeight);
 
-    if (animated) {
+    if (animated)
+    {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:QUIZZ_APP_POSTER_ANIMATION_DURATION];
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
@@ -94,20 +115,25 @@
     //Poster
     [mediaView setFrame:posterDestinationView];
     
-    if (animated) {
+    if (animated)
+    {
         [UIView commitAnimations];
     }
     
     [self setIsZoomed:YES];
 }
 
-- (void)zoomPoster {
+
+- (void)zoomPoster
+{
     if (!self.isZoomed) {
         [self zoomPoster:YES];
     }
 }
 
-- (void)showAnswerView:(Boolean)animated {
+
+- (void)showAnswerView:(Boolean)animated
+{
     NSLog(@"show answer view: %@", (animated ? @"animated" : @"non animated"));
     MediaView * mediaView = [m_posterViews objectAtIndex:m_currentMediaIndex];
     
@@ -118,7 +144,8 @@
     CGRect gameAnswerViewDestinationFrame = CGRectMake(answerViewFrame.origin.x, self.gameView.frame.size.height - answerViewFrame.size.height, answerViewFrame.size.width, answerViewFrame.size.height);
     CGRect posterDestinationView = CGRectMake(mediaView.frame.origin.x, mediaView.frame.origin.y - m_gameAnswerView.keyboardView.frame.size.height, mediaView.frame.size.width, mediaView.frame.size.height);
     
-    if (animated) {
+    if (animated)
+    {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:QUIZZ_APP_POSTER_ANIMATION_DURATION];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -129,20 +156,26 @@
     //Poster
     [mediaView setFrame:posterDestinationView];
     
-    if (animated) {
+    if (animated)
+    {
         [UIView commitAnimations];
     }
     
     [self setIsZoomed:NO];
 }
 
-- (void)showAnswerView {
-    if (self.isZoomed) {
+
+- (void)showAnswerView
+{
+    if (self.isZoomed)
+    {
         [self showAnswerView:YES];
     }
 }
 
-- (CGRect)loadCurrentMedia {
+
+- (CGRect)loadCurrentMedia
+{
     //Change title
     [self updateTitle];
     
@@ -156,44 +189,72 @@
     [m_swipeDownGestureRecognizer setEnabled:!mediaCompleted];
     
     //Friend item
-    if (!mediaCompleted) {
-        UIBarButtonItem * friendItem = [[UIBarButtonItem alloc] initWithImage:[UtilsImage imageNamed:@"ic_mail" bundle:QUIZZ_APP_IMAGE_BUNDLE] style:UIBarButtonItemStylePlain target:self action:@selector(onFriendButtonPush:)];
+    if (!mediaCompleted)
+    {
+        UIBarButtonItem * friendItem = [[UIBarButtonItem alloc] initWithImage:[UtilsImage imageNamed:@"ic_mail" bundle:QUIZZ_APP_IMAGE_BUNDLE]
+                                                                        style:UIBarButtonItemStylePlain
+                                                                       target:self
+                                                                       action:@selector(onFriendButtonPush:)];
         [self.navigationItem setRightBarButtonItem:friendItem];
-    } else {
+    }
+    else
+    {
         [self.navigationItem setRightBarButtonItem:nil];
     }
         
-    CGRect frame = [m_gameAnswerView onMediaChangedWithMedia:media andPackId:self.pack.identifier andReset:YES andReplay:self.replay];
+    CGRect frame = [m_gameAnswerView onMediaChangedWithMedia:media
+                                                   andPackId:self.pack.identifier
+                                                    andReset:YES
+                                                   andReplay:self.replay];
     
     return frame;
 }
 
-- (void)updateTitle {
-    NSString * title = [NSString stringWithFormat:@"%@ %d/%lu", [self.pack.title uppercaseString], (int)(m_currentMediaIndex + 1), (unsigned long)[self.pack.medias count]];
+
+- (void)updateTitle
+{
+    NSString * title = [NSString stringWithFormat:@"%@ %d/%lu",
+                        [self.pack.title uppercaseString],
+                        (int)(m_currentMediaIndex + 1),
+                        (unsigned long)[self.pack.medias count]];
     [self setTitle:title];
 }
 
+
 #pragma mark - Sound
 
-- (void)threadPlaySound:(NSString *)fileName {
+
+- (void)threadPlaySound:(NSString *)fileName
+{
     
 }
 
-- (void)playSoundWithFileName:(NSString *)fileName {
-    if ([Constants isSoundActivated]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-            @synchronized(m_audioPlayer) {
-                NSURL * wellDoneFile = [NSURL fileURLWithPath:[MAIN_BUNDLE pathForResource:fileName ofType:@"mp3"]];
-                m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:wellDoneFile error:nil];
+
+- (void)playSoundWithFileName:(NSString *)fileName
+{
+    if ([Constants isSoundActivated])
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+            @synchronized(m_audioPlayer)
+            {
+                NSURL * soundFile = [NSURL fileURLWithPath:[QUIZZ_APP_SOUNDS_BUNDLE
+                                                            pathForResource:fileName
+                                                            ofType:@"mp3"]];
+                
+                m_audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFile
+                                                                       error:nil];
                 [m_audioPlayer play];
             }
         });
     }
 }
 
+
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
 //    MediaView * mediaView = [m_posterViews objectAtIndex:m_currentMediaIndex];
 //    UIImageView * oldPoster = mediaView.posterImageView;
 //    
@@ -215,12 +276,15 @@
     [self zoomPoster:YES];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [m_gameAnswerView setHidden:NO];
 
     int mediaIndex = self.scrollView.contentOffset.x/self.scrollView.frame.size.width;
     
-    if ((mediaIndex != m_currentMediaIndex) && ([self.pack.medias count] > m_currentMediaIndex)) {
+    if ((mediaIndex != m_currentMediaIndex) && ([self.pack.medias count] > m_currentMediaIndex))
+    {
         //Change current media index
         m_currentMediaIndex = mediaIndex;
         
@@ -231,18 +295,27 @@
     [self zoomPoster:NO];
 }
 
+
 #pragma mark - IBAction
 
-- (IBAction)onGameViewTapped:(id)sender {
-    if (self.isZoomed) {
+
+- (IBAction)onGameViewTapped:(id)sender
+{
+    if (self.isZoomed)
+    {
         [self showAnswerView:YES];
-    } else {
+    }
+    else
+    {
         [self zoomPoster:YES];
     }
 }
 
-- (IBAction)onFriendButtonPush:(id)sender {
-    if (!self.isZoomed) {
+
+- (IBAction)onFriendButtonPush:(id)sender
+{
+    if (!self.isZoomed)
+    {
         [self zoomPoster:NO];
     }
     
@@ -254,39 +327,55 @@
     
     MFMailComposeViewController * controller = [[MFMailComposeViewController alloc] init];
     
-    if (controller != nil) {
+    if (controller != nil)
+    {
         controller.mailComposeDelegate = self;
         
         NSString * appName = [MAIN_BUNDLE objectForInfoDictionaryKey:@"CFBundleDisplayName"];
         
         NSString * subject = [NSString stringWithFormat:QALocalizedString(@"STR_HELP_MAIL_TITLE"), appName];
         
-        NSString * messageBody = [NSString stringWithFormat:QALocalizedString(@"STR_HELP_MAIL_MESSAGE"), QALocalizedString(@"STR_MOVIE"), self.pack.title, appName];
+        NSString * messageBody = [NSString stringWithFormat:QALocalizedString(@"STR_HELP_MAIL_MESSAGE"),
+                                  QALocalizedString(@"STR_MOVIE"),
+                                  self.pack.title,
+                                  appName];
         
         [controller setSubject:subject];
         [controller setMessageBody:messageBody isHTML:NO];
         
-        [controller addAttachmentData:UIImageJPEGRepresentation(viewImage, 1.0) mimeType:@"image/jpeg" fileName:@"film"];
+        [controller addAttachmentData:UIImageJPEGRepresentation(viewImage, 1.0)
+                             mimeType:@"image/jpeg"
+                             fileName:@"film"];
         
         [self presentViewController:controller animated:YES completion:nil];
     }
 }
 
+
 #pragma mark - Mail
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-    if (result == MFMailComposeResultSent) {
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
+{
+    if (result == MFMailComposeResultSent)
+    {
         NSLog(@"It's away!");
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
 #pragma mark - GameDelegate
 
-- (CGRect)loadIndex:(NSInteger)index animated:(Boolean)animated {
+
+- (CGRect)loadIndex:(NSInteger)index animated:(Boolean)animated
+{
     //Scroll
-    [self.scrollView setContentOffset:CGPointMake(index * self.scrollView.frame.size.width, 0) animated:animated];
+    [self.scrollView setContentOffset:CGPointMake(index * self.scrollView.frame.size.width, 0)
+                             animated:animated];
     
     //Load data
     return [self loadCurrentMedia];
@@ -561,7 +650,8 @@
     [gameManager setDelegate:self];
     
     //Tap
-    m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onGameViewTapped:)];
+    m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                     action:@selector(onGameViewTapped:)];
     [m_tapGestureRecognizer setDelegate:self];
     [m_tapGestureRecognizer setCancelsTouchesInView:NO];
     [m_tapGestureRecognizer setDelaysTouchesBegan:NO];
@@ -570,16 +660,19 @@
     [self.gameView addGestureRecognizer:m_tapGestureRecognizer];
     
     //Answer view
-    m_gameAnswerView = [[GameAnswerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0) andGameManager:gameManager];
+    m_gameAnswerView = [[GameAnswerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0)
+                                              andGameManager:gameManager];
     [self.gameView addSubview:m_gameAnswerView];
     
     //Up
-    m_swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showAnswerView)];
+    m_swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(showAnswerView)];
     [m_swipeUpGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
     [self.view addGestureRecognizer:m_swipeUpGestureRecognizer];
     
     //Down
-    m_swipeDownGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(zoomPoster)];
+    m_swipeDownGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                             action:@selector(zoomPoster)];
     [m_swipeDownGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
     [self.view addGestureRecognizer:m_swipeDownGestureRecognizer];
     
@@ -587,7 +680,8 @@
     [self initializeScrollView];
 
     CGRect frame = CGRectZero;
-    if ([self.pack.medias count] > 0) {
+    if ([self.pack.medias count] > 0)
+    {
         //Get last uncompleted index
         m_currentMediaIndex = [self.pack getLastCompleteIndex:self.replay];
         

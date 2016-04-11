@@ -133,25 +133,28 @@ extern NSString * const QUIZZ_APP_NEED_HELP_KEY;
 
 #pragma mark  - Bundle
 
-//Main
+// Main
 #define MAIN_BUNDLE                             [NSBundle mainBundle]
 
 #define QUIZZ_APP_NAMED_BUNDLE(name) [NSBundle bundleWithPath:[MAIN_BUNDLE pathForResource:name ofType:@"bundle"]]
 
-//Xib
+// Xib
 #define QUIZZ_APP_XIB_BUNDLE                    QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppXib")
 
-//Image
+// Image
 #define QUIZZ_APP_IMAGE_BUNDLE                  QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppImage")
 #define QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE_NAME   [NSString stringWithFormat:@"QuizzApp%@Image", [[Utils currentLanguage] uppercaseString]]
 #define QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE        QUIZZ_APP_NAMED_BUNDLE(QUIZZ_APP_IMAGE_LOCALIZED_BUNDLE_NAME)
 
-//Database
+// Database
 #define QUIZZ_APP_DATABASE_BUNDLE               QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppDatabase")
 
-//String
+// String
 #define QUIZZ_APP_STRING_BUNDLE_NAME            [NSString stringWithFormat:@"QuizzApp%@String", [[Utils currentLanguage] uppercaseString]]
 #define QUIZZ_APP_STRING_BUNDLE                 QUIZZ_APP_NAMED_BUNDLE(QUIZZ_APP_STRING_BUNDLE_NAME)
+
+// Sounds
+#define QUIZZ_APP_SOUNDS_BUNDLE                 QUIZZ_APP_NAMED_BUNDLE(@"QuizzAppSounds")
 
 #define QALocalizedString(key)                  NSLocalizedStringFromTableInBundle(key, nil, QUIZZ_APP_STRING_BUNDLE, nil)
 

@@ -37,6 +37,9 @@
     ],
     "QuizzAppFRString": [
       "Pod/Assets/fr.lproj/**/*.{strings}"
+    ],
+    "QuizzAppSounds": [
+      "Pod/Assets/sounds/**/*.{mp3}"
     ]
   },
   "frameworks": [

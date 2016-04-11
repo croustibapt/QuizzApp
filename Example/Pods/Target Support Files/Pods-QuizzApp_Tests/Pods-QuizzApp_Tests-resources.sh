@@ -65,6 +65,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppDatabase.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppENString.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppFRString.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppSounds.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppXib.bundle"
@@ -74,6 +75,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppDatabase.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppENString.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppFRString.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QuizzAppSounds.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

@@ -32,13 +32,14 @@ QuizzApp description
 
     s.source_files = 'Pod/Classes/**/*.{m,h}'
     s.resource_bundles = {
-        'QuizzAppXib' => ['Pod/Assets/xib/**/*.{xib}'],
-        'QuizzAppImage' => ['Pod/Assets/images/**/*.{png}'],
-        'QuizzAppENImage' => ['Pod/Assets/en.lproj/**/*.{png}'],
-        'QuizzAppFRImage' => ['Pod/Assets/fr.lproj/**/*.{png}'],
-        'QuizzAppDatabase' => ['Pod/Assets/database/**/*.{sqlite}'],
-        'QuizzAppENString' => ['Pod/Assets/en.lproj/**/*.{strings}'],
-        'QuizzAppFRString' => ['Pod/Assets/fr.lproj/**/*.{strings}']
+        'QuizzAppXib'       => ['Pod/Assets/xib/**/*.{xib}'],
+        'QuizzAppImage'     => ['Pod/Assets/images/**/*.{png}'],
+        'QuizzAppENImage'   => ['Pod/Assets/en.lproj/**/*.{png}'],
+        'QuizzAppFRImage'   => ['Pod/Assets/fr.lproj/**/*.{png}'],
+        'QuizzAppDatabase'  => ['Pod/Assets/database/**/*.{sqlite}'],
+        'QuizzAppENString'  => ['Pod/Assets/en.lproj/**/*.{strings}'],
+        'QuizzAppFRString'  => ['Pod/Assets/fr.lproj/**/*.{strings}'],
+        'QuizzAppSounds'    => ['Pod/Assets/sounds/**/*.{mp3}']
     }
 
     # s.public_header_files = 'Pod/Classes/**/*.h'
