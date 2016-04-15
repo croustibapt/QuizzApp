@@ -6,13 +6,24 @@
 //  Copyright (c) 2014 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import <UIKit/UIKit.h>
-#import <Onboard/OnboardingViewController.h>
 
-@interface HelpViewController : OnboardingViewController
 
-- (instancetype)initWithContentFrame:(CGRect)contentFrame;
+@interface HelpViewController : UIViewController <UIScrollViewDelegate>
+{
+    UIScrollView * _helpScrollView;
+    UIPageControl * _pageControl;
+}
+
+
+@property (nonatomic, retain) IBOutlet UIScrollView * helpScrollView;
+
+
+@property (nonatomic, retain) IBOutlet UIPageControl * pageControl;
+
 
 + (Boolean)doesNeedHelp;
+
 
 @end

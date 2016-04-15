@@ -105,7 +105,12 @@ int const QUIZZ_APP_OTHER_GAME_ALERT = 4;
 
 - (void)showHelp
 {
-    HelpViewController * helpViewController = [[HelpViewController alloc] initWithContentFrame:self.view.frame];
+    NSString * nibName = ExtensionName(@"HelpViewController");
+    
+    HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName
+                                                                                   bundle:QUIZZ_APP_XIB_BUNDLE];
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
+    
     [self presentViewController:helpViewController animated:YES completion:nil];
 }
 

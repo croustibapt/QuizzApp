@@ -48,6 +48,6 @@ QuizzApp description
 
     s.dependency 'MBProgressHUD', '~> 0.9.1'
     s.dependency 'ZipArchive'
-    s.dependency 'Onboard'
+#    s.dependency 'Onboard'
 
 end

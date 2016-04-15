@@ -603,7 +603,12 @@
 
 - (void)showHelp
 {
-    HelpViewController * helpViewController = [[HelpViewController alloc] init];
+    NSString * nibName = ExtensionName(@"HelpViewController");
+    
+    HelpViewController * helpViewController = [[HelpViewController alloc] initWithNibName:nibName
+                                                                                   bundle:QUIZZ_APP_XIB_BUNDLE];
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
+    
     [self presentViewController:helpViewController animated:YES completion:nil];
 }
 
