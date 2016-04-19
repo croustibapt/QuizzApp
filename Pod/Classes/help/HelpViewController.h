@@ -23,7 +23,21 @@
 @property (nonatomic, retain) IBOutlet UIPageControl * pageControl;
 
 
+#pragma mark - Cocoa
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
+                pages:(NSArray *)pages;
+
+
+#pragma mark - Public
+
+
 + (Boolean)doesNeedHelp;
+
+
++ (void)showHelpWithNibName:(NSString *)nibName viewController:(UIViewController *)viewController;
 
 
 @end
