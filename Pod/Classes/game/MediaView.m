@@ -28,8 +28,8 @@
 - (id)initWithFrame:(CGRect)frame andMedia:(Media *)aMedia andLevelId:(int)aLevelId andReplay:(Boolean)replay {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setAutoresizingMask:(UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth)];
-//        [self setBackgroundColor:[UIColor blueColor]];
+//        [self setAutoresizingMask:(UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth)];
+        [self setBackgroundColor:[UIColor blueColor]];
         
         //Set level identifier
         [self setLevelId:aLevelId];
@@ -44,12 +44,25 @@
         CGRect posterFrame = CGRectMake(offsetX, offsetY, newWidth, newHeight);
         self.posterImageView = [[UIImageView alloc] initWithFrame:posterFrame];
         [self.posterImageView setContentMode:UIViewContentModeScaleAspectFit];
-        [self.posterImageView setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin)];
+//        [self.posterImageView setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin)];
 //        [self setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin)];
 //        [m_posterImageView setBackgroundColor:[UIColor greenColor]];
 
         [self addSubview:self.posterImageView];
         
+        UIImageView * imageView = self.posterImageView;
+        self.posterImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSDictionary * views = NSDictionaryOfVariableBindings(imageView);
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageView]|"
+                                                                     options:0
+                                                                     metrics:0
+                                                                       views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                                     options:0
+                                                                     metrics:0
+                                                                       views:views]];
+
         NSString * text = QALocalizedString(@"STR_FOUND");
         
         //Status

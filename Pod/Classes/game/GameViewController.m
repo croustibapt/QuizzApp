@@ -613,31 +613,61 @@
 
 - (void)initializeScrollView
 {
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     NSInteger nbMedias = [self.pack.medias count];
     int baseWidth = self.gameView.frame.size.width;
     int baseHeight = self.gameView.frame.size.height;
     
 //    [self.scrollView setBackgroundColor:[UIColor redColor]];
     
-    CGRect scrollViewFrame = CGRectMake(0, 0, baseWidth, baseHeight);
-    [self.scrollView setFrame:scrollViewFrame];
-    [self.scrollView setContentSize:CGSizeMake(baseWidth * nbMedias, baseHeight)];
-    [self.scrollView setDelegate:self];
+//    CGRect scrollViewFrame = CGRectMake(0, 0, baseWidth, baseHeight);
+//    [self.scrollView setFrame:scrollViewFrame];
+//    [self.scrollView setContentSize:CGSizeMake(baseWidth * nbMedias, baseHeight)];
+    [_scrollView setDelegate:self];
+    
+    NSString * horyzontalString = @"H:|";
+    NSMutableDictionary * horyzontalViews = [NSMutableDictionary dictionaryWithDictionary:@{ @"scrollView" : _scrollView }];
     
     for (int i = 0; i < nbMedias; i++)
     {
         Media * media = [self.pack.medias objectAtIndex:i];
 
         int width = baseWidth;
-        int answerViewHeight = [m_gameAnswerView getAnswerHeightWithAnswer:media.title andWidth:scrollViewFrame.size.width];
-        int height = baseHeight - answerViewHeight;
+//        int answerViewHeight = [m_gameAnswerView getAnswerHeightWithAnswer:media.title
+//                                                                  andWidth:scrollViewFrame.size.width];
+        int height = baseHeight/* - answerViewHeight*/;
         
-        MediaView * mediaView = [[MediaView alloc] initWithFrame:CGRectMake(i*width, 0, width, height) andMedia:media andLevelId:self.level.identifier andReplay:self.replay];
+        MediaView * mediaView = [[MediaView alloc] initWithFrame:/*CGRectMake(i*width, 0, width, height)*/CGRectZero
+                                                        andMedia:media
+                                                      andLevelId:_level.identifier
+                                                       andReplay:_replay];
 //        [mediaView setBackgroundColor:[UIColor colorWithRed:(rand()%255)/255.0 green:(rand()%255)/255.0 blue:(rand()%255)/255.0 alpha:1.0]];
         
-        [self.scrollView addSubview:mediaView];
+        [_scrollView addSubview:mediaView];
+        
+        mediaView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        // Add media views
+        NSString * mediaViewName = [NSString stringWithFormat:@"mediaView%d", i];
+        [horyzontalViews setObject:mediaView forKey:mediaViewName];
+        
+        horyzontalString = [horyzontalString stringByAppendingFormat:@"[%@(==scrollView)]", mediaViewName];
+        
+        NSDictionary * verticalViews = NSDictionaryOfVariableBindings(_scrollView, mediaView);
+        [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mediaView]|"
+                                                                            options:0
+                                                                            metrics:0
+                                                                              views:verticalViews]];
+        
         [m_posterViews addObject:mediaView];
     }
+    
+    horyzontalString = [horyzontalString stringByAppendingString:@"|"];
+    [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horyzontalString
+                                                                        options:0
+                                                                        metrics:0
+                                                                          views:horyzontalViews]];
 }
 
 
@@ -650,51 +680,51 @@
     [gameManager setDelegate:self];
     
     //Tap
-    m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                     action:@selector(onGameViewTapped:)];
-    [m_tapGestureRecognizer setDelegate:self];
-    [m_tapGestureRecognizer setCancelsTouchesInView:NO];
-    [m_tapGestureRecognizer setDelaysTouchesBegan:NO];
-    [m_tapGestureRecognizer setDelaysTouchesEnded:NO];
-    [m_tapGestureRecognizer setNumberOfTapsRequired:1];
-    [self.gameView addGestureRecognizer:m_tapGestureRecognizer];
-    
-    //Answer view
-    m_gameAnswerView = [[GameAnswerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0)
-                                              andGameManager:gameManager];
-    [self.gameView addSubview:m_gameAnswerView];
+//    m_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+//                                                                     action:@selector(onGameViewTapped:)];
+//    [m_tapGestureRecognizer setDelegate:self];
+//    [m_tapGestureRecognizer setCancelsTouchesInView:NO];
+//    [m_tapGestureRecognizer setDelaysTouchesBegan:NO];
+//    [m_tapGestureRecognizer setDelaysTouchesEnded:NO];
+//    [m_tapGestureRecognizer setNumberOfTapsRequired:1];
+//    [self.gameView addGestureRecognizer:m_tapGestureRecognizer];
+//    
+//    //Answer view
+//    m_gameAnswerView = [[GameAnswerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 0)
+//                                              andGameManager:gameManager];
+//    [self.gameView addSubview:m_gameAnswerView];
     
     //Up
-    m_swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                           action:@selector(showAnswerView)];
-    [m_swipeUpGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
-    [self.view addGestureRecognizer:m_swipeUpGestureRecognizer];
+//    m_swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+//                                                                           action:@selector(showAnswerView)];
+//    [m_swipeUpGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionUp];
+//    [self.view addGestureRecognizer:m_swipeUpGestureRecognizer];
     
     //Down
-    m_swipeDownGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                             action:@selector(zoomPoster)];
-    [m_swipeDownGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
-    [self.view addGestureRecognizer:m_swipeDownGestureRecognizer];
+//    m_swipeDownGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+//                                                                             action:@selector(zoomPoster)];
+//    [m_swipeDownGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionDown];
+//    [self.view addGestureRecognizer:m_swipeDownGestureRecognizer];
     
     //Scroll view
     [self initializeScrollView];
 
-    CGRect frame = CGRectZero;
-    if ([self.pack.medias count] > 0)
-    {
-        //Get last uncompleted index
-        m_currentMediaIndex = [self.pack getLastCompleteIndex:self.replay];
-        
-        //And load related media
-        frame = [self loadIndex:m_currentMediaIndex animated:YES];
-    }
+//    CGRect frame = CGRectZero;
+//    if ([self.pack.medias count] > 0)
+//    {
+//        //Get last uncompleted index
+//        m_currentMediaIndex = [self.pack getLastCompleteIndex:self.replay];
+//        
+//        //And load related media
+//        frame = [self loadIndex:m_currentMediaIndex animated:YES];
+//    }
 
     //Start poster
     [self zoomPoster:NO];
     
     //Update answer view frame
-    [m_gameAnswerView setFrame:frame];
-    [m_gameAnswerView setHidden:NO];
+//    [m_gameAnswerView setFrame:frame];
+//    [m_gameAnswerView setHidden:NO];
     
 //    [pool release];
 }
@@ -717,7 +747,7 @@
     
     if (!self.pack.isCompleted && [HelpViewController doesNeedHelp])
     {
-//        [self showHelp];
+        [self showHelp];
     }
 }
 
