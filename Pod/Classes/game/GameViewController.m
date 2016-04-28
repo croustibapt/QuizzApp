@@ -616,8 +616,8 @@
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSInteger nbMedias = [self.pack.medias count];
-    int baseWidth = self.gameView.frame.size.width;
-    int baseHeight = self.gameView.frame.size.height;
+    int width = self.gameView.frame.size.width;
+    int height = self.gameView.frame.size.height;
     
 //    [self.scrollView setBackgroundColor:[UIColor redColor]];
     
@@ -631,14 +631,8 @@
     
     for (int i = 0; i < nbMedias; i++)
     {
-        Media * media = [self.pack.medias objectAtIndex:i];
-
-        int width = baseWidth;
-//        int answerViewHeight = [m_gameAnswerView getAnswerHeightWithAnswer:media.title
-//                                                                  andWidth:scrollViewFrame.size.width];
-        int height = baseHeight/* - answerViewHeight*/;
-        
-        MediaView * mediaView = [[MediaView alloc] initWithFrame:/*CGRectMake(i*width, 0, width, height)*/CGRectZero
+        Media * media = [self.pack.medias objectAtIndex:i];        
+        MediaView * mediaView = [[MediaView alloc] initWithFrame:CGRectMake(0, 0, width, height)
                                                         andMedia:media
                                                       andLevelId:_level.identifier
                                                        andReplay:_replay];
@@ -655,7 +649,7 @@
         horyzontalString = [horyzontalString stringByAppendingFormat:@"[%@(==scrollView)]", mediaViewName];
         
         NSDictionary * verticalViews = NSDictionaryOfVariableBindings(_scrollView, mediaView);
-        [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mediaView]|"
+        [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mediaView(==_scrollView)]|"
                                                                             options:0
                                                                             metrics:0
                                                                               views:verticalViews]];

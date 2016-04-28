@@ -6,28 +6,41 @@
 //  Copyright (c) 2013 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "MediaView.h"
+
 
 #import <QuartzCore/QuartzCore.h>
 #import <CoreImage/CoreImage.h>
 
+
 #import "UtilsImage.h"
 #import "Constants.h"
 
-@interface MediaView() {
+
+@interface MediaView()
+{
     Media * m_media;
     StatusLabel * m_statusLabel;
 }
 
+
 @end
+
 
 @implementation MediaView
 
 @synthesize media = m_media;
 
-- (id)initWithFrame:(CGRect)frame andMedia:(Media *)aMedia andLevelId:(int)aLevelId andReplay:(Boolean)replay {
+
+- (id)initWithFrame:(CGRect)frame
+           andMedia:(Media *)aMedia
+         andLevelId:(int)aLevelId
+          andReplay:(Boolean)replay
+{
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self)
+    {
 //        [self setAutoresizingMask:(UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth)];
         [self setBackgroundColor:[UIColor blueColor]];
         
@@ -66,7 +79,11 @@
         NSString * text = QALocalizedString(@"STR_FOUND");
         
         //Status
-        CGRect statusFrame = CGRectMake(self.frame.size.width - PixelsSize(60) - QUIZZ_APP_MEDIA_FOUND_IMAGE_PADDING, QUIZZ_APP_MEDIA_FOUND_IMAGE_PADDING, PixelsSize(60), PixelsSize(25));
+#warning Create constraints
+        CGRect statusFrame = CGRectMake(self.frame.size.width - PixelsSize(60) - QUIZZ_APP_MEDIA_FOUND_IMAGE_PADDING,
+                                        QUIZZ_APP_MEDIA_FOUND_IMAGE_PADDING,
+                                        PixelsSize(60),
+                                        PixelsSize(25));
         m_statusLabel = [[StatusLabel alloc] initWithFrame:statusFrame andText:text andColor:QUIZZ_APP_FOUND_COLOR];
         
         [self addSubview:m_statusLabel];
@@ -80,29 +97,43 @@
     return self;
 }
 
-- (void)setMedia:(Media *)aMedia {
+
+- (void)setMedia:(Media *)aMedia
+{
     m_media = aMedia;
     
     UIImage * originalImage = [self.media imageWithLevelId:self.levelId];
     [self.posterImageView setImage:originalImage];
 }
 
-- (void)checkStatus:(Boolean)replay {
+
+- (void)checkStatus:(Boolean)replay
+{
     Boolean mediaCompleted = replay ? self.media.isReplayCompleted : self.media.isCompleted;
     
-    if (mediaCompleted) {
+    if (mediaCompleted)
+    {
         [m_statusLabel setHidden:NO];
-    } else {
-        for (UIView * view in self.posterImageView.subviews) {
+    }
+    else
+    {
+        for (UIView * view in self.posterImageView.subviews)
+        {
             [view removeFromSuperview];
         }
         
-        if (!mediaCompleted) {
-            for (int i=0; i<[self.media.topLeftBlurRects count]; i++) {
+        if (!mediaCompleted)
+        {
+            for (int i=0; i<[self.media.topLeftBlurRects count]; i++)
+            {
                 CGPoint topLeftBlurRect = [[self.media.topLeftBlurRects objectAtIndex:i] CGPointValue];
                 CGPoint bottomRightBlurRect = [[self.media.bottomRightBlurRects objectAtIndex:i] CGPointValue];
                 
-                [UtilsImage blurImageWithBottomRightBlurRect:bottomRightBlurRect andTopLeftBlurRect:topLeftBlurRect andOriginalImage:[self.media thumbImageWithLevelId:self.levelId] andDestinationView:self.posterImageView andFull:YES];
+                [UtilsImage blurImageWithBottomRightBlurRect:bottomRightBlurRect
+                                          andTopLeftBlurRect:topLeftBlurRect
+                                            andOriginalImage:[self.media thumbImageWithLevelId:self.levelId]
+                                          andDestinationView:self.posterImageView
+                                                     andFull:YES];
             }
         }
 //        [UtilsImage blurImageWithBottomRightBlurRect:m_poster.bottomRightBlurRect andTopLeftBlurRect:m_poster.topLeftBlurRect andBlurImageView:m_blurImageView andOriginalImage:m_poster.thumbImage andParentViewSize:self.posterImageView.frame.size];
@@ -111,14 +142,18 @@
     }
 }
 
-- (void)complete {
+
+- (void)complete
+{
 //    [self.media setIsCompleted:YES];
     
-    for (UIView * view in self.posterImageView.subviews) {
+    for (UIView * view in self.posterImageView.subviews)
+    {
         [view removeFromSuperview];
     }
     
     [m_statusLabel setHidden:NO];
 }
+
 
 @end

@@ -6,14 +6,19 @@
 //  Copyright (c) 2013 Baptiste LE GUELVOUIT. All rights reserved.
 //
 
+
 #import "UtilsImage.h"
+
 
 #import "Constants.h"
 #import "Utils.h"
 
+
 @implementation UtilsImage
 
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
     UIGraphicsBeginImageContextWithOptions(newSize, YES, 1.0);
     
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
@@ -24,7 +29,13 @@
     return newImage;
 }
 
-+ (void)blurImageWithBottomRightBlurRect:(CGPoint)bottomRightBlurRect andTopLeftBlurRect:(CGPoint)topLeftBlurRect andOriginalImage:(UIImage *)originalImage andDestinationView:(UIImageView *)destinationView andFull:(Boolean)full {
+
++ (void)blurImageWithBottomRightBlurRect:(CGPoint)bottomRightBlurRect
+                      andTopLeftBlurRect:(CGPoint)topLeftBlurRect
+                        andOriginalImage:(UIImage *)originalImage
+                      andDestinationView:(UIImageView *)destinationView
+                                 andFull:(Boolean)full
+{
     //Compute blur rect size
     float blurRectWidth = bottomRightBlurRect.x - topLeftBlurRect.x;
     float blurRectHeight = bottomRightBlurRect.y - topLeftBlurRect.y;
@@ -39,22 +50,47 @@
 //        offsetY += QUIZZ_APP_IPHONE_5_MEDIA_BLUR_OFFSET;
 //    }
     
-    CGRect renderRect = CGRectMake(topLeftBlurRect.x*renderWidth, topLeftBlurRect.y*renderHeight + offsetY, blurRectWidth*renderWidth, blurRectHeight*renderHeight);
+    CGRect renderRect = CGRectMake(topLeftBlurRect.x*renderWidth,
+                                   topLeftBlurRect.y*renderHeight + offsetY,
+                                   blurRectWidth*renderWidth,
+                                   blurRectHeight*renderHeight);
     
     UIImageView * blurImageView = [[UIImageView alloc] initWithFrame:renderRect];
     [blurImageView.layer setMagnificationFilter:kCAFilterNearest];
-    [blurImageView setImage:[UtilsImage blurImageWithOriginalImage:originalImage andBottomRightBlurRect:bottomRightBlurRect andTopLeftBlurRect:topLeftBlurRect]];
+    
+    [blurImageView setImage:[UtilsImage blurImageWithOriginalImage:originalImage
+                                            andBottomRightBlurRect:bottomRightBlurRect
+                                                andTopLeftBlurRect:topLeftBlurRect]];
 //    [blurImageView setContentMode:UIViewContentModeScaleAspectFit];
-    [blurImageView setAutoresizingMask:(UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin)];
+//    [blurImageView setAutoresizingMask:(UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin)];
     [destinationView addSubview:blurImageView];
+    
+#warning Create constraints
+    
+    blurImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSDictionary * views = NSDictionaryOfVariableBindings(blurImageView, destinationView);
+    [destinationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurImageView]|"
+                                                                            options:0
+                                                                            metrics:0
+                                                                              views:views]];
+    [destinationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurImageView]|"
+                                                                            options:0
+                                                                            metrics:0
+                                                                              views:views]];
 }
 
-+ (UIImage *)blurImageWithOriginalImage:(UIImage *)originalImage andBottomRightBlurRect:(CGPoint)bottomRightBlurRect andTopLeftBlurRect:(CGPoint)topLeftBlurRect {
+
++ (UIImage *)blurImageWithOriginalImage:(UIImage *)originalImage
+                 andBottomRightBlurRect:(CGPoint)bottomRightBlurRect
+                     andTopLeftBlurRect:(CGPoint)topLeftBlurRect
+{
     int originalWidth = originalImage.size.width;
     int originalHeight = originalImage.size.height;
     
     float scaleFactor = POSTER_SCALE_FACTOR;
-    if ([Utils isRetinaDevice]) {
+    if ([Utils isRetinaDevice])
+    {
         scaleFactor /= 2.0;
     }
     
@@ -62,22 +98,30 @@
     float blurRectWidth = bottomRightBlurRect.x - topLeftBlurRect.x;
     float blurRectHeight = bottomRightBlurRect.y - topLeftBlurRect.y;
 
-    CGRect blurRect = CGRectMake(topLeftBlurRect.x*originalWidth, topLeftBlurRect.y*originalHeight, blurRectWidth*originalWidth, blurRectHeight*originalHeight);
+    CGRect blurRect = CGRectMake(topLeftBlurRect.x*originalWidth,
+                                 topLeftBlurRect.y*originalHeight,
+                                 blurRectWidth*originalWidth,
+                                 blurRectHeight*originalHeight);
     
     UIImage * beforeImage = [UtilsImage croppIngimageByImageName:originalImage toRect:blurRect];
     
-    beforeImage = [UtilsImage imageWithImage:beforeImage scaledToSize:CGSizeMake((blurRect.size.width * scaleFactor), (blurRect.size.height * scaleFactor))];
+    beforeImage = [UtilsImage imageWithImage:beforeImage
+                                scaledToSize:CGSizeMake((blurRect.size.width * scaleFactor),
+                                                        (blurRect.size.height * scaleFactor))];
     
     return beforeImage;
 }
 
-+ (UIImage *)croppIngimageByImageName:(UIImage *)imageToCrop toRect:(CGRect)rect {
+
++ (UIImage *)croppIngimageByImageName:(UIImage *)imageToCrop toRect:(CGRect)rect
+{
     CGImageRef imageRef = CGImageCreateWithImageInRect([imageToCrop CGImage], rect);
     UIImage * cropped = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
     
     return cropped;
 }
+
 
 //+ (UIImage *) addImageToImage:(UIImage *)img withImage2:(UIImage *)img2 andRect:(CGRect)cropRect andSize:(CGSize)size {
 //    UIGraphicsBeginImageContext(size);
@@ -98,7 +142,9 @@
 //    return result;
 //}
 
-+ (UIImage *)imageWithColor:(UIColor *)color {
+
++ (UIImage *)imageWithColor:(UIColor *)color
+{
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -112,7 +158,11 @@
     return image;
 }
 
-+ (UIImage *)imageWithGradientWithStartColor:(UIColor *)startColor andEndColor:(UIColor *)endColor andSize:(CGSize)size {
+
++ (UIImage *)imageWithGradientWithStartColor:(UIColor *)startColor
+                                 andEndColor:(UIColor *)endColor
+                                     andSize:(CGSize)size
+{
     CGFloat r0;
     CGFloat g0;
     CGFloat b0;
