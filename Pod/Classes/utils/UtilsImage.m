@@ -50,10 +50,10 @@
 //        offsetY += QUIZZ_APP_IPHONE_5_MEDIA_BLUR_OFFSET;
 //    }
     
-    CGRect renderRect = CGRectMake(topLeftBlurRect.x*renderWidth,
-                                   topLeftBlurRect.y*renderHeight + offsetY,
-                                   blurRectWidth*renderWidth,
-                                   blurRectHeight*renderHeight);
+    CGRect renderRect = CGRectMake(topLeftBlurRect.x * renderWidth,
+                                   topLeftBlurRect.y * renderHeight + offsetY,
+                                   blurRectWidth * renderWidth,
+                                   blurRectHeight * renderHeight);
     
     UIImageView * blurImageView = [[UIImageView alloc] initWithFrame:renderRect];
     [blurImageView.layer setMagnificationFilter:kCAFilterNearest];
@@ -70,14 +70,93 @@
     blurImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSDictionary * views = NSDictionaryOfVariableBindings(blurImageView, destinationView);
-    [destinationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[blurImageView]|"
-                                                                            options:0
-                                                                            metrics:0
-                                                                              views:views]];
-    [destinationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[blurImageView]|"
-                                                                            options:0
-                                                                            metrics:0
-                                                                              views:views]];
+    
+    CGFloat blurHeight = blurRectHeight * renderHeight;
+    CGFloat topMargin = topLeftBlurRect.y * renderHeight;
+    CGFloat bottomMargin = renderHeight - (topMargin + blurHeight);
+    
+//    NSString * verticalConstraints = [NSString stringWithFormat:@"V:|-(>=%f)-[blurImageView]-(>=%f)-|", topMargin, bottomMargin];
+//    [destinationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verticalConstraints
+//                                                                            options:0
+//                                                                            metrics:0
+//                                                                              views:views]];
+    
+    CGFloat vTopMultiplier = (topLeftBlurRect.y == 0.0) ? 1.0 : topLeftBlurRect.y;
+    CGFloat vBottomMultiplier = (bottomRightBlurRect.y == 0.0) ? 1.0 : bottomRightBlurRect.y;
+    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+                                                                attribute:NSLayoutAttributeTop
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:destinationView
+                                                                attribute:NSLayoutAttributeBottom
+                                                               multiplier:vTopMultiplier
+                                                                 constant:0.0]];
+    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+                                                                attribute:NSLayoutAttributeBottom
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:destinationView
+                                                                attribute:NSLayoutAttributeBottom
+                                                               multiplier:vBottomMultiplier
+                                                                 constant:0.0]];
+    
+    CGFloat hLeftMultiplier = (topLeftBlurRect.x == 0.0) ? 1.0 : topLeftBlurRect.x;
+    CGFloat hRightMultiplier = (bottomRightBlurRect.x == 0.0) ? 1.0 : bottomRightBlurRect.x;
+    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+                                                                attribute:NSLayoutAttributeLeft
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:destinationView
+                                                                attribute:NSLayoutAttributeRight
+                                                               multiplier:hLeftMultiplier
+                                                                 constant:0.0]];
+    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+                                                                attribute:NSLayoutAttributeRight
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:destinationView
+                                                                attribute:NSLayoutAttributeRight
+                                                               multiplier:hRightMultiplier
+                                                                 constant:0.0]];
+    
+//    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+//                                                                attribute:NSLayoutAttributeBottom
+//                                                                relatedBy:NSLayoutRelationEqual
+//                                                                   toItem:destinationView
+//                                                                attribute:NSLayoutAttributeTop
+//                                                               multiplier:(bottomRightBlurRect.y == 0.0) ? 1.0 : bottomRightBlurRect.y
+//                                                                 constant:0.0]];
+    
+//    CGFloat blurWidth = blurRectWidth * renderWidth;
+//    CGFloat leftMargin = topLeftBlurRect.x * renderWidth;
+//    CGFloat rightMargin = renderWidth - (leftMargin + blurWidth);
+//    
+//    NSString * horyzontalConstraints = [NSString stringWithFormat:@"H:|-(>=%f)-[blurImageView]-(>=%f)-|", leftMargin, rightMargin];
+//    [destinationView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:horyzontalConstraints
+//                                                                            options:0
+//                                                                            metrics:0
+//                                                                              views:views]];
+    
+//    CGFloat aspectRatio = blurWidth / blurHeight;
+//    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+//                                                                attribute:NSLayoutAttributeWidth
+//                                                                relatedBy:NSLayoutRelationEqual
+//                                                                   toItem:blurImageView
+//                                                                attribute:NSLayoutAttributeHeight
+//                                                               multiplier:aspectRatio //Aspect ratio: 4*height = 3*width
+//                                                                 constant:0.0]];
+    
+//    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+//                                                                attribute:NSLayoutAttributeWidth
+//                                                                relatedBy:NSLayoutRelationLessThanOrEqual
+//                                                                   toItem:destinationView
+//                                                                attribute:NSLayoutAttributeWidth
+//                                                               multiplier:blurRectWidth
+//                                                                 constant:0.0]];
+//    
+//    [destinationView addConstraint:[NSLayoutConstraint constraintWithItem:blurImageView
+//                                                                attribute:NSLayoutAttributeHeight
+//                                                                relatedBy:NSLayoutRelationLessThanOrEqual
+//                                                                   toItem:destinationView
+//                                                                attribute:NSLayoutAttributeHeight
+//                                                               multiplier:blurRectHeight
+//                                                                 constant:0.0]];
 }
 
 

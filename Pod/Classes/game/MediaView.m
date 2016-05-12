@@ -56,7 +56,7 @@
         //Poster
         CGRect posterFrame = CGRectMake(offsetX, offsetY, newWidth, newHeight);
         self.posterImageView = [[UIImageView alloc] initWithFrame:posterFrame];
-        [self.posterImageView setContentMode:UIViewContentModeScaleAspectFit];
+        [self.posterImageView setContentMode:UIViewContentModeScaleToFill];
 //        [self.posterImageView setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin)];
 //        [self setAutoresizingMask:(UIViewAutoresizingFlexibleTopMargin)];
 //        [m_posterImageView setBackgroundColor:[UIColor greenColor]];
